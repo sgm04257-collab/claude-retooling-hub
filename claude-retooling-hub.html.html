@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Retooling Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ──────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F7FB;
+  --bg2:#FFFFFF;
+  --bg3:#F2F2F8;
+  --bg4:#EAEAF4;
+  --border:#E2E2EE;
+  --border2:#CBCBE0;
+  --text:#1A1A2E;
+  --text2:#52526E;
+  --text3:#9090A8;
+  --accent:#6152E8;
+  --accent2:#7C6EF8;
+  --green:#16A34A;
+  --amber:#D97706;
+  --red:#DC2626;
+  --blue:#2563EB;
+  --pink:#DB2777;
+  --teal:#0D9488;
+  --sidebar:240px;
+  --header:56px;
+  --r:10px;
+  --r2:6px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Pretendard',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.6;
+  font-size:14px;
+  overflow-x:hidden;
+}
+code{font-family:'JetBrains Mono',monospace}
+
+/* ── SCROLLBAR ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.layout{display:flex;min-height:100vh}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────────── */
+.sidebar{
+  width:var(--sidebar);
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  position:fixed;
+  top:0;left:0;bottom:0;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+  transition:transform .3s ease;
+}
+.sidebar-logo{
+  padding:20px 18px 16px;
+  border-bottom:1px solid var(--border);
+}
+.logo-mark{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;
+}
+.logo-icon{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--accent),var(--pink));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  flex-shrink:0;
+}
+.logo-text{
+  font-size:13px;font-weight:700;
+  color:var(--text);
+  letter-spacing:-.3px;
+  line-height:1.2;
+}
+.logo-sub{font-size:10px;color:var(--text3);font-weight:400}
+
+.sidebar-section{padding:10px 0}
+.sidebar-section-label{
+  font-size:9px;font-weight:600;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  padding:0 16px 6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;
+  font-size:12px;font-weight:500;
+  color:var(--text2);
+  cursor:pointer;
+  border-radius:0;
+  transition:all .15s;
+  border-left:2px solid transparent;
+  text-decoration:none;
+  user-select:none;
+}
+.nav-item:hover{color:var(--text);background:var(--bg3)}
+.nav-item.active{
+  color:var(--accent);
+  background:rgba(97,82,232,.08);
+  border-left-color:var(--accent);
+}
+.nav-item .ni-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.nav-item .ni-badge{
+  margin-left:auto;
+  font-size:9px;font-weight:600;
+  padding:1px 5px;border-radius:4px;
+  background:var(--accent);color:#fff;
+}
+.sidebar-bottom{
+  margin-top:auto;
+  padding:12px 16px;
+  border-top:1px solid var(--border);
+  font-size:10px;color:var(--text3);
+  line-height:1.5;
+}
+
+/* ── MAIN ───────────────────────────────────────────────────────────── */
+.main{
+  margin-left:var(--sidebar);
+  flex:1;
+  min-height:100vh;
+}
+
+/* ── TOPBAR ─────────────────────────────────────────────────────────── */
+.topbar{
+  height:var(--header);
+  background:rgba(247,247,251,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;
+  padding:0 24px;
+  gap:12px;
+}
+.topbar-title{font-size:14px;font-weight:600;color:var(--text)}
+.topbar-breadcrumb{
+  font-size:11px;color:var(--text3);
+  display:flex;align-items:center;gap:6px;
+}
+.topbar-breadcrumb span{color:var(--text2)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topbar-chip{
+  font-size:10px;font-weight:600;
+  padding:3px 8px;border-radius:4px;
+  background:rgba(97,82,232,.1);
+  color:var(--accent);
+  border:1px solid rgba(97,82,232,.2);
+}
+
+/* ── PAGE ───────────────────────────────────────────────────────────── */
+.page{display:none;padding:28px 28px 48px;max-width:1100px}
+.page.active{display:block}
+
+/* ── SECTION HEADING ────────────────────────────────────────────────── */
+.section-title{
+  font-size:11px;font-weight:600;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin:1.8rem 0 .7rem;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.section-title::before{
+  content:'';width:3px;height:12px;
+  background:var(--accent);
+  border-radius:2px;
+}
+
+/* ── HERO BLOCK ─────────────────────────────────────────────────────── */
+.hero{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:28px 32px;
+  margin-bottom:1.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;top:0;right:0;
+  width:300px;height:200px;
+  background:radial-gradient(ellipse at top right, rgba(97,82,232,.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-tag{
+  display:inline-block;
+  font-size:10px;font-weight:600;
+  padding:3px 10px;border-radius:20px;
+  background:rgba(97,82,232,.1);
+  color:var(--accent);
+  border:1px solid rgba(97,82,232,.2);
+  margin-bottom:12px;
+  letter-spacing:.05em;
+}
+.hero h1{font-size:22px;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--text)}
+.hero p{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;max-width:600px}
+.hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;
+  padding:8px 16px;border-radius:var(--r2);
+  cursor:pointer;text-decoration:none;
+  transition:all .15s;border:none;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-ghost{
+  background:transparent;color:var(--text2);
+  border:1px solid var(--border2);
+}
+.btn-ghost:hover{background:var(--bg3);color:var(--text);border-color:var(--border2)}
+
+/* ── STAT ROW ───────────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.stat{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;text-align:center;
+}
+.stat-num{font-size:26px;font-weight:700;color:var(--text);margin-bottom:3px}
+.stat-label{font-size:11px;color:var(--text3)}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* ── GRID ───────────────────────────────────────────────────────────── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+
+/* ── CARD ───────────────────────────────────────────────────────────── */
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:16px;
+  transition:border-color .15s,transform .12s;
+}
+.card:hover{border-color:var(--border2);transform:translateY(-1px)}
+a.card{text-decoration:none;color:inherit;cursor:pointer;display:block}
+.card-badge{
+  display:inline-block;
+  font-size:9px;font-weight:600;
+  padding:2px 7px;border-radius:4px;
+  margin-bottom:7px;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.badge-purple{background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE}
+.badge-green{background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0}
+.badge-amber{background:#FFFBEB;color:#92400E;border:1px solid #FDE68A}
+.badge-red{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA}
+.badge-blue{background:#EFF6FF;color:#1E40AF;border:1px solid #BFDBFE}
+.badge-pink{background:#FDF2F8;color:#9D174D;border:1px solid #FBCFE8}
+.badge-teal{background:#F0FDFA;color:#0F5546;border:1px solid #99F6E4}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px;line-height:1.3}
+.card-desc{font-size:11px;color:var(--text2);line-height:1.6}
+.card-meta{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.card-meta-item{font-size:10px;color:var(--text3)}
+.card-link{margin-left:auto;font-size:10px;font-weight:600;color:var(--accent);text-decoration:none}
+.card-link:hover{color:var(--accent2)}
+
+/* ── COURSE CARD ────────────────────────────────────────────────────── */
+.course-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;
+  text-decoration:none;display:block;color:inherit;
+  transition:all .15s;
+}
+.course-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(97,82,232,.1)}
+.course-card.featured{border-color:rgba(97,82,232,.35);background:rgba(97,82,232,.03)}
+.cc-top{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.cc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px}
+.cc-target{font-size:10px;color:var(--text3);margin-bottom:6px}
+.cc-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.cc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border);gap:6px}
+.cc-time{font-size:10px;color:var(--text3)}
+.cc-cost{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px}
+.cost-free{background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0}
+.cost-paid{background:#FFFBEB;color:#92400E;border:1px solid #FDE68A}
+.cert-yes{font-size:10px;font-weight:600;color:#065F46}
+.cert-no{font-size:10px;color:var(--text3)}
+.cc-link{font-size:10px;font-weight:600;color:var(--accent);text-decoration:none}
+
+/* ── ACCORDION ──────────────────────────────────────────────────────── */
+.acc-item{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:6px}
+.acc-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;cursor:pointer;
+  font-size:12px;font-weight:600;color:var(--text);
+  background:var(--bg2);transition:background .12s;
+}
+.acc-head:hover{background:var(--bg3)}
+.acc-arrow{transition:transform .2s;font-size:11px;color:var(--text3)}
+.acc-arrow.open{transform:rotate(180deg)}
+.acc-body{
+  padding:14px 16px;font-size:12px;color:var(--text2);
+  line-height:1.7;display:none;
+  border-top:1px solid var(--border);
+  background:var(--bg3);
+}
+.acc-body.open{display:block}
+.codebox{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  background:#F0F4FF;
+  border:1px solid #D6DEFF;
+  border-radius:var(--r2);
+  padding:10px 12px;margin:8px 0;
+  line-height:1.7;color:#3730A3;
+  overflow-x:auto;
+  white-space:pre;
+}
+
+/* ── CHEAT SHEET ────────────────────────────────────────────────────── */
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cs-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.cs-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.cs-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;gap:8px}
+.cs-row:last-child{border-bottom:none}
+.cs-key{color:var(--text2);flex-shrink:0;max-width:52%}
+.cs-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:#2563EB;text-align:right;word-break:break-all}
+.cs-val2{font-size:11px;color:var(--green);text-align:right;font-weight:500}
+
+/* ── PATTERN CARD ────────────────────────────────────────────────────── */
+.pat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px;
+  cursor:pointer;transition:all .15s;
+}
+.pat-card:hover{border-color:var(--accent);background:var(--bg3)}
+.pat-num{font-size:10px;color:var(--text3);margin-bottom:3px}
+.pat-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+.pat-desc{font-size:11px;color:var(--text2);line-height:1.5}
+.pat-page{font-size:10px;color:var(--text3);margin-top:4px}
+
+/* ── SKILL TYPE ────────────────────────────────────────────────────── */
+.stype{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .15s}
+.stype:hover{border-color:var(--accent2);transform:translateY(-1px)}
+.stype-num{font-size:24px;font-weight:700;line-height:1;margin-bottom:5px;background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stype-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+.stype-desc{font-size:11px;color:var(--text2);line-height:1.5}
+.stype-ex{font-size:10px;color:var(--text3);margin-top:5px;font-style:italic}
+
+/* ── TIP CARD ────────────────────────────────────────────────────────── */
+.tip-card{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r);padding:16px;margin-bottom:8px}
+.tip-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
+.tip-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.tip-title{font-size:12px;font-weight:600;color:var(--text)}
+.tip-body{font-size:11px;color:var(--text2);line-height:1.7}
+.tip-body strong{color:var(--text);font-weight:600}
+
+/* ── DREAM STEP ─────────────────────────────────────────────────────── */
+.dream-step{display:flex;align-items:flex-start;gap:14px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px}
+.dream-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.dream-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+.dream-desc{font-size:11px;color:var(--text2);line-height:1.6}
+
+/* ── NOTE ────────────────────────────────────────────────────────────── */
+.note{background:#FFFBEB;border:1px solid #FDE68A;border-radius:var(--r);padding:14px;font-size:11px;color:#78350F;line-height:1.7;margin:1rem 0}
+.note a{color:var(--blue);text-decoration:none}
+.note a:hover{text-decoration:underline}
+
+/* ── REPOS CARD ─────────────────────────────────────────────────────── */
+.repo-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-decoration:none;display:block;color:inherit;transition:all .15s}
+.repo-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.repo-num{font-size:10px;color:var(--text3);margin-bottom:3px}
+.repo-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
+.repo-desc{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:8px}
+.repo-footer{display:flex;align-items:center;gap:6px}
+.repo-star{font-size:10px;color:var(--amber)}
+.repo-tag{font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+
+/* ── PATH STEP ──────────────────────────────────────────────────────── */
+.path-step{display:flex;gap:14px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px}
+.path-num{width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--accent2);flex-shrink:0;margin-top:2px}
+.path-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.path-title a{color:var(--blue);text-decoration:none}
+.path-title a:hover{color:var(--accent2)}
+.path-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── FLOW STEPS ─────────────────────────────────────────────────────── */
+.flow4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;position:relative}
+.flow4::before{content:'';position:absolute;top:24px;left:14%;right:14%;height:1px;background:linear-gradient(90deg,var(--accent),var(--pink));z-index:0;opacity:.2}
+.flow-step{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 12px;text-align:center;position:relative;z-index:1}
+.flow-num{font-size:18px;font-weight:700;margin-bottom:4px;line-height:1}
+.flow-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.flow-sub{font-size:10px;color:var(--text3);line-height:1.5}
+
+/* ── WF ITEMS ────────────────────────────────────────────────────────── */
+.wf-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:7px}
+.wf-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.wf-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.wf-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* ── MEMO PAD ─────────────────────────────────────────────────────────── */
+.memo-toolbar{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;align-items:center}
+.tb-btn{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:5px 10px;font-size:11px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .12s;font-family:'Pretendard',sans-serif}
+.tb-btn:hover{background:var(--bg4);color:var(--text)}
+.tb-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.color-dot{width:16px;height:16px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .1s;flex-shrink:0}
+.color-dot:hover{transform:scale(1.2)}
+.color-dot.active{border-color:var(--text);}
+.input-area{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:1rem;transition:border-color .15s}
+.input-area:focus-within{border-color:var(--accent)}
+.tag-row{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.tag-chip{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;cursor:pointer;border:1px solid transparent;transition:all .12s;text-transform:uppercase;letter-spacing:.05em}
+.tag-chip.selected{border-color:currentColor;opacity:1}
+.tag-chip:not(.selected){opacity:.5}
+.tag-chip:hover{opacity:.85}
+textarea.memo-ta{width:100%;background:none;border:none;outline:none;resize:none;font-family:'Pretendard',sans-serif;font-size:13px;color:var(--text);line-height:1.6;min-height:72px}
+textarea.memo-ta::placeholder{color:var(--text3)}
+.input-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.char-count{font-size:10px;color:var(--text3)}
+.add-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--r2);padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .12s;font-family:'Pretendard',sans-serif}
+.add-btn:hover{opacity:.85}
+.add-btn:disabled{opacity:.3;cursor:default}
+.search-wrap{position:relative;margin-bottom:10px}
+.search-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px 9px 34px;font-size:12px;color:var(--text);outline:none;font-family:'Pretendard',sans-serif;transition:border-color .15s}
+.search-input:focus{border-color:var(--accent)}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3)}
+.filter-row{display:flex;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
+.f-btn{background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .12s;letter-spacing:.02em}
+.f-btn:hover{border-color:var(--border2);color:var(--text)}
+.f-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.count-badge{display:inline-block;font-size:9px;margin-left:3px;opacity:.6}
+.memo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.memo-card{border-radius:var(--r);padding:14px;position:relative;transition:transform .12s;cursor:default;border:1px solid transparent}
+.memo-card:hover{transform:translateY(-2px)}
+.memo-card.pinned::before{content:'📍';position:absolute;top:10px;right:10px;font-size:12px}
+.memo-tag-chip{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em}
+.memo-body{font-size:12px;line-height:1.6;word-break:break-word;white-space:pre-wrap;margin-top:8px;color:#1a1a2e}
+.memo-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.memo-date{font-size:10px;opacity:.5;color:#1a1a2e}
+.memo-actions{display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.memo-card:hover .memo-actions{opacity:1}
+.memo-action-btn{background:rgba(0,0,0,.1);border:none;border-radius:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:background .12s}
+.memo-action-btn:hover{background:rgba(0,0,0,.2)}
+.memo-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.memo-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px;text-align:center}
+.memo-stat-num{font-size:20px;font-weight:700;color:var(--text)}
+.memo-stat-label{font-size:10px;color:var(--text3);margin-top:2px}
+.empty-state{text-align:center;padding:3rem 0;color:var(--text3)}
+.empty-icon{font-size:32px;margin-bottom:10px}
+.empty-text{font-size:12px}
+.sort-row{display:flex;align-items:center;gap:6px;margin-bottom:1rem}
+.sort-label{font-size:11px;color:var(--text3)}
+.sort-btn{background:none;border:none;font-size:11px;color:var(--text2);cursor:pointer;padding:4px 8px;border-radius:var(--r2);font-family:'Pretendard',sans-serif}
+.sort-btn.active{color:var(--accent2);font-weight:600;background:var(--bg3)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--text);border:1px solid var(--border2);color:#fff;padding:9px 18px;border-radius:8px;font-size:12px;font-weight:500;transition:transform .25s ease;z-index:9999;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.hamburger{display:none;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:4px}
+
+/* ── MOBILE ──────────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .hamburger{display:block}
+  .g2,.g3,.g4,.g4{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .cs-grid{grid-template-columns:1fr}
+  .flow4{grid-template-columns:1fr 1fr}
+  .page{padding:16px 16px 40px}
+  .overlay{display:block}
+}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90}
+.overlay.show{display:block}
+
+/* ── BOOK HERO ────────────────────────────────────────────────────── */
+.book-hero{display:flex;gap:16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:1.5rem;align-items:flex-start}
+.book-cover{width:56px;min-width:56px;height:72px;background:linear-gradient(135deg,#4338ca,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.book-info .book-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px}
+.book-info .book-sub{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:10px}
+.book-links{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── INLINE TABS (within a page) ─────────────────────────────────── */
+.page-tabs{display:flex;gap:2px;margin-bottom:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:4px;overflow-x:auto}
+.page-tab{background:none;border:none;padding:7px 14px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;border-radius:var(--r2);transition:all .12s;white-space:nowrap;font-family:'Pretendard',sans-serif}
+.page-tab.active{background:var(--accent);color:#fff}
+.page-tab:hover:not(.active){background:var(--bg3);color:var(--text)}
+.sub-page{display:none}.sub-page.active{display:block}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY for mobile -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <a href="#" class="logo-mark" onclick="showPage('home');return false">
+      <div class="logo-icon">⚡</div>
+      <div>
+        <div class="logo-text">Claude Retooling</div>
+        <div class="logo-sub">내부 학습 허브 v3</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">시작하기</div>
+    <a class="nav-item active" onclick="showPage('home')" href="#">
+      <span class="ni-icon">🏠</span> 홈
+    </a>
+    <a class="nav-item" onclick="showPage('learn')" href="#">
+      <span class="ni-icon">📚</span> 학습 로드맵
+    </a>
+    <a class="nav-item" onclick="showPage('cheatsheet')" href="#">
+      <span class="ni-icon">⚡</span> 치트시트
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">설정 & 운영</div>
+    <a class="nav-item" onclick="showPage('claudemd')" href="#">
+      <span class="ni-icon">📝</span> CLAUDE.md 가이드
+    </a>
+    <a class="nav-item" onclick="showPage('skills-guide')" href="#">
+      <span class="ni-icon">🛠</span> Skills 꿀팁
+    </a>
+    <a class="nav-item" onclick="showPage('memory')" href="#">
+      <span class="ni-icon">🧠</span> 메모리 & Dream
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">리소스</div>
+    <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
+      <span class="ni-icon">🔧</span> Skills & MCP 25선
+    </a>
+    <a class="nav-item" onclick="showPage('repos')" href="#">
+      <span class="ni-icon">📦</span> GitHub Repos
+    </a>
+    <a class="nav-item" onclick="showPage('agentic')" href="#">
+      <span class="ni-icon">🤖</span> 에이전트 패턴 21개
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">무료 강의</div>
+    <a class="nav-item" onclick="showPage('courses')" href="#">
+      <span class="ni-icon">🎓</span> 무료 AI 강의 12개
+      <span class="ni-badge">수료증</span>
+    </a>
+    <a class="nav-item" onclick="showPage('workflow')" href="#">
+      <span class="ni-icon">🔄</span> 실전 워크플로우
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">도구</div>
+    <a class="nav-item" onclick="showPage('memo')" href="#">
+      <span class="ni-icon">📒</span> 학습 메모장
+    </a>
+  </div>
+
+  <div class="sidebar-bottom">
+    Claude Code Retooling Hub<br>
+    내부용 · 2026 에디션
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      <span id="tb-section">홈</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-chip">v3.0</span>
+    </div>
+  </div>
+
+  <!-- ─────────────── HOME ─────────────── -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-tag">내부 Retooling 학습 허브 · 2026</div>
+      <h1>Claude Code 완전 정복</h1>
+      <p>설치부터 멀티에이전트 오케스트레이션 · 21개 에이전트 패턴 · 25개 리소스 · 무료 강의 12개까지. 개발자와 비개발자 모두를 위한 통합 학습 허브입니다.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showPage('learn')">📚 학습 시작하기</button>
+        <button class="btn btn-ghost" onclick="showPage('courses')">🎓 무료 강의 보기</button>
+        <button class="btn btn-ghost" onclick="showPage('memo')">📒 메모장 열기</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-num" style="color:var(--accent)">25</div><div class="stat-label">Skills & MCP 리소스</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--green)">12</div><div class="stat-label">무료 강의 (수료증 10개)</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--amber)">21</div><div class="stat-label">에이전트 디자인 패턴</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--pink)">9</div><div class="stat-label">학습 섹션</div></div>
+    </div>
+
+    <div class="section-title">🚀 역할별 추천 시작점</div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-badge badge-green">🌱 비개발자 · 기획자 · 마케터</div>
+        <div class="card-title">Skills + MCP 3개로 시작</div>
+        <div class="card-desc">① 치트시트 탭 → 비개발자 핵심 3가지<br>② Skills & MCP → 01~10번 설치<br>③ 무료 강의 → Claude 101 (1~2시간, 수료증)</div>
+        <div class="card-meta">
+          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('cheatsheet')">치트시트 보기 →</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-badge badge-blue">💻 개발자 · 엔지니어</div>
+        <div class="card-title">공식 강의 → gstack → 패턴 북</div>
+        <div class="card-desc">① Claude Code in Action 21강 (무료·수료증)<br>② gstack + cmux 병렬 에이전트 설정<br>③ Agentic Design Patterns 424p 완독</div>
+        <div class="card-meta">
+          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('courses')">강의 보기 →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🆕 이 허브에서 다루는 것들</div>
+    <div class="g3">
+      <div class="card" style="cursor:pointer" onclick="showPage('claudemd')">
+        <div class="card-badge badge-purple">CLAUDE.md</div>
+        <div class="card-title">완벽 가이드 12가지</div>
+        <div class="card-desc">파일 위치·범위·200줄 규칙·@import·경로별 규칙·자동 메모리 구분까지. 마케팅 트루먼쇼 치트시트 기반.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('skills-guide')">
+        <div class="card-badge badge-teal">Skills 꿀팁</div>
+        <div class="card-title">Anthropic 내부 9가지 유형</div>
+        <div class="card-desc">Thariq Shihipar (Claude Code 팀)의 수백 개 스킬 운영 교훈. 함정 목록·점진적 공개·배포 방식.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('memory')">
+        <div class="card-badge badge-amber">Auto Dream</div>
+        <div class="card-title">기억력 10배 설정</div>
+        <div class="card-desc">Auto Memory vs CLAUDE.md 차이. Auto Dream이 왜 필요한지. /memory · /dream 설정법 3단계.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('agentic')">
+        <div class="card-badge badge-pink">패턴 북</div>
+        <div class="card-title">에이전트 디자인 패턴 21개</div>
+        <div class="card-desc">Antonio Gulli (Google CTO Office) 424p 무료 책. LangGraph·CrewAI·ADK 비교. 코드 포함.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('courses')">
+        <div class="card-badge badge-green">무료 강의</div>
+        <div class="card-title">수료증 받는 12개 강의</div>
+        <div class="card-desc">OpenAI·Google·Anthropic 공식 강의. 수료증 10개. Claude Code in Action 정확한 링크 수정 포함.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('memo')">
+        <div class="card-badge badge-blue">메모장</div>
+        <div class="card-title">자유 메모 · 저장 유지</div>
+        <div class="card-desc">7가지 태그·카드 색상 선택·검색·필터·고정·내보내기. 세션이 끊겨도 메모가 유지됩니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── LEARN ─────────────── -->
+  <div class="page" id="page-learn">
+    <div class="hero">
+      <div class="hero-tag">📚 학습 로드맵</div>
+      <h1>강의 핵심 12가지</h1>
+      <p>Anthropic Academy 공식 강의 21강의 핵심 내용을 아코디언으로 정리했습니다. 클릭해서 펼쳐보세요.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="goLink('https://anthropic.skilljar.com/claude-code-in-action')">🎓 공식 강의 수강 (무료)</button>
+        <button class="btn btn-ghost" onclick="goLink('https://www.coursera.org/learn/claude-code-in-action')">Coursera 버전</button>
+      </div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>① 시작하기 — 설치 및 초기화</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body">Node.js 18+ 필요.<div class="codebox">npm install -g @anthropic-ai/claude-code
+cd project && /init</div>초기 스캔 및 스타터 메모리 파일 생성. Claude Code = AI 현장 직원. tool use로 파일 읽기·수정·명령어 실행.</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>② CLAUDE.md — AI 업무 매뉴얼</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><strong style="color:var(--text)">대상</strong>: Tech stack, Architecture<br><strong style="color:var(--text)">이유</strong>: Purpose, Design decisions<br><strong style="color:var(--text)">방법</strong>: Build/test commands, Workflows, Gotchas<br><br>매 세션 시작 시 자동 로드. Git에 커밋해서 팀 공유.</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>③ 메모리 파일 3계층</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">~/.claude/CLAUDE.md     # 글로벌 (전체)
+./CLAUDE.md             # 프로젝트 (Git 공유)
+./frontend/CLAUDE.md    # 서브폴더 (스코프)</div>각 파일 200줄 미만 · 절대 상위 컨텍스트 덮어쓰지 않음.</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>④ 모범 사례</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body">먼저 /init 후 출력 다듬기 · 구체적인 지시사항 · @filename 문서 참조<br>Claude가 유추 못하는 유의사항 추가 · 메모리는 간결하게 · 팀 공유 위해 Git 커밋</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑤ 프로젝트 파일 구조</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">your-project/
+├── CLAUDE.md
+├── .claude/
+│   ├── settings.json
+│   ├── skills/
+│   │   ├── code-review/SKILL.md
+│   │   └── testing/SKILL.md
+│   ├── commands/deploy.md
+│   └── agents/security-reviewer.md
+└── src/</div></div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑥ 스킬 추가 — 자연어 호출</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">---
+name: testing patterns
+description: jest testing patterns — 언제 쓸지로 작성
+allowed_tools: Read, Grep, Glob
+---
+# Testing Patterns
+Use describe+it+AAA pattern
+Use factory mocks</div>설명 필드는 "언제 이 스킬을 실행할지"로 작성. 자동 활성화에 핵심.</div></div>
+      </div>
+      <div>
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑦ AI 엔지니어 스킬 아이디어</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body">① 코드 리뷰 (보안·XSS 자동 감지)<br>② 테스트 패턴 (TDD 자동화)<br>③ 커밋 메시지 (Conventional Commits)<br>④ 도커 배포 스킬<br>⑤ 코드베이스 시각화<br>⑥ API 디자인 가이드</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑧ Hooks — 자동 안전 가드레일</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">"hooks": {
+  "PreToolUse": [{
+    "matcher": "Bash",
+    "hooks": [{
+      "type": "command",
+      "command": "scripts/sec.sh",
+      "timeout": 5
+    }]
+  }]
+}</div>종료코드 0 → 허용, 1+ → 차단</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑨ 권한 및 안전</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">"permissions": {
+  "allow": ["Read:*","Bash:git:*","Write:*:*.md"],
+  "deny":  ["Read:env:*","Bash:sudo:*"]
+}</div></div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑩ 4단계 아키텍처</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body">L1 – CLAUDE.md: 지속 컨텍스트 및 규칙<br>L2 – Skills: 자동 호출 지식 팩<br>L3 – Hooks: 안전 게이트 및 자동화<br>L4 – Agents: 자체 컨텍스트 하위 에이전트</div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑪ 일일 워크플로우 패턴</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body"><div class="codebox">cd project && /init
+Shift+Tab × 2   → 플랜 모드
+Shift+Tab       → 자동 수락 모드
+/compact        → 컨텍스트 압축
+Esc Esc         → 되감기
+자주 커밋 · 특징당 새 세션 시작</div></div></div>
+
+        <div class="acc-item"><div class="acc-head" onclick="acc(this)"><span>⑫ 빠른 참조 명령어</span><span class="acc-arrow">▼</span></div>
+        <div class="acc-body">/init → CLAUDE.md 생성<br>/compact → 컨텍스트 압축<br>/memory → 로드 파일 확인<br>/dream → 메모리 즉시 정리<br>Shift+Tab → 모드 전환<br>Tab → 확장 씽킹 토글</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── CHEAT SHEET ─────────────── -->
+  <div class="page" id="page-cheatsheet">
+    <div class="hero"><div class="hero-tag">⚡ 치트시트</div><h1>빠른 참조 카드</h1><p>자주 쓰는 명령어·단축키·구조를 한눈에. 북마크하거나 인쇄해서 사용하세요.</p></div>
+    <div class="cs-grid">
+      <div class="cs-card"><div class="cs-title">🚀 설치 & 시작</div>
+        <div class="cs-row"><span class="cs-key">설치</span><span class="cs-val">npm i -g @anthropic-ai/claude-code</span></div>
+        <div class="cs-row"><span class="cs-key">초기화</span><span class="cs-val">cd project && /init</span></div>
+        <div class="cs-row"><span class="cs-key">실행</span><span class="cs-val">claude</span></div>
+        <div class="cs-row"><span class="cs-key">모델 선택</span><span class="cs-val">claude --model opus</span></div>
+        <div class="cs-row"><span class="cs-key">Node 요구</span><span class="cs-val2">18 이상</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">⌨️ 핵심 단축키</div>
+        <div class="cs-row"><span class="cs-key">플랜 모드</span><span class="cs-val">Shift + Tab × 2</span></div>
+        <div class="cs-row"><span class="cs-key">자동 수락</span><span class="cs-val">Shift + Tab</span></div>
+        <div class="cs-row"><span class="cs-key">확장 씽킹</span><span class="cs-val">Tab 토글</span></div>
+        <div class="cs-row"><span class="cs-key">되감기 메뉴</span><span class="cs-val">Esc Esc</span></div>
+        <div class="cs-row"><span class="cs-key">실행 중단</span><span class="cs-val">Esc</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">💬 슬래시 커맨드</div>
+        <div class="cs-row"><span class="cs-key">CLAUDE.md 생성</span><span class="cs-val">/init</span></div>
+        <div class="cs-row"><span class="cs-key">컨텍스트 압축</span><span class="cs-val">/compact</span></div>
+        <div class="cs-row"><span class="cs-key">설치 확인</span><span class="cs-val">/doccat</span></div>
+        <div class="cs-row"><span class="cs-key">로드 파일 확인</span><span class="cs-val">/memory</span></div>
+        <div class="cs-row"><span class="cs-key">메모리 즉시 정리</span><span class="cs-val">/dream</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">📁 메모리 3계층</div>
+        <div class="cs-row"><span class="cs-key">글로벌</span><span class="cs-val">~/.claude/CLAUDE.md</span></div>
+        <div class="cs-row"><span class="cs-key">프로젝트</span><span class="cs-val">./CLAUDE.md</span></div>
+        <div class="cs-row"><span class="cs-key">서브폴더</span><span class="cs-val">./src/CLAUDE.md</span></div>
+        <div class="cs-row"><span class="cs-key">파일 길이</span><span class="cs-val2">200줄 이하</span></div>
+        <div class="cs-row"><span class="cs-key">팀 공유</span><span class="cs-val2">Git 커밋 필수</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">🔧 Hooks & 권한</div>
+        <div class="cs-row"><span class="cs-key">수정 전</span><span class="cs-val">PreToolUse</span></div>
+        <div class="cs-row"><span class="cs-key">수정 후</span><span class="cs-val">PostToolUse</span></div>
+        <div class="cs-row"><span class="cs-key">허용 종료코드</span><span class="cs-val2">0</span></div>
+        <div class="cs-row"><span class="cs-key">차단 종료코드</span><span class="cs-val2">1 이상</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">📦 폴더 구조</div>
+        <div class="cs-row"><span class="cs-key">스킬</span><span class="cs-val">.claude/skills/</span></div>
+        <div class="cs-row"><span class="cs-key">규칙 분리</span><span class="cs-val">.claude/rules/</span></div>
+        <div class="cs-row"><span class="cs-key">커맨드</span><span class="cs-val">.claude/commands/</span></div>
+        <div class="cs-row"><span class="cs-key">에이전트</span><span class="cs-val">.claude/agents/</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">🌱 비개발자 핵심</div>
+        <div class="cs-row"><span class="cs-key">1단계</span><span class="cs-val2">CLAUDE.md 규칙 작성</span></div>
+        <div class="cs-row"><span class="cs-key">2단계</span><span class="cs-val2">Skills Markdown 추가</span></div>
+        <div class="cs-row"><span class="cs-key">3단계</span><span class="cs-val2">MCP 3개 연결</span></div>
+        <div class="cs-row"><span class="cs-key">4단계</span><span class="cs-val2">/memory → auto-dream ON</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">💻 개발자 핵심</div>
+        <div class="cs-row"><span class="cs-key">1단계</span><span class="cs-val2">gstack 팀 역할 설정</span></div>
+        <div class="cs-row"><span class="cs-key">2단계</span><span class="cs-val2">Hooks lint·테스트 자동화</span></div>
+        <div class="cs-row"><span class="cs-key">3단계</span><span class="cs-val2">cmux 병렬 에이전트</span></div>
+        <div class="cs-row"><span class="cs-key">목표</span><span class="cs-val2">하루 1만 줄 달성</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── CLAUDE.MD ─────────────── -->
+  <div class="page" id="page-claudemd">
+    <div class="hero"><div class="hero-tag">📝 CLAUDE.md 완벽 가이드</div><h1>12가지 핵심 설정법</h1><p>잘 쓰는 사람과 못 쓰는 사람의 차이는 CLAUDE.md 하나. 세션이 끊겨도 규칙이 살아있으려면 여기에 기록해야 합니다.</p></div>
+    <div class="section-title">파일 위치 & 범위</div>
+    <div class="g3">
+      <div class="card"><div class="card-badge badge-red">관리 정책 (강제)</div><div class="card-title">/etc/claude-code/CLAUDE.md</div><div class="card-desc">조직 전체 강제 적용 · 사용자 오버라이드 불가. macOS: ~/Library/Application Support/ClaudeCode/CLAUDE.md</div></div>
+      <div class="card"><div class="card-badge badge-purple">프로젝트 (팀 공유)</div><div class="card-title">./CLAUDE.md</div><div class="card-desc">프로젝트 아키텍처 · 코딩 표준 · Git으로 팀 공유 필수. 모노레포에서 가장 중요.</div></div>
+      <div class="card"><div class="card-badge badge-teal">사용자 (개인)</div><div class="card-title">~/.claude/CLAUDE.md</div><div class="card-desc">개인 코드 스타일 · 선호도. Git에 올리지 않는 개인 설정.</div></div>
+    </div>
+    <div class="section-title">❌ vs ✅ 지침 작성법</div>
+    <div class="g2">
+      <div class="card" style="border-color:rgba(248,113,113,.3)"><div class="card-title" style="color:var(--red)">❌ Claude가 무시합니다</div><div class="card-desc" style="color:#f87171">"코드를 제대로 포맷합니다"<br>"변경사항을 테스트합니다"<br>"API를 src/api에 위치시킵니다"</div></div>
+      <div class="card" style="border-color:rgba(74,222,128,.3)"><div class="card-title" style="color:var(--green)">✅ 검증 가능한 지시</div><div class="card-desc" style="color:#4ade80">"2칸 들여쓰기 사용"<br>"커밋 전 npm test 실행"<br>"API는 src/api/handler에 위치"</div></div>
+    </div>
+    <div class="section-title">핵심 규칙 12가지</div>
+    <div class="g3">
+      <div class="card" style="cursor:pointer" onclick="showPage('cheatsheet')"><div class="card-badge badge-purple">④</div><div class="card-title">200줄 이하 유지</div><div class="card-desc">길수록 준수율 하락. 많아지면 @import나 .claude/rules/로 분리.</div></div>
+      <div class="card"><div class="card-badge badge-purple">⑤</div><div class="card-title">@import로 분리</div><div class="card-desc">@README @package.json @~/.claude/my-prefs.md — Git 싫은 개인 설정은 홈 디렉토리에서 로드.</div></div>
+      <div class="card"><div class="card-badge badge-purple">⑥</div><div class="card-title">.claude/rules/ 분리</div><div class="card-desc">code-style.md / testing.md / security.md — 주제별 분리 → 팀 유지관리 쉬워짐.</div></div>
+      <div class="card"><div class="card-badge badge-purple">⑦</div><div class="card-title">경로별 규칙</div><div class="card-desc"><code style="font-size:10px;color:var(--blue)">paths: "src/api/**/*.ts"</code><br>해당 파일 열 때만 규칙 로드. 컨텍스트 절약.</div></div>
+      <div class="card"><div class="card-badge badge-amber">⑧</div><div class="card-title">자동 메모리 구분</div><div class="card-desc">CLAUDE.md = 내가 씀<br>Auto Memory = Claude가 씀<br>"항상 pnpm 써" → 자동 기억.</div></div>
+      <div class="card"><div class="card-badge badge-purple">⑨</div><div class="card-title">로드 순서</div><div class="card-desc">관리정책 → 사용자 → 상위 → 프로젝트 → 하위<br>claudeMdExcludes로 다른 팀 파일 제외.</div></div>
+      <div class="card"><div class="card-badge badge-green">⑩</div><div class="card-title">/memory 습관화</div><div class="card-desc">현재 세션 로드 파일 확인. 목록에 없으면 Claude는 못 봄. 쓰고 나서 반드시 확인.</div></div>
+      <div class="card"><div class="card-badge badge-red">⑪</div><div class="card-title">/compact 후 소실 주의</div><div class="card-desc">대화에만 있던 지침은 compact 후 사라짐. CLAUDE.md에 기록해야 영구 유지.</div></div>
+      <div class="card"><div class="card-badge badge-teal">⑫</div><div class="card-title">핵심 요약</div><div class="card-desc">CLAUDE.md = 구체적·간결·200줄↓<br>Auto Memory = 자동 축적<br>.claude/rules/ = 대규모<br>/memory = 로드 확인 필수</div></div>
+    </div>
+  </div>
+
+  <!-- ─────────────── SKILLS GUIDE ─────────────── -->
+  <div class="page" id="page-skills-guide">
+    <div class="hero"><div class="hero-tag">🛠 Skills 꿀팁</div><h1>Anthropic 내부 9가지 유형 + 핵심 원칙</h1><p>Thariq Shihipar (Claude Code 팀)이 수백 개 스킬 운영하며 얻은 교훈.</p></div>
+    <div class="section-title">9가지 스킬 유형</div>
+    <div class="g3">
+      <div class="stype" onclick="alert('API 레퍼런스: 라이브러리 사용 시 흔한 실수·주의사항 사전 명시')"><div class="stype-num">1</div><div class="stype-title">API 레퍼런스</div><div class="stype-desc">라이브러리 사용 시 흔한 실수·주의사항 사전 명시.</div><div class="stype-ex">예: axios 타임아웃 기본값 함정</div></div>
+      <div class="stype"><div class="stype-num">2</div><div class="stype-title">제품 검증</div><div class="stype-desc">가입·결제 같은 핵심 흐름을 헤드리스 브라우저로 자동 테스트.</div><div class="stype-ex">예: Playwright E2E 결제 플로우</div></div>
+      <div class="stype"><div class="stype-num">3</div><div class="stype-title">데이터 수집·분석</div><div class="stype-desc">모니터링 대시보드 연결, 코호트 비교, 퍼널 분석 자동화.</div><div class="stype-ex">예: Mixpanel → 전환율 리포트</div></div>
+      <div class="stype"><div class="stype-num">4</div><div class="stype-title">반복 업무 자동화</div><div class="stype-desc">스탠드업·티켓 생성·주간 리캡을 한 명령으로.</div><div class="stype-ex">예: "스탠드업 작성해" → Jira 자동</div></div>
+      <div class="stype"><div class="stype-num">5</div><div class="stype-title">코드 템플릿</div><div class="stype-desc">새 기능 만들 때 팀 규칙에 맞는 뼈대 자동 생성.</div><div class="stype-ex">예: React 컴포넌트 팀 컨벤션 적용</div></div>
+      <div class="stype"><div class="stype-num">6</div><div class="stype-title">코드 품질·리뷰</div><div class="stype-desc">서브에이전트가 코드를 비판하고 수정을 반복.</div><div class="stype-ex">예: 보안 리뷰어 XSS 자동 검사</div></div>
+      <div class="stype"><div class="stype-num">7</div><div class="stype-title">CI/CD & 배포</div><div class="stype-desc">PR 감시·테스트 재시도·점진적 롤아웃·자동 롤백.</div><div class="stype-ex">예: 배포 실패 → 자동 롤백 + Slack</div></div>
+      <div class="stype"><div class="stype-num">8</div><div class="stype-title">장애 대응 런북</div><div class="stype-desc">에러 증상 → 관련 로그 수집 → 보고서 자동 작성.</div><div class="stype-ex">예: "500 에러 급증" → 원인 리포트</div></div>
+      <div class="stype"><div class="stype-num">9</div><div class="stype-title">인프라 운영</div><div class="stype-desc">고아 리소스 탐색·의존성 관리·비용 급증 원인 분석.</div><div class="stype-ex">예: AWS 미사용 리소스 → 비용 절감</div></div>
+    </div>
+    <div class="section-title">핵심 원칙 4가지</div>
+    <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚠️</div><div class="tip-title">① 함정 목록(Pitfall List)을 반드시 넣을 것 — 가장 중요</div></div><div class="tip-body">AI가 자주 틀리는 부분을 미리 적어두면 같은 실수를 반복하지 않습니다. <strong>새로운 실패가 발견될 때마다 한 줄씩 추가</strong>하는 것이 핵심입니다.<div class="codebox">## Pitfalls
+- axios 타임아웃 기본값은 0 (무한대) — 반드시 timeout: 5000 명시
+- React key는 index 대신 고유 ID 사용
+- 2025-01 이후 버전은 deprecated API 사용 금지</div></div></div>
+    <div class="tip-card"><div class="tip-head"><div class="tip-icon">📂</div><div class="tip-title">② 점진적 공개(Progressive Disclosure) — 파일로 나눌 것</div></div><div class="tip-body">상세한 API 시그니처는 references/api.md에, 출력 템플릿은 assets/ 폴더에 분리. <strong>모든 정보를 한 번에 넣으면 AI가 오히려 혼란</strong>스러워합니다.<div class="codebox">my-skill/
+├── SKILL.md          ← 핵심 지침만
+├── references/api.md ← 상세 API
+└── assets/template.md ← 출력 템플릿</div></div></div>
+    <div class="tip-card"><div class="tip-head"><div class="tip-icon">🎯</div><div class="tip-title">③ 너무 세세하게 지시하지 말 것</div></div><div class="tip-body"><strong>핵심만 알려주고 상황 판단은 AI에게</strong> 맡겨야 합니다. 모든 경우의 수를 통제하려 하면 오히려 유연성이 떨어집니다.</div></div>
+    <div class="tip-card"><div class="tip-head"><div class="tip-icon">📝</div><div class="tip-title">④ Description 필드는 AI를 위해 쓸 것</div></div><div class="tip-body"><strong>"이 스킬이 뭘 하는가"가 아니라 "언제 이 스킬을 실행할지"</strong>로 써야 합니다.<br><br>❌ "코드 리뷰를 수행합니다" (기능 설명)<br>✅ "사용자가 'PR 리뷰해줘', '코드 검토', '보안 점검'을 요청할 때 실행" (트리거 설명)</div></div>
+    <div class="section-title">핵심 통찰</div>
+    <div class="g3">
+      <div class="card" style="border-left:3px solid var(--accent)"><div class="card-title">하나의 카테고리만</div><div class="card-desc">좋은 스킬은 하나의 카테고리에 명확히 속합니다. "이 스킬이 뭘 하는 거지?"라는 질문이 나오면 범위가 너무 넓다는 신호.</div></div>
+      <div class="card" style="border-left:3px solid var(--green)"><div class="card-title">몇 줄로 시작해도 됩니다</div><div class="card-desc">완벽한 스킬을 설계하려 하기보다 시작하고 반복하는 것이 핵심. 처음엔 몇 줄 메모 + 함정 하나로 시작.</div></div>
+      <div class="card" style="border-left:3px solid var(--amber)"><div class="card-title">실패할 때마다 한 줄</div><div class="card-desc">AI가 새로운 실수를 할 때마다 함정 목록에 한 줄 추가. 이것이 스킬을 점점 좋게 만드는 유일한 방법.</div></div>
+    </div>
+  </div>
+
+  <!-- ─────────────── MEMORY ─────────────── -->
+  <div class="page" id="page-memory">
+    <div class="hero"><div class="hero-tag">🧠 메모리 & Auto Dream</div><h1>기억력 10배 올리기</h1><p>Claude Code 오래 쓸수록 기억력이 떨어진다고 느끼셨다면? Auto Dream 설정 하나로 달라집니다.</p></div>
+    <div class="section-title">메모리 3종류</div>
+    <div class="g3">
+      <div class="card" style="border-top:3px solid var(--accent)"><div class="card-badge badge-purple">CLAUDE.md</div><div class="card-title">내가 쓰는 지침</div><div class="card-desc">규칙·컨텍스트·제약. 매 세션 자동 로드. 200줄 이하 권장.</div></div>
+      <div class="card" style="border-top:3px solid var(--green)"><div class="card-badge badge-green">Auto Memory</div><div class="card-title">Claude가 쓰는 노트</div><div class="card-desc">작업하며 자동 기록. "항상 pnpm 써" → 기억. 세션 간 자동 축적.</div></div>
+      <div class="card" style="border-top:3px solid var(--amber)"><div class="card-badge badge-amber">Auto Dream</div><div class="card-title">메모리 자동 정리</div><div class="card-desc">중복 삭제·분류. 모순 내용 정리. 쓸모없는 메모 버림. 날짜 정확히 변환.</div></div>
+    </div>
+    <div class="note">📌 <strong>포스트잇 범벅 비유</strong>: 신입사원이 포스트잇에 뭐든 적으면 한 달 후 모니터가 범벅입니다. 같은 내용 3장씩, 언제 적었는지 모르는 메모들... <strong>Auto Dream을 켜면 자면서 기억을 정리합니다.</strong> 잠을 못 자면 기억력이 떨어지는 것처럼, Claude도 정리 없이는 점점 멍청해집니다.</div>
+    <div class="section-title">Auto Dream 설정법 3단계</div>
+    <div class="dream-step"><div class="dream-num">1</div><div><div class="dream-title">Claude Code에서 /memory 입력</div><div class="dream-desc">현재 세션에 로드된 모든 파일 목록 확인. Auto Memory 설정 패널이 나타납니다.</div></div></div>
+    <div class="dream-step"><div class="dream-num">2</div><div><div class="dream-title">Auto-dream을 ON으로 변경</div><div class="dream-desc">작업이 끝날 때마다 Claude가 혼자 깨어나서 쌓인 메모를 자동 정리합니다. 기본값은 OFF이므로 직접 켜야 합니다.</div></div></div>
+    <div class="dream-step"><div class="dream-num">3</div><div><div class="dream-title">바로 정리 실행: /dream 입력</div><div class="dream-desc">지금 당장 메모리 정리를 실행합니다. 오랫동안 쌓인 Auto Memory가 있다면 이 명령으로 즉시 정리해보세요.</div></div></div>
+    <div class="section-title">설정 코드</div>
+    <div class="g2">
+      <div class="cs-card"><div class="cs-title">Auto Memory 설정</div>
+        <div class="cs-row"><span class="cs-key">설정 파일</span><span class="cs-val">.claude/settings.local.json</span></div>
+        <div class="cs-row"><span class="cs-key">활성화</span><span class="cs-val">"autoMemoryEnabled": true</span></div>
+        <div class="cs-row"><span class="cs-key">환경변수로 끄기</span><span class="cs-val">CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</span></div>
+        <div class="cs-row"><span class="cs-key">현재 메모리 확인</span><span class="cs-val">/memory</span></div>
+        <div class="cs-row"><span class="cs-key">즉시 정리</span><span class="cs-val">/dream</span></div>
+      </div>
+      <div class="cs-card"><div class="cs-title">저장 위치</div>
+        <div class="cs-row"><span class="cs-key">기본 위치</span><span class="cs-val">~/.claude/projects/.../memory/</span></div>
+        <div class="cs-row"><span class="cs-key">커스텀</span><span class="cs-val">"autoMemoryDirectory": "~/my-memory"</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── SKILLS & MCP ─────────────── -->
+  <div class="page" id="page-skills-mcp">
+    <div class="hero"><div class="hero-tag">🔧 Skills & MCP 25선</div><h1>리소스 완전 정리</h1><p>Skills = HOW를 가르치는 것. MCP = 외부 세계 ACCESS를 주는 것.</p></div>
+    <div class="section-title">Anthropic 공식 (01~02)</div>
+    <div class="g2">
+      <div class="card" onclick="goLink('https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview')" style="cursor:pointer"><div class="card-badge badge-purple">01 · Skills · 공식</div><div class="card-title">Anthropic 공식 Agent Skills 문서 ↗</div><div class="card-desc">API 사용법, 프리빌트 스킬, 커스텀 스킬 생성 가이드 전부 포함.</div></div>
+      <div class="card" onclick="goLink('https://github.com/anthropics/skills')" style="cursor:pointer"><div class="card-badge badge-purple">02 · Dev Skills</div><div class="card-title">anthropics/skills — 공식 오픈소스 ↗</div><div class="card-desc">TDD · 디버깅 · 실행 파이프라인 포함 17개+ 실전 스킬. Apache 2.0.</div></div>
+    </div>
+    <div class="section-title">Marketing & SEO (03~05)</div>
+    <div class="g3">
+      <div class="card" onclick="goLink('https://github.com/coreyhaines/marketing-skills-for-claude')" style="cursor:pointer"><div class="card-badge badge-pink">03 · Marketing</div><div class="card-title">Marketing Skills ↗</div><div class="card-desc">CRO · 카피라이팅 · SEO · 이메일 시퀀스 20+</div></div>
+      <div class="card" onclick="goLink('https://github.com/anthropics/skills')" style="cursor:pointer"><div class="card-badge badge-pink">04 · SEO</div><div class="card-title">Claude SEO ↗</div><div class="card-desc">사이트 감사 · 스키마 검증 · 12개 하위 스킬</div></div>
+      <div class="card" onclick="goLink('https://github.com/anthropics/skills')" style="cursor:pointer"><div class="card-badge badge-pink">05 · Brand</div><div class="card-title">Brand Guidelines ↗</div><div class="card-desc">브랜드 스킬로 인코딩 → 자동 적용</div></div>
+    </div>
+    <div class="section-title">Knowledge (06~07)</div>
+    <div class="g2">
+      <div class="card" onclick="goLink('https://notebooklm.google.com')" style="cursor:pointer"><div class="card-badge badge-blue">06 · Knowledge</div><div class="card-title">NotebookLM Integration ↗</div><div class="card-desc">Claude + NotebookLM 연결. 요약·마인드맵·플래시카드.<br>💡 Agentic Design Patterns PDF 넣으면 최강!</div></div>
+      <div class="card" onclick="goLink('https://obsidian.md')" style="cursor:pointer"><div class="card-badge badge-blue">07 · PKM</div><div class="card-title">Obsidian Skills ↗</div><div class="card-desc">Obsidian CEO 제작 · 자동 태깅 · 자동 링킹</div></div>
+    </div>
+    <div class="section-title">MCP 서버 3개 (08~10)</div>
+    <div class="g3">
+      <div class="card" onclick="goLink('https://tavily.com')" style="cursor:pointer"><div class="card-badge badge-teal">08 · MCP Search</div><div class="card-title">Tavily ↗</div><div class="card-desc">AI 에이전트용 검색엔진. 구조화 데이터 반환. search · extract · crawl · map</div></div>
+      <div class="card" style="font-size:10px" onclick="goLink('https://context7.com')" style="cursor:pointer;font-size:10px"><div class="card-badge badge-teal">09 · MCP Docs</div><div class="card-title">Context7 ↗</div><div class="card-desc">최신 라이브러리 문서 주입 · 환각 API 제거 · <code style="font-size:10px">use context7</code></div></div>
+      <div class="card" onclick="goLink('https://github.com/eyaltoledano/claude-task-master')" style="cursor:pointer"><div class="card-badge badge-teal">10 · MCP Tasks</div><div class="card-title">Task Master AI ↗</div><div class="card-desc">PRD → 구조화 태스크 → Claude 순차 실행</div></div>
+    </div>
+  </div>
+
+  <!-- ─────────────── REPOS ─────────────── -->
+  <div class="page" id="page-repos">
+    <div class="hero"><div class="hero-tag">📦 GitHub Repos</div><h1>11~25번 리소스</h1><p>에이전트 프레임워크, 데이터 도구, 멀티에이전트 오케스트레이터까지.</p></div>
+    <div class="section-title">Agent Frameworks (11–13)</div>
+    <div class="g3">
+      <div class="repo-card" onclick="goLink('https://github.com/openclaw/openclaw')" style="cursor:pointer"><div class="repo-num">11</div><div class="repo-title">OpenClaw</div><div class="repo-desc">바이럴 AI 에이전트 · 50+ 플랫폼 연동 · 자체 스킬 작성</div><div class="repo-footer"><span class="repo-star">⭐ 210k+</span><span class="repo-tag badge-amber">Node.js · MIT</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/langchain-ai/langgraph')" style="cursor:pointer"><div class="repo-num">12</div><div class="repo-title">LangGraph</div><div class="repo-desc">그래프 기반 멀티에이전트 · Klarna · Replit · Elastic 사용 중</div><div class="repo-footer"><span class="repo-star">⭐ 26.8k+</span><span class="repo-tag badge-blue">Python/JS</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/camel-ai/owl')" style="cursor:pointer"><div class="repo-num">13</div><div class="repo-title">OWL (CAMEL-AI)</div><div class="repo-desc">멀티에이전트 협력 · GAIA 오픈소스 1위 69.09%</div><div class="repo-footer"><span class="repo-star">⭐ 11k+</span><span class="repo-tag badge-green">Apache 2.0</span></div></div>
+    </div>
+    <div class="section-title">Search & Data (14–16)</div>
+    <div class="g3">
+      <div class="repo-card" onclick="goLink('https://github.com/assafelovic/gpt-researcher')" style="cursor:pointer"><div class="repo-num">14</div><div class="repo-title">GPT Researcher</div><div class="repo-desc">자율 리서치 → PDF·Docx 보고서 자동 생성. Claude Skill 연동 가능.</div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/mendableai/firecrawl')" style="cursor:pointer"><div class="repo-num">15</div><div class="repo-title">Firecrawl</div><div class="repo-desc">웹사이트 → LLM용 마크다운·구조화 데이터 변환</div><div class="repo-footer"><span class="repo-star">⭐ 97k+</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/vanna-ai/vanna')" style="cursor:pointer"><div class="repo-num">16</div><div class="repo-title">Vanna AI</div><div class="repo-desc">자연어 → SQL 변환. 내 DB에 직접 채팅.</div></div>
+    </div>
+    <div class="section-title">Dev Tools & Collections (17–21)</div>
+    <div class="g3">
+      <div class="repo-card" onclick="goLink('https://github.com/nardoguy14/codebase_memory_mcp')" style="cursor:pointer"><div class="repo-num">17</div><div class="repo-title">Codebase Memory MCP</div><div class="repo-desc">코드베이스 → 영구 지식 그래프</div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/phodal/spec')" style="cursor:pointer"><div class="repo-num">18</div><div class="repo-title">Spec Kit</div><div class="repo-desc">스펙 작성 → AI 코드 생성</div><div class="repo-footer"><span class="repo-star">⭐ 50k+</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/anthropics/skills')" style="cursor:pointer"><div class="repo-num">19</div><div class="repo-title">Awesome Claude Skills</div><div class="repo-footer"><span class="repo-star">⭐ 22k+</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/e2b-dev/awesome-ai-agents')" style="cursor:pointer"><div class="repo-num">20</div><div class="repo-title">Awesome Agent</div><div class="repo-desc">100+ 오픈소스 에이전트 도구</div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/andyrewlee/awesome-agent-orchestrators')" style="cursor:pointer"><div class="repo-num">21</div><div class="repo-title">Agent Orchestrators 목록</div><div class="repo-desc">매일 업데이트</div></div>
+    </div>
+    <div class="section-title">멀티에이전트 오케스트레이션 (22–25)</div>
+    <div class="g2">
+      <div class="repo-card" onclick="goLink('https://github.com/garrytan/gstack')" style="cursor:pointer"><div class="repo-num">22</div><div class="repo-title">gstack — YC CEO Garry Tan</div><div class="repo-desc">Claude Code를 가상 엔지니어링 팀으로. CEO·디자이너·EM·QA 역할 슬래시 커맨드. 하루 1만 줄 검증.</div><div class="repo-footer"><span class="repo-star">MIT · 무료</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/manaflow-ai/cmux')" style="cursor:pointer"><div class="repo-num">23</div><div class="repo-title">cmux (macOS 네이티브)</div><div class="repo-desc">Ghostty 기반 · 병렬 에이전트 알림 · 내장 브라우저 자동화</div><div class="repo-footer"><span class="repo-tag badge-blue">Swift · AGPL</span></div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/craigsc/cmux')" style="cursor:pointer"><div class="repo-num">24</div><div class="repo-title">cmux (Bash 경량)</div><div class="repo-desc">순수 Bash · Git worktree 격리 병렬 실행 · 의존성 없음</div></div>
+      <div class="repo-card" onclick="goLink('https://github.com/smtg-ai/claude-squad')" style="cursor:pointer"><div class="repo-num">25</div><div class="repo-title">claude-squad</div><div class="repo-desc">Claude Code·Codex·Aider 병렬 관리</div><div class="repo-footer"><span class="repo-tag badge-green">brew install</span></div></div>
+    </div>
+  </div>
+
+  <!-- ─────────────── AGENTIC ─────────────── -->
+  <div class="page" id="page-agentic">
+    <div class="book-hero">
+      <div class="book-cover">📖</div>
+      <div class="book-info">
+        <div class="book-title">Agentic Design Patterns — Antonio Gulli (Google CTO Office)</div>
+        <div class="book-sub">424페이지 · 21개 챕터 · 코드 포함 무료 공개 · LangChain/LangGraph · CrewAI · Google ADK 비교 구현 · 수익 전액 Save the Children 기부</div>
+        <div class="book-links">
+          <button class="btn btn-primary" onclick="goLink('https://github.com/ravinderyadav/Agentic-Design-Patterns-by-AntonioGulli')">📥 GitHub (PDF+노트북)</button>
+          <button class="btn btn-ghost" onclick="goLink('https://notebooklm.google.com')">💡 NotebookLM에 넣기</button>
+        </div>
+      </div>
+    </div>
+    <div class="section-title">Part 1 — 기초 패턴 (103p)</div>
+    <div class="g3">
+      <div class="pat-card" onclick="alert('Prompt Chaining: 여러 프롬프트를 연결해 복잡한 작업을 단계별로 처리. 출력이 다음 입력이 됩니다.')"><div class="pat-num">Ch.1 · 12p</div><div class="pat-title">Prompt Chaining</div><div class="pat-desc">여러 프롬프트 연결. 출력이 다음 입력.</div></div>
+      <div class="pat-card" onclick="alert('Routing: 입력 유형에 따라 다른 에이전트/모델로 라우팅. 비용·성능 최적화.')"><div class="pat-num">Ch.2 · 13p</div><div class="pat-title">Routing</div><div class="pat-desc">입력 유형별 다른 에이전트 라우팅.</div></div>
+      <div class="pat-card" onclick="alert('Parallelization: 여러 에이전트가 동시에 다른 부분 처리. 속도 대폭 향상.')"><div class="pat-num">Ch.3 · 15p</div><div class="pat-title">Parallelization</div><div class="pat-desc">여러 에이전트 동시 처리. 속도 향상.</div></div>
+      <div class="pat-card" onclick="alert('Reflection: 에이전트가 자신의 출력을 검토·수정. 자기 교정 루프.')"><div class="pat-num">Ch.4 · 13p</div><div class="pat-title">Reflection</div><div class="pat-desc">자신의 출력 검토·수정. 자기 교정.</div></div>
+      <div class="pat-card" onclick="alert('Tool Use: 외부 도구(검색·계산기·DB)를 에이전트가 자율 호출. MCP의 기반.')"><div class="pat-num">Ch.5 · 20p</div><div class="pat-title">Tool Use</div><div class="pat-desc">외부 도구 자율 호출. MCP의 기반.</div></div>
+      <div class="pat-card" onclick="alert('Planning: 목표를 하위 태스크로 분해해 계획 수립 후 실행.')"><div class="pat-num">Ch.6 · 13p</div><div class="pat-title">Planning</div><div class="pat-desc">목표 → 하위 태스크 분해 후 실행.</div></div>
+      <div class="pat-card" onclick="alert('Multi-Agent: 여러 전문 에이전트가 협력. 오케스트레이터가 조율.')"><div class="pat-num">Ch.7 · 17p</div><div class="pat-title">Multi-Agent</div><div class="pat-desc">전문 에이전트 협력. 오케스트레이터 조율.</div></div>
+    </div>
+    <div class="section-title">Part 2 — 메모리 & 적응 (61p)</div>
+    <div class="g4">
+      <div class="pat-card" onclick="alert('Memory Management: 단기·장기 메모리로 컨텍스트 유지.')"><div class="pat-num">Ch.8 · 21p</div><div class="pat-title">Memory Management</div><div class="pat-desc">단기·장기 메모리 컨텍스트 유지.</div></div>
+      <div class="pat-card" onclick="alert('Learning & Adaptation: 경험으로 성능 개선. 피드백 반영.')"><div class="pat-num">Ch.9 · 12p</div><div class="pat-title">Learning & Adaptation</div><div class="pat-desc">경험으로 성능 개선.</div></div>
+      <div class="pat-card" onclick="alert('MCP: Model Context Protocol. 표준화된 도구 연결 프로토콜.')"><div class="pat-num">Ch.10 · 16p</div><div class="pat-title">MCP</div><div class="pat-desc">표준화된 도구 연결 프로토콜.</div></div>
+      <div class="pat-card" onclick="alert('Goal Setting & Monitoring: 목표 설정·진행 추적·이탈 감지.')"><div class="pat-num">Ch.11 · 12p</div><div class="pat-title">Goal Setting & Monitoring</div><div class="pat-desc">목표 설정·추적·이탈 감지.</div></div>
+    </div>
+    <div class="section-title">Part 3 — 안전 & 복구 (34p)</div>
+    <div class="g3">
+      <div class="pat-card"><div class="pat-num">Ch.12 · 8p</div><div class="pat-title">Exception Handling</div><div class="pat-desc">오류 감지·폴백·재시도.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.13 · 9p</div><div class="pat-title">Human-in-the-Loop</div><div class="pat-desc">중요 결정 시 인간 개입.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.14 · 17p</div><div class="pat-title">Knowledge Retrieval (RAG)</div><div class="pat-desc">외부 지식베이스 실시간 검색.</div></div>
+    </div>
+    <div class="section-title">Part 4 — 최적화 & 고급 (114p)</div>
+    <div class="g4">
+      <div class="pat-card"><div class="pat-num">Ch.15</div><div class="pat-title">A2A Communication</div><div class="pat-desc">에이전트 간 직접 통신.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.16</div><div class="pat-title">Resource Optimization</div><div class="pat-desc">비용·토큰 최적화.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.17</div><div class="pat-title">Reasoning Techniques</div><div class="pat-desc">CoT·ToT 추론 강화.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.18</div><div class="pat-title">Guardrails / Safety</div><div class="pat-desc">입출력 필터·안전 경계.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.19</div><div class="pat-title">Evaluation & Monitoring</div><div class="pat-desc">성능 측정·지속 개선.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.20</div><div class="pat-title">Prioritization</div><div class="pat-desc">긴급도·중요도 우선순위.</div></div>
+      <div class="pat-card"><div class="pat-num">Ch.21</div><div class="pat-title">Exploration & Discovery</div><div class="pat-desc">미지 영역 탐색·지식 발견.</div></div>
+    </div>
+  </div>
+
+  <!-- ─────────────── COURSES ─────────────── -->
+  <div class="page" id="page-courses">
+    <div class="hero"><div class="hero-tag">🎓 무료 AI 강의 12개</div><h1>수료증 받을 수 있는 강의 총정리</h1><p>OpenAI · Google · Anthropic 공식 강의. 수료증 10개. 모두 무료 또는 7일 체험으로 완료 가능.</p></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" style="color:var(--accent)">12</div><div class="stat-label">총 강의 수</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--green)">10</div><div class="stat-label">수료증 발급</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--amber)">8</div><div class="stat-label">완전 무료</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--pink)">3</div><div class="stat-label">제공 기관</div></div>
+    </div>
+    <div class="section-title">🤖 OpenAI</div>
+    <div class="g3">
+      <div class="course-card" onclick="goLink('https://academy.openai.com')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-blue">OpenAI</span><span class="cert-no">수료증 예정</span></div><div class="cc-title">OpenAI Academy (일반 사용자용)</div><div class="cc-target">👥 일반인 · 직장인 · 학생</div><div class="cc-desc">AI 기초 리터러시, ChatGPT 활용, 멀티모달 AI, Deep Research. OpenAI 직접 제작.</div><div class="cc-footer"><span class="cc-time">⏱ 90분~수 시간</span><span class="cc-cost cost-free">무료</span></div></div>
+      <div class="course-card" onclick="goLink('https://openai.com/index/openai-certificate-courses/')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-blue">OpenAI</span><span class="cert-yes">✅ Credly 배지</span></div><div class="cc-title">AI Foundations (Coursera)</div><div class="cc-target">👥 직장인 · 취업준비생</div><div class="cc-desc">ChatGPT 실무 활용, 직무 적용 실습. OpenAI 공식 인증 + Credly 디지털 배지.</div><div class="cc-footer"><span class="cc-time">⏱ 수 시간</span><span class="cc-cost cost-free">무료</span></div></div>
+      <div class="course-card" onclick="goLink('https://www.coursera.org/learn/chatgpt-for-teachers')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-blue">OpenAI</span><span class="cert-yes">✅ 공식 인증</span></div><div class="cc-title">ChatGPT Foundations for Teachers</div><div class="cc-target">👥 교사 · 교육자 (K-12)</div><div class="cc-desc">교실 AI 활용, 수업 개인화, AI 윤리. Common Sense Media 공동 개발.</div><div class="cc-footer"><span class="cc-time">⏱ 수 시간</span><span class="cc-cost cost-free">무료</span></div></div>
+    </div>
+    <div class="section-title">🔵 Google</div>
+    <div class="g2">
+      <div class="course-card" onclick="goLink('https://www.coursera.org/learn/google-ai-essentials')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-green">Google</span><span class="cert-yes">✅ Google 공식 수료증</span></div><div class="cc-title">Google AI Essentials</div><div class="cc-target">👥 입문자 · 비개발자 · 모든 직군</div><div class="cc-desc">AI 소개, AI 도구 생산성, 프롬프트 기초, 책임 있는 AI. 5개 과목. Coursera 4.7점 (90만+ 수강).</div><div class="cc-footer"><span class="cc-time">⏱ 10시간 이내</span><span class="cc-cost cost-paid">7일 무료체험</span></div></div>
+      <div class="course-card" onclick="goLink('https://www.coursera.org/learn/google-prompting-essentials')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-green">Google</span><span class="cert-yes">✅ Google 공식 수료증</span></div><div class="cc-title">Google Prompting Essentials</div><div class="cc-target">👥 AI 이미 사용하는 직장인</div><div class="cc-desc">프롬프트 프레임워크, 메타 프롬프팅, 재사용 가능 프롬프트 라이브러리. 어떤 AI에도 적용.</div><div class="cc-footer"><span class="cc-time">⏱ 10시간 이내</span><span class="cc-cost cost-paid">7일 무료체험</span></div></div>
+      <div class="course-card" onclick="goLink('https://www.coursera.org/professional-certificates/google-ai')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-green">Google</span><span class="cert-yes">✅ AI Professional Certificate</span></div><div class="cc-title">Google AI Professional Certificate</div><div class="cc-target">👥 직장인 · 취업준비생 · 중급</div><div class="cc-desc">AI 기초~6개 핵심 도메인. Gemini·NotebookLM 실습. 20+ 프로젝트. Google AI Pro 3개월 무료.</div><div class="cc-footer"><span class="cc-time">⏱ 약 7시간</span><span class="cc-cost cost-paid">7일 무료체험</span></div></div>
+      <div class="course-card" onclick="goLink('https://www.coursera.org/learn/introduction-to-generative-ai')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-green">Google Cloud</span><span class="cert-yes">✅ Coursera 수료증</span></div><div class="cc-title">Introduction to Generative AI</div><div class="cc-target">👥 입문자</div><div class="cc-desc">생성형 AI 개념·원리, 전통 ML vs 생성형 AI, Google Cloud AI 도구 소개. 단 1시간.</div><div class="cc-footer"><span class="cc-time">⏱ 약 1시간</span><span class="cc-cost cost-free">청강 무료</span></div></div>
+    </div>
+    <div class="section-title">🔶 Anthropic — 모두 완전 무료 + 수료증</div>
+    <div class="g2">
+      <div class="course-card" onclick="goLink('https://anthropic.skilljar.com/claude-101')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-red">Anthropic</span><span class="cert-yes">✅ 수료증</span></div><div class="cc-title">① Claude 101 — AI Fluency 기초</div><div class="cc-target">👥 입문자 · 일반인 · 비개발자 | ⏱ 1~2시간</div><div class="cc-desc">Claude 기초 사용법, LLM 이해, 효과적인 프롬프트 작성, 일상 업무 AI 적용. 코딩 불필요.</div><div class="cc-footer"><span class="cc-cost cost-free">완전 무료</span></div></div>
+      <div class="course-card" onclick="goLink('https://anthropic.skilljar.com/ai-fluency-framework-foundations')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-red">Anthropic</span><span class="cert-yes">✅ 수료증</span></div><div class="cc-title">② AI Fluency: Framework & Foundations</div><div class="cc-target">👥 일반인 · 비개발자 · 직장인</div><div class="cc-desc">4D AI Fluency 프레임워크. 책임 있는 AI 협업. Ringling College·UCC 교수 공동 개발. Yale 전 총장 자문.</div><div class="cc-footer"><span class="cc-cost cost-free">완전 무료</span></div></div>
+      <div class="course-card" onclick="goLink('https://anthropic.skilljar.com/claude-with-the-anthropic-api')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-red">Anthropic</span><span class="cert-yes">✅ 수료증</span></div><div class="cc-title">③ API Development with Claude</div><div class="cc-target">👥 개발자 | ⏱ 8시간+ | Python 기초 권장</div><div class="cc-desc">Claude API 연동, Tool Use, Context Window 관리, 프로덕션 앱 설계. AWS Bedrock·Google Vertex AI 연동.</div><div class="cc-footer"><span class="cc-cost cost-free">완전 무료</span></div></div>
+      <div class="course-card" onclick="goLink('https://anthropic.skilljar.com/introduction-to-model-context-protocol')" style="cursor:pointer"><div class="cc-top"><span class="card-badge badge-red">Anthropic</span><span class="cert-yes">✅ 수료증</span></div><div class="cc-title">④ Introduction to MCP & Advanced MCP</div><div class="cc-target">👥 개발자 | Python 필요</div><div class="cc-desc">MCP 개념, Python으로 서버/클라이언트 구축, 외부 DB·API 연결. 기초+고급 2단계.</div><div class="cc-footer"><span class="cc-cost cost-free">완전 무료</span></div></div>
+    </div>
+    <div style="margin-top:10px">
+      <div class="course-card featured" style="font-size:11px;color:var(--accent);font-weight:600" onclick="goLink('https://anthropic.skilljar.com/claude-code-in-action')" style="cursor:pointer;font-size:11px;color:var(--accent);font-weight:600"><div class="cc-top"><span class="card-badge badge-red">Anthropic ⭐ 핵심 강의</span><span class="cert-yes">✅ 수료증</span></div><div class="cc-title">⑤ Claude Code in Action — 이 학습 허브의 핵심 강의</div><div class="cc-target">👥 개발자 · AI 코딩 도구 사용자 | ⏱ 수 시간 (21개 레슨) | URL: anthropic.skilljar.com/claude-code-in-action</div><div class="cc-desc">Claude Code 기초 & 설치 · 실제 프로젝트 AI 적용 · GitHub 연동 · Hook 정의 및 활용 · AI 코딩 에이전트 워크플로우. 입문자도 가능한 단계적 구성. Anthropic 공식 수료증.</div><div class="cc-footer"><span class="cc-cost cost-free">완전 무료</span><span style="font-size:11px;color:var(--accent);font-weight:600">지금 수강하기 →</span></div></div>
+    </div>
+    <div class="note">
+      📌 <strong>수강 방법</strong>: Anthropic 5개 → <span onclick="goLink('https://anthropic.skilljar.com')" style="cursor:pointer;color:var(--blue);text-decoration:underline">anthropic.skilljar.com</span>에서 이메일 가입 (Anthropic 계정 불필요) → 무료 수강 + 수료증 발급 → LinkedIn 공유 가능<br>
+      📌 <strong>Google Coursera</strong>: 7일 무료체험으로 수료증까지 완료 가능 (청강만은 무료)<br>
+      📌 <strong>오늘 바로 수료증 받으려면</strong>: <span onclick="goLink('https://anthropic.skilljar.com/claude-101')" style="cursor:pointer;color:var(--blue);text-decoration:underline">Claude 101</span> → 1~2시간 → Anthropic 공식 수료증 즉시 발급
+    </div>
+  </div>
+
+  <!-- ─────────────── WORKFLOW ─────────────── -->
+  <div class="page" id="page-workflow">
+    <div class="hero"><div class="hero-tag">🔄 실전 워크플로우</div><h1>4단계 아키텍처 + 일일 루틴</h1></div>
+    <div class="section-title">4단계 아키텍처</div>
+    <div class="flow4">
+      <div class="flow-step"><div class="flow-num" style="color:var(--accent)">①</div><div class="flow-label">CLAUDE.md</div><div class="flow-sub">규칙·컨텍스트<br>200줄 이하<br>Git 팀 공유</div></div>
+      <div class="flow-step"><div class="flow-num" style="color:var(--green)">②</div><div class="flow-label">Skills</div><div class="flow-sub">9가지 유형<br>함정 목록 필수<br>점진적 공개</div></div>
+      <div class="flow-step"><div class="flow-num" style="color:var(--amber)">③</div><div class="flow-label">Hooks</div><div class="flow-sub">Pre/PostToolUse<br>lint·테스트 자동화<br>보안 게이트</div></div>
+      <div class="flow-step"><div class="flow-num" style="color:var(--blue)">④</div><div class="flow-label">Agents</div><div class="flow-sub">병렬 실행<br>역할별 전문화<br>Auto Dream</div></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="section-title">🌱 비개발자 일일 루틴</div>
+        <div class="wf-item"><div class="wf-icon">☀️</div><div><div class="wf-title">오전 시작</div><div class="wf-desc">CLAUDE.md 업데이트 → /memory로 로드 확인 → Task Master로 오늘 태스크 생성</div></div></div>
+        <div class="wf-item"><div class="wf-icon">⚡</div><div><div class="wf-title">작업 중</div><div class="wf-desc">Brand/SEO/Marketing Skill 자연어 호출 → Tavily로 최신 정보 검색</div></div></div>
+        <div class="wf-item"><div class="wf-icon">💤</div><div><div class="wf-title">마무리</div><div class="wf-desc">/compact → /dream으로 메모리 정리 → 새 규칙은 CLAUDE.md에 추가</div></div></div>
+      </div>
+      <div>
+        <div class="section-title">💻 개발자 일일 루틴</div>
+        <div class="wf-item"><div class="wf-icon">🗂️</div><div><div class="wf-title">플랜 모드 시작</div><div class="wf-desc">Shift+Tab ×2 → gstack /office-hours → 기능 계획 검토·승인</div></div></div>
+        <div class="wf-item"><div class="wf-icon">⚙️</div><div><div class="wf-title">병렬 에이전트</div><div class="wf-desc">cmux new feature-a / cmux new bugfix-b → 각 에이전트 독립 브랜치 작업</div></div></div>
+        <div class="wf-item"><div class="wf-icon">🔍</div><div><div class="wf-title">gstack 리뷰·배포</div><div class="wf-desc">/review (XSS·보안 감지) → /qa (버그 리포트) → /ship (자동 배포) → /retro</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── MEMO ─────────────── -->
+  <div class="page" id="page-memo">
+    <div class="hero"><div class="hero-tag">📒 학습 메모장</div><h1>자유 메모 — 세션 간 유지</h1><p>태그·색상·검색·고정·내보내기 지원. 메모가 자동 저장되어 다음에도 유지됩니다.</p></div>
+
+    <div class="memo-stats">
+      <div class="memo-stat"><div class="memo-stat-num" id="s-total">0</div><div class="memo-stat-label">전체 메모</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="s-pinned">0</div><div class="memo-stat-label">고정됨</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="s-today">0</div><div class="memo-stat-label">오늘 작성</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="s-chars">0</div><div class="memo-stat-label">총 글자</div></div>
+    </div>
+
+    <div class="input-area">
+      <div class="tag-row" id="tag-sel"></div>
+      <textarea class="memo-ta" id="m-input" placeholder="자유롭게 메모하세요...&#10;예) CLAUDE.md 팁, Skills 아이디어, 나중에 확인할 링크, 업무 인사이트 등&#10;&#10;Ctrl+Enter 또는 Cmd+Enter로 빠르게 저장" onkeydown="memoKey(event)" oninput="memoCount()"></textarea>
+      <div class="input-footer">
+        <span class="char-count" id="m-count">0자</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="tb-btn" onclick="exportMemos()" style="padding:5px 10px;font-size:10px">⬇ 내보내기</button>
+          <button class="add-btn" id="m-add" onclick="addMemo()" disabled>저장 ↵</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="m-search" placeholder="메모 검색..." oninput="renderMemos()">
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:8px">
+      <div class="filter-row" id="m-filters" style="margin-bottom:0"></div>
+      <div class="sort-row" style="margin-bottom:0">
+        <span class="sort-label">정렬</span>
+        <button class="sort-btn active" id="sb-new" onclick="setSort('new')">최신순</button>
+        <button class="sort-btn" id="sb-old" onclick="setSort('old')">오래된순</button>
+        <button class="sort-btn" id="sb-pin" onclick="setSort('pin')">고정 우선</button>
+      </div>
+    </div>
+
+    <div class="memo-grid" id="m-grid"></div>
+    <div class="empty-state" id="m-empty" style="display:none"><div class="empty-icon">📝</div><div class="empty-text">메모가 없습니다. 위에서 첫 메모를 작성해보세요!</div></div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── PAGE NAV ─────────────────────────────────────────────────────────
+const pageLabels={
+  home:'홈',learn:'학습 로드맵',cheatsheet:'치트시트',
+  claudemd:'CLAUDE.md 가이드','skills-guide':'Skills 꿀팁',
+  memory:'메모리 & Dream','skills-mcp':'Skills & MCP 25선',
+  repos:'GitHub Repos',agentic:'에이전트 패턴',
+  courses:'무료 AI 강의',workflow:'실전 워크플로우',memo:'학습 메모장'
+};
+// ── EXTERNAL LINK HANDLER ─────────────────────────────────────────────
+// Claude iframe sandbox blocks target="_blank" — use window.open instead
+function goLink(url){
+  try{ window.open(url,'_blank','noopener,noreferrer'); }
+  catch(e){ location.href=url; }
+}
+// Attach goLink to every <a> with an external href after page loads
+// All external links use goLink() directly
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const el=document.getElementById('page-'+id);
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'"))n.classList.add('active');
+  });
+  document.getElementById('tb-section').textContent=pageLabels[id]||id;
+  window.scrollTo({top:0,behavior:'smooth'});
+  closeSidebar();
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── ACCORDION ────────────────────────────────────────────────────────
+function acc(head){
+  const body=head.nextElementSibling;
+  const arrow=head.querySelector('.acc-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// ── MEMO ─────────────────────────────────────────────────────────────
+const TAGS=[
+  {id:'idea',label:'💡 아이디어',bg:'#EEF2FF',color:'#4338CA'},
+  {id:'claude',label:'🤖 Claude',bg:'#ECFDF5',color:'#065F46'},
+  {id:'skill',label:'🛠 Skill',bg:'#FFF7ED',color:'#9A3412'},
+  {id:'todo',label:'✅ TODO',bg:'#FFFBEB',color:'#92400E'},
+  {id:'insight',label:'✨ 인사이트',bg:'#EFF6FF',color:'#1E40AF'},
+  {id:'link',label:'🔗 링크',bg:'#F9FAFB',color:'#374151'},
+  {id:'memo',label:'📌 일반',bg:'#F5F3FF',color:'#5B21B6'},
+];
+const CARD_COLORS=['#EEF2FF','#ECFDF5','#FFF7ED','#FFFBEB','#EFF6FF','#F9FAFB','#F5F3FF'];
+const CARD_BORDERS=['#C7D2FE','#A7F3D0','#FED7AA','#FDE68A','#BFDBFE','#E5E7EB','#DDD6FE'];
+const STORAGE_KEY='retooling_memos_v2';
+let memos=[],selTag='memo',selColor=0,filterTag='all',sortMode='new',editId=null;
+
+(async()=>{
+  try{const r=await window.storage.get(STORAGE_KEY);if(r&&r.value)memos=JSON.parse(r.value);}catch(e){memos=[];}
+  renderTagSel();renderFilters();renderMemos();updateMemoStats();
+})();
+
+function renderTagSel(){
+  const el=document.getElementById('tag-sel');
+  const dots=CARD_COLORS.map((c,i)=>`<div class="color-dot${i===selColor?' active':''}" style="background:${c};border-color:${CARD_BORDERS[i]}" onclick="selCol(${i})"></div>`).join('');
+  el.innerHTML=TAGS.map(t=>`<span class="tag-chip${t.id===selTag?' selected':''}" style="background:${t.bg};color:${t.color}" onclick="selT('${t.id}')">${t.label}</span>`).join('')+'<div style="width:1px;height:16px;background:var(--border);margin:0 3px"></div>'+dots;
+}
+function selT(id){selTag=id;renderTagSel();}
+function selCol(i){selColor=i;renderTagSel();}
+
+function renderFilters(){
+  const cnts={};TAGS.forEach(t=>{cnts[t.id]=memos.filter(m=>m.tag===t.id).length;});
+  const el=document.getElementById('m-filters');
+  el.innerHTML=`<button class="f-btn${filterTag==='all'?' active':''}" onclick="setFilter('all')">전체<span class="count-badge">${memos.length}</span></button>`
+    +`<button class="f-btn${filterTag==='pinned'?' active':''}" onclick="setFilter('pinned')">고정<span class="count-badge">${memos.filter(m=>m.pinned).length}</span></button>`
+    +TAGS.map(t=>`<button class="f-btn${filterTag===t.id?' active':''}" onclick="setFilter('${t.id}')">${t.label}<span class="count-badge">${cnts[t.id]||0}</span></button>`).join('');
+}
+function setFilter(tag){filterTag=tag;renderMemos();renderFilters();}
+function setSort(mode){sortMode=mode;['new','old','pin'].forEach(m=>document.getElementById('sb-'+m).classList.toggle('active',m===mode));renderMemos();}
+
+function addMemo(){
+  const input=document.getElementById('m-input');
+  const text=input.value.trim();if(!text)return;
+  const tag=TAGS.find(t=>t.id===selTag)||TAGS[6];
+  const now=new Date();
+  if(editId){
+    const m=memos.find(m=>m.id===editId);
+    if(m){m.text=text;m.tag=selTag;m.bg=CARD_COLORS[selColor];m.border=CARD_BORDERS[selColor];m.edited=now.toISOString();}
+    editId=null;document.getElementById('m-add').textContent='저장 ↵';toast('수정 완료 ✏️');
+  }else{
+    memos.unshift({id:Date.now()+Math.random(),text,tag:selTag,bg:CARD_COLORS[selColor],border:CARD_BORDERS[selColor],pinned:false,created:now.toISOString()});
+    toast('저장 완료 ✅');
+  }
+  input.value='';document.getElementById('m-count').textContent='0자';document.getElementById('m-add').disabled=true;
+  saveMemos();renderMemos();renderFilters();updateMemoStats();
+}
+function memoKey(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();addMemo();}}
+function memoCount(){
+  const v=document.getElementById('m-input').value;
+  document.getElementById('m-count').textContent=v.length+'자';
+  document.getElementById('m-add').disabled=!v.trim();
+}
+
+function renderMemos(){
+  const q=document.getElementById('m-search').value.toLowerCase();
+  let list=[...memos];
+  if(filterTag==='pinned')list=list.filter(m=>m.pinned);
+  else if(filterTag!=='all')list=list.filter(m=>m.tag===filterTag);
+  if(q)list=list.filter(m=>m.text.toLowerCase().includes(q));
+  if(sortMode==='old')list.sort((a,b)=>new Date(a.created)-new Date(b.created));
+  else if(sortMode==='pin')list.sort((a,b)=>b.pinned-a.pinned);
+  else list.sort((a,b)=>new Date(b.created)-new Date(a.created));
+  const grid=document.getElementById('m-grid');
+  const empty=document.getElementById('m-empty');
+  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=list.map(m=>{
+    const tag=TAGS.find(t=>t.id===m.tag)||TAGS[6];
+    const d=new Date(m.created);
+    const ds=`${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+    const textEsc=m.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<div class="memo-card${m.pinned?' pinned':''}" style="background:${m.bg||'#F5F3FF'};border-color:${m.border||'#DDD6FE'}">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="memo-tag-chip" style="background:${tag.bg};color:${tag.color}">${tag.label}</span>
+        ${m.edited?'<span style="font-size:9px;opacity:.5;color:#52526E">수정됨</span>':''}
+      </div>
+      <div class="memo-body"style="color:${tag.color}">${textEsc}</div>
+      <div class="memo-footer">
+        <span class="memo-date" style="color:${tag.color}">${ds}</span>
+        <div class="memo-actions">
+          <button class="memo-action-btn" onclick="togglePin(${m.id})" title="${m.pinned?'고정 해제':'고정'}">${m.pinned?'📍':'📌'}</button>
+          <button class="memo-action-btn" onclick="editMemo(${m.id})" title="수정">✏️</button>
+          <button class="memo-action-btn" onclick="copyMemo(${m.id})" title="복사">📋</button>
+          <button class="memo-action-btn" onclick="deleteMemo(${m.id})" title="삭제">🗑</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function togglePin(id){const m=memos.find(m=>m.id===id);if(m){m.pinned=!m.pinned;saveMemos();renderMemos();renderFilters();updateMemoStats();toast(m.pinned?'고정됨 📍':'고정 해제');}}
+function editMemo(id){
+  const m=memos.find(m=>m.id===id);if(!m)return;
+  editId=id;
+  document.getElementById('m-input').value=m.text;
+  document.getElementById('m-count').textContent=m.text.length+'자';
+  document.getElementById('m-add').disabled=false;
+  document.getElementById('m-add').textContent='수정 완료 ↵';
+  selTag=m.tag;renderTagSel();
+  document.getElementById('m-input').focus();
+}
+function deleteMemo(id){memos=memos.filter(m=>m.id!==id);saveMemos();renderMemos();renderFilters();updateMemoStats();toast('삭제됨 🗑');}
+function copyMemo(id){const m=memos.find(m=>m.id===id);if(!m)return;navigator.clipboard.writeText(m.text).then(()=>toast('복사됨 📋')).catch(()=>toast('복사 실패'));}
+function exportMemos(){
+  const text=memos.map(m=>{const tag=TAGS.find(t=>t.id===m.tag)||TAGS[6];const d=new Date(m.created).toLocaleString('ko-KR');return`[${tag.label}] ${d}\n${m.text}\n${'─'.repeat(40)}`;}).join('\n\n');
+  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='retooling_memos.txt';a.click();URL.revokeObjectURL(url);toast('내보내기 완료 ⬇');
+}
+function updateMemoStats(){
+  const today=new Date().toDateString();
+  document.getElementById('s-total').textContent=memos.length;
+  document.getElementById('s-pinned').textContent=memos.filter(m=>m.pinned).length;
+  document.getElementById('s-today').textContent=memos.filter(m=>new Date(m.created).toDateString()===today).length;
+  document.getElementById('s-chars').textContent=memos.reduce((s,m)=>s+m.text.length,0).toLocaleString();
+}
+async function saveMemos(){try{await window.storage.set(STORAGE_KEY,JSON.stringify(memos));}catch(e){console.error(e);}}
+
+// ── TOAST ────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+}
+</script>
+</body>
+</html>
