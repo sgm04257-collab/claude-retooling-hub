@@ -577,6 +577,13 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </a>
     <a class="nav-item" onclick="showPage('claude12')" href="#">
       <span class="ni-icon">💡</span> Claude 12가지 활용법
+    </a>
+    <a class="nav-item" onclick="showPage('perspective')" href="#">
+      <span class="ni-icon">🎯</span> 도구보다 제품
+      <span class="ni-badge">NEW</span>
+    </a>
+    <a class="nav-item" onclick="showPage('ailoop')" href="#">
+      <span class="ni-icon">🔁</span> AI Loop 전략
       <span class="ni-badge">NEW</span>
     </a>
   </div>
@@ -697,6 +704,16 @@ textarea.memo-ta::placeholder{color:var(--text3)}
         <div class="card-badge badge-green">Claude 완전 활용 가이드</div>
         <div class="card-title">💡 Claude 12가지 활용법 →</div>
         <div class="card-desc">10명 중 9명이 모르는 기능들. 3대 원칙·프롬프트 3요소·4D 프레임워크·Projects·Skills·직군별 활용법.</div>
+      </div>
+      <div class="card" style="cursor:pointer;border-top:3px solid var(--text2)" onclick="showPage('perspective')">
+        <div class="card-badge badge-purple">Hacker News 화제글</div>
+        <div class="card-title">🎯 도구보다 제품 →</div>
+        <div class="card-desc">"AI 얘기, 솔직히 질리지 않았어?" — 도구 최적화 루프의 함정과 "무엇을 만들 것인가"라는 본질적 질문.</div>
+      </div>
+      <div class="card" style="cursor:pointer;border-top:3px solid var(--blue)" onclick="showPage('ailoop')">
+        <div class="card-badge badge-blue">2026 AI 승부처</div>
+        <div class="card-title">🔁 AI Loop 전략 →</div>
+        <div class="card-desc">Ralph Loop·RLM·autoresearch·반복의 강력함. 잠든 사이 100번 돌아가는 루프 하나가 복잡한 파이프라인을 이깁니다.</div>
       </div>
     </div>
   </div>
@@ -1479,6 +1496,179 @@ build/
     </div>
   </div>
 
+  <!-- ─────────────── PERSPECTIVE ─────────────── -->
+  <div class="page" id="page-perspective">
+    <div class="hero">
+      <div class="hero-tag">🎯 균형 잡힌 시각 · Hacker News 화제글</div>
+      <h1>AI 얘기, 솔직히 질리지 않았어?</h1>
+      <p>도구를 어떻게 쓰는지보다 <strong>무엇을 만들고 있는지</strong>가 더 중요합니다. AI 생산성 루프에 갇히기 전에 읽어볼 글입니다.</p>
+    </div>
+
+    <div class="section-title">핵심 주장</div>
+    <div class="g1">
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div class="card-title" style="font-size:15px;margin-bottom:10px">"목공 서브레딧에서 테이블 사진은 사라지고<br>다들 같은 망치 얘기만 하는 꼴"</div>
+        <div class="card-desc">Hacker News는 예전엔 흥미로운 프로젝트로 넘쳤는데, 이제는 거의 똑같은 Claude Code 워크플로우 세 개가 나란히 올라옵니다.<br><br>
+        "AI로 시간 벌었다" → 그 시간으로 AI 툴링 세팅. <strong>완전한 자기완결 루프.</strong></div>
+      </div>
+    </div>
+
+    <div class="section-title">3가지 핵심 지적</div>
+    <div class="g3">
+      <div class="card" style="border-top:3px solid var(--red)">
+        <div class="card-badge badge-red">문제 ①</div>
+        <div class="card-title">Product Engineer의 퇴행</div>
+        <div class="card-desc">2023년엔 "코드 집착에서 벗어나 제품 가치에 집중하자"는 Product Engineer가 핫했습니다.<br><br>
+        지금 우리가 집착하는 건 <strong>엔지니어링에서 가장 쉬운 부분을 더 쉽게 만드는 거대한 자동완성 도구</strong>입니다.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--amber)">
+        <div class="card-badge badge-amber">문제 ②</div>
+        <div class="card-title">경영진의 구현 디테일 집착</div>
+        <div class="card-desc">경영진까지 구현 디테일에 발을 들여놨습니다.<br><br>
+        <strong>개발자 1인당 토큰 사용량 측정</strong> = 예전에 코드 줄 수 세던 것만큼 쓸모없는 짓입니다.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <div class="card-badge badge-blue">핵심 질문</div>
+        <div class="card-title">어떤 도구? X → 무엇을 만드나? O</div>
+        <div class="card-desc">AI를 매일 쓰고, 워크플로우를 완전히 바꿔놨고, 생산성이 올라갔다.<br><br>
+        그래서 <strong>그 시간으로 무엇을 만들었나?</strong> 이게 진짜 질문입니다.</div>
+      </div>
+    </div>
+
+    <div class="section-title">이 글이 주는 교훈 — 실천 체크리스트</div>
+    <div class="g1">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:12px">AI 도구에 빠지기 전에 스스로 물어볼 것들</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border)">
+            <span style="font-size:16px;flex-shrink:0">❓</span>
+            <div><strong style="font-size:12px">이 AI 세팅으로 무엇을 만들 것인가?</strong><br><span style="font-size:11px;color:var(--text2)">툴링 자체가 목적이 되어선 안 됩니다. 세팅 후 만들 제품·서비스가 먼저여야 합니다.</span></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border)">
+            <span style="font-size:16px;flex-shrink:0">❓</span>
+            <div><strong style="font-size:12px">AI로 번 시간에 실제로 무엇을 했는가?</strong><br><span style="font-size:11px;color:var(--text2)">그 시간을 더 나은 제품 판단, 사용자 인터뷰, 핵심 기능 설계에 썼나요?</span></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border)">
+            <span style="font-size:16px;flex-shrink:0">❓</span>
+            <div><strong style="font-size:12px">지금 측정하는 지표가 의미 있는가?</strong><br><span style="font-size:11px;color:var(--text2)">토큰 사용량, 코드 줄 수 대신 — 사용자 문제를 얼마나 해결했는지가 진짜 지표입니다.</span></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0">
+            <span style="font-size:16px;flex-shrink:0">❓</span>
+            <div><strong style="font-size:12px">도구 최적화 vs 제품 최적화 — 지금 어디에 시간 쓰고 있나?</strong><br><span style="font-size:11px;color:var(--text2)">워크플로우 세팅 시간이 실제 제품 개발 시간보다 많다면 균형을 재점검하세요.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">균형 잡힌 활용법</div>
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--red)">
+        <div class="card-badge badge-red">❌ 이런 루프는 경계</div>
+        <div class="card-desc" style="margin-top:6px">
+          AI 세팅 → AI로 시간 절약 → 절약한 시간으로 더 나은 AI 세팅<br><br>
+          Claude Code 워크플로우 정리 → Threads 공유 → 조회수 확인 → 더 나은 워크플로우 정리<br><br>
+          <strong>도구가 목적이 된 상태</strong>
+        </div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green)">
+        <div class="card-badge badge-green">✅ 이런 방향이 맞다</div>
+        <div class="card-desc" style="margin-top:6px">
+          해결하고 싶은 문제 정의 → AI로 빠르게 구현 → 사용자 피드백 → 제품 개선<br><br>
+          AI는 "무엇을 만들지"를 결정해 주지 않습니다. <strong>판단은 여전히 사람의 몫</strong>입니다.<br><br>
+          <strong>도구는 수단, 제품이 목적</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      💬 <strong>이 글의 핵심 메시지</strong>: AI를 잘 쓰는 것과 AI 얘기를 잘 하는 것은 다릅니다. 이 학습 허브도 마찬가지입니다 — 여기서 배운 것을 실제 제품과 업무에 적용하는 것이 목적입니다. 워크플로우 세팅 자체가 성과가 되어선 안 됩니다.
+    </div>
+  </div>
+
+  <!-- ─────────────── AI LOOP ─────────────── -->
+  <div class="page" id="page-ailoop">
+    <div class="hero">
+      <div class="hero-tag">🔁 2026 AI의 승부처 · Loop</div>
+      <h1>복잡한 파이프라인 대신, 단순한 반복을 멈추지 마세요</h1>
+      <p>당신이 잠든 사이 밤새 돌아가는 루프 하나가 그 어떤 복잡한 세팅보다 압도적인 결과를 만듭니다.</p>
+    </div>
+
+    <div class="section-title">4가지 핵심 루프 패턴</div>
+    <div class="g2">
+
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <div class="card-badge badge-purple">① Ralph Loop</div>
+        <div class="card-title">bash 루프 기반 에이전트</div>
+        <div class="card-desc" style="margin-top:8px">
+          <strong>Step 1.</strong> <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">while :; do ... done</code> 형태의 단순한 bash 루프를 짭니다.<br><br>
+          <strong>Step 2.</strong> PRD에 <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">passes: true</code> 등 명확한 테스트 통과 조건을 설정합니다.<br><br>
+          <strong>Step 3.</strong> 매 회차마다 컨텍스트 윈도우를 깨끗하게 비워 성능 저하를 막습니다.<br><br>
+          <strong>Step 4.</strong> 에이전트가 실패해도 방새 스스로 재시도하도록 방치합니다.<br><br>
+          <span style="font-size:11px;color:var(--text3);font-style:italic">실패해도 밀어붙이는 bash 한 줄이 복잡한 에이전트를 이깁니다.</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <div class="card-badge badge-blue">② RLM (재귀 추론)</div>
+        <div class="card-title">모델이 스스로 맥락을 결정</div>
+        <div class="card-desc" style="margin-top:8px">
+          <strong>Step 1.</strong> 긴 문서를 LLM에 직접 넣지 않고 Python REPL 환경에 올립니다.<br><br>
+          <strong>Step 2.</strong> 모델이 직접 코드를 짜서 변수를 쪼개고 탐색해 만듭니다.<br><br>
+          <strong>Step 3.</strong> 파악한 맥락 중 필요한 부분만 골라 자기 자신을 재귀 호출합니다.<br><br>
+          <strong>Step 4.</strong> 요약 손실 없이 100배 넘는 컨텍스트를 완벽하게 소화합니다.<br><br>
+          <span style="font-size:11px;color:var(--text3);font-style:italic">모델 스스로 맥락을 결정합니다. 기존 RAG와는 근본적으로 다릅니다.</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--green)">
+        <div class="card-badge badge-green">③ autoresearch</div>
+        <div class="card-title">자는 동안 100회 반복 실험</div>
+        <div class="card-desc" style="margin-top:8px">
+          <strong>Step 1.</strong> AI에게 <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">train.py</code>와 목표 방향성만 적어줍니다.<br><br>
+          <strong>Step 2.</strong> 정확히 5분간 훈련을 돌려 성능이 오르면 Commit, 아니면 Reset합니다.<br><br>
+          <strong>Step 3.</strong> 사람이 자는 동안 이 무인 실험을 100회 이상 연속으로 반복합니다.<br><br>
+          <strong>Step 4.</strong> 아침에 일어나 어떤 변경이 효과가 있었는지 로그를 확인합니다.<br><br>
+          <span style="font-size:11px;color:var(--text3);font-style:italic">단일 연구자가 아닌 연구 커뮤니티 전체를 밤새 에뮬레이션 하세요.</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:3px solid var(--amber)">
+        <div class="card-badge badge-amber">④ 반복의 강력함</div>
+        <div class="card-title">8시간 동안 100번의 개선</div>
+        <div class="card-desc" style="margin-top:8px">
+          <strong>Step 1.</strong> 모델 크기 대신 추론 시점의 연산(Test-time compute)을 높입니다.<br><br>
+          <strong>Step 2.</strong> 객관적이고 검증 조건이 명확한 테스트 루프를 설정합니다.<br><br>
+          <strong>Step 3.</strong> 자는 동안에도 멈추지 않도록 충분한 API 토큰 예산을 배정합니다.<br><br>
+          <strong>Step 4.</strong> 코드를 넘어서 기존에 없던 새로운 결과물을 자동으로 창출합니다.<br><br>
+          <span style="font-size:11px;color:var(--text3);font-style:italic">당신이 잠든 8시간 동안 누군가에게는 100번의 개선이 일어나는 시간입니다.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-title">왜 Loop가 승부처인가</div>
+    <div class="g3">
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div class="card-title">🌙 수면 시간 = 개발 시간</div>
+        <div class="card-desc">자는 8시간 동안 루프가 돌면 아침에 100번의 실험 결과가 쌓입니다. 복잡한 파이프라인 없이도 압도적인 속도.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green)">
+        <div class="card-title">💰 비용보다 반복</div>
+        <div class="card-desc">비싼 모델·복잡한 세팅보다 명확한 조건 + 단순한 루프가 더 강합니다. 검증 조건이 핵심.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue)">
+        <div class="card-title">🎯 조건 명확성이 핵심</div>
+        <div class="card-desc">루프의 성패는 "무엇을 성공으로 볼 것인가"를 얼마나 명확히 정의했느냐에 달려 있습니다.</div>
+      </div>
+    </div>
+
+    <div class="note">
+      💡 <strong>실전 적용법</strong>: 오늘 밤 자기 전에 Claude Code에 반복 작업 하나를 루프로 설정해보세요.<br>
+      bash 루프 예시: <code style="font-family:var(--font-mono);font-size:10px">while :; do claude -p "task.md 읽고 개선해줘" && sleep 300; done</code><br>
+      아침에 어떤 결과가 쌓였는지 확인해보세요.
+    </div>
+  </div>
+
 </div><!-- /main -->
 
 <!-- TOAST -->
@@ -1492,7 +1682,8 @@ const pageLabels={
   memory:'메모리 & Dream','skills-mcp':'Skills & MCP 25선',
   repos:'GitHub Repos',agentic:'에이전트 패턴',
   courses:'무료 AI 강의',workflow:'실전 워크플로우',memo:'학습 메모장',
-  harness:'⚙️ 하네스 구조',security:'🔒 보안 체크리스트',claude12:'💡 Claude 12가지 활용법'
+  harness:'⚙️ 하네스 구조',security:'🔒 보안 체크리스트',claude12:'💡 Claude 12가지 활용법',
+  perspective:'🎯 도구보다 제품',ailoop:'🔁 AI Loop 전략'
 };
 // ── EXTERNAL LINK HANDLER ─────────────────────────────────────────────
 // Claude iframe sandbox blocks target="_blank" — use window.open instead
