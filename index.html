@@ -510,11 +510,12 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       <div class="logo-icon">⚡</div>
       <div>
         <div class="logo-text">Claude Retooling</div>
-        <div class="logo-sub">내부 학습 허브 v3</div>
+        <div class="logo-sub">학습 허브 v4 · 2026</div>
       </div>
     </a>
   </div>
 
+  <!-- 시작하기 -->
   <div class="sidebar-section">
     <div class="sidebar-section-label">시작하기</div>
     <a class="nav-item active" onclick="showPage('home')" href="#">
@@ -528,36 +529,64 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </a>
   </div>
 
+  <!-- Claude 활용법 -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">설정 & 운영</div>
+    <div class="sidebar-section-label">💡 Claude 활용법</div>
+    <a class="nav-item" onclick="showPage('claude12')" href="#">
+      <span class="ni-icon">💡</span> 12가지 핵심 활용법
+    </a>
+    <a class="nav-item" onclick="showPage('perspective')" href="#">
+      <span class="ni-icon">🎯</span> 도구보다 제품
+    </a>
+  </div>
+
+  <!-- 설정 & 운영 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🛠 설정 & 운영</div>
     <a class="nav-item" onclick="showPage('claudemd')" href="#">
       <span class="ni-icon">📝</span> CLAUDE.md 가이드
     </a>
     <a class="nav-item" onclick="showPage('skills-guide')" href="#">
-      <span class="ni-icon">🛠</span> Skills 꿀팁
+      <span class="ni-icon">🔧</span> Skills 꿀팁 9가지
     </a>
     <a class="nav-item" onclick="showPage('memory')" href="#">
-      <span class="ni-icon">🧠</span> 메모리 & Dream
+      <span class="ni-icon">🧠</span> 메모리 & Auto Dream
+    </a>
+    <a class="nav-item" onclick="showPage('security')" href="#">
+      <span class="ni-icon">🔒</span> 보안 체크리스트
     </a>
   </div>
 
+  <!-- 에이전트 전략 -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">리소스</div>
-    <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
-      <span class="ni-icon">🔧</span> Skills & MCP 25선
+    <div class="sidebar-section-label">🤖 에이전트 전략</div>
+    <a class="nav-item" onclick="showPage('harness')" href="#">
+      <span class="ni-icon">⚙️</span> 하네스 & 자율 개발
     </a>
-    <a class="nav-item" onclick="showPage('repos')" href="#">
-      <span class="ni-icon">📦</span> GitHub Repos
+    <a class="nav-item" onclick="showPage('ailoop')" href="#">
+      <span class="ni-icon">🔁</span> AI Loop 전략
     </a>
     <a class="nav-item" onclick="showPage('agentic')" href="#">
-      <span class="ni-icon">🤖</span> 에이전트 패턴 21개
+      <span class="ni-icon">📖</span> 패턴 북 21개
     </a>
   </div>
 
+  <!-- 리소스 -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">무료 강의</div>
+    <div class="sidebar-section-label">📦 리소스</div>
+    <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
+      <span class="ni-icon">🔌</span> Skills & MCP 25선
+    </a>
+    <a class="nav-item" onclick="showPage('repos')" href="#">
+      <span class="ni-icon">📦</span> GitHub Repos 25선
+    </a>
+  </div>
+
+  <!-- 강의 & 워크플로우 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🎓 강의 & 워크플로우</div>
     <a class="nav-item" onclick="showPage('courses')" href="#">
-      <span class="ni-icon">🎓</span> 무료 AI 강의 12개
+      <span class="ni-icon">🎓</span> 무료 강의 12개
       <span class="ni-badge">수료증</span>
     </a>
     <a class="nav-item" onclick="showPage('workflow')" href="#">
@@ -565,39 +594,17 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </a>
   </div>
 
+  <!-- 도구 -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">🆕 최신 업데이트</div>
-    <a class="nav-item" onclick="showPage('harness')" href="#">
-      <span class="ni-icon">⚙️</span> 하네스 구조
-      <span class="ni-badge">NEW</span>
-    </a>
-    <a class="nav-item" onclick="showPage('security')" href="#">
-      <span class="ni-icon">🔒</span> 보안 체크리스트
-      <span class="ni-badge">NEW</span>
-    </a>
-    <a class="nav-item" onclick="showPage('claude12')" href="#">
-      <span class="ni-icon">💡</span> Claude 12가지 활용법
-    </a>
-    <a class="nav-item" onclick="showPage('perspective')" href="#">
-      <span class="ni-icon">🎯</span> 도구보다 제품
-      <span class="ni-badge">NEW</span>
-    </a>
-    <a class="nav-item" onclick="showPage('ailoop')" href="#">
-      <span class="ni-icon">🔁</span> AI Loop 전략
-      <span class="ni-badge">NEW</span>
-    </a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">도구</div>
+    <div class="sidebar-section-label">커뮤니티</div>
     <a class="nav-item" onclick="showPage('memo')" href="#">
-      <span class="ni-icon">📒</span> 학습 메모장
+      <span class="ni-icon">💬</span> 커뮤니티 보드
     </a>
   </div>
 
   <div class="sidebar-bottom">
     Claude Code Retooling Hub<br>
-    내부용 · 2026 에디션 · 지속 업데이트 중
+    내부용 · 지속 업데이트 중
   </div>
 </nav>
 
@@ -617,105 +624,133 @@ textarea.memo-ta::placeholder{color:var(--text3)}
   <!-- ─────────────── HOME ─────────────── -->
   <div class="page active" id="page-home">
     <div class="hero">
-      <div class="hero-tag">내부 Retooling 학습 허브 · 2026</div>
+      <div class="hero-tag">Claude Code Retooling Hub · 2026 · 지속 업데이트</div>
       <h1>Claude Code 완전 정복</h1>
-      <p>설치부터 멀티에이전트 오케스트레이션 · 21개 에이전트 패턴 · 25개 리소스 · 무료 강의 12개까지. 개발자와 비개발자 모두를 위한 통합 학습 허브입니다.</p>
+      <p>설치부터 멀티에이전트 오케스트레이션까지. 개발자·비개발자 모두를 위한 통합 학습 허브. 최신 인사이트를 계속 추가합니다.</p>
       <div class="hero-actions">
         <button class="btn btn-primary" onclick="showPage('learn')">📚 학습 시작하기</button>
-        <button class="btn btn-ghost" onclick="showPage('courses')">🎓 무료 강의 보기</button>
-        <button class="btn btn-ghost" onclick="showPage('memo')">📒 메모장 열기</button>
+        <button class="btn btn-ghost" onclick="showPage('courses')">🎓 무료 강의</button>
+        <button class="btn btn-ghost" onclick="showPage('memo')">💬 커뮤니티</button>
       </div>
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="stat-num" style="color:var(--accent)">25</div><div class="stat-label">Skills & MCP 리소스</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--accent)">17</div><div class="stat-label">학습 페이지</div></div>
       <div class="stat"><div class="stat-num" style="color:var(--green)">12</div><div class="stat-label">무료 강의 (수료증 10개)</div></div>
-      <div class="stat"><div class="stat-num" style="color:var(--amber)">21</div><div class="stat-label">에이전트 디자인 패턴</div></div>
-      <div class="stat"><div class="stat-num" style="color:var(--pink)">9</div><div class="stat-label">학습 섹션</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--amber)">50</div><div class="stat-label">Skills & MCP & Repos</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--pink)">21</div><div class="stat-label">에이전트 디자인 패턴</div></div>
     </div>
 
     <div class="section-title">🚀 역할별 추천 시작점</div>
     <div class="g2">
       <div class="card">
         <div class="card-badge badge-green">🌱 비개발자 · 기획자 · 마케터</div>
-        <div class="card-title">Skills + MCP 3개로 시작</div>
-        <div class="card-desc">① 치트시트 탭 → 비개발자 핵심 3가지<br>② Skills & MCP → 01~10번 설치<br>③ 무료 강의 → Claude 101 (1~2시간, 수료증)</div>
+        <div class="card-title">Claude 활용법 → 설정 → 강의</div>
+        <div class="card-desc">① Claude 12가지 활용법 → 기본기 파악<br>② 치트시트 → 비개발자 핵심 4단계<br>③ Claude 101 무료 강의 (1~2시간, 수료증)</div>
         <div class="card-meta">
-          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('cheatsheet')">치트시트 보기 →</button>
+          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('claude12')">활용법 보기 →</button>
         </div>
       </div>
       <div class="card">
         <div class="card-badge badge-blue">💻 개발자 · 엔지니어</div>
-        <div class="card-title">공식 강의 → gstack → 패턴 북</div>
-        <div class="card-desc">① Claude Code in Action 21강 (무료·수료증)<br>② gstack + cmux 병렬 에이전트 설정<br>③ Agentic Design Patterns 424p 완독</div>
+        <div class="card-title">강의 → 하네스 → Loop → 패턴 북</div>
+        <div class="card-desc">① Claude Code in Action 21강 (무료·수료증)<br>② 하네스 & 자율 개발 구조 파악<br>③ AI Loop 전략 + 패턴 북 424p</div>
         <div class="card-meta">
-          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('courses')">강의 보기 →</button>
+          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('harness')">하네스 보기 →</button>
         </div>
       </div>
     </div>
 
-    <div class="section-title">🆕 이 허브에서 다루는 것들</div>
-    <div class="g3">
-      <div class="card" style="cursor:pointer" onclick="showPage('claudemd')">
-        <div class="card-badge badge-purple">CLAUDE.md</div>
-        <div class="card-title">완벽 가이드 12가지</div>
-        <div class="card-desc">파일 위치·범위·200줄 규칙·@import·경로별 규칙·자동 메모리 구분까지. 마케팅 트루먼쇼 치트시트 기반.</div>
+    <div class="section-title">💡 Claude 활용법</div>
+    <div class="g2">
+      <div class="card" style="cursor:pointer" onclick="showPage('claude12')">
+        <div class="card-badge badge-green">활용 가이드 총정리</div>
+        <div class="card-title">💡 12가지 핵심 활용법</div>
+        <div class="card-desc">3대 원칙 · 프롬프트 3요소 · 4D 프레임워크 · 데스크탑 3모드 · Projects · Skills · Connectors · Research · 직군별(마케터·영업·PM·재무) · 제품 생태계</div>
       </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('skills-guide')">
-        <div class="card-badge badge-teal">Skills 꿀팁</div>
-        <div class="card-title">Anthropic 내부 9가지 유형</div>
-        <div class="card-desc">Thariq Shihipar (Claude Code 팀)의 수백 개 스킬 운영 교훈. 함정 목록·점진적 공개·배포 방식.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('memory')">
-        <div class="card-badge badge-amber">Auto Dream</div>
-        <div class="card-title">기억력 10배 설정</div>
-        <div class="card-desc">Auto Memory vs CLAUDE.md 차이. Auto Dream이 왜 필요한지. /memory · /dream 설정법 3단계.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('agentic')">
-        <div class="card-badge badge-pink">패턴 북</div>
-        <div class="card-title">에이전트 디자인 패턴 21개</div>
-        <div class="card-desc">Antonio Gulli (Google CTO Office) 424p 무료 책. LangGraph·CrewAI·ADK 비교. 코드 포함.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('courses')">
-        <div class="card-badge badge-green">무료 강의</div>
-        <div class="card-title">수료증 받는 12개 강의</div>
-        <div class="card-desc">OpenAI·Google·Anthropic 공식 강의. 수료증 10개. Claude Code in Action 정확한 링크 수정 포함.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('memo')">
-        <div class="card-badge badge-blue">메모장</div>
-        <div class="card-title">자유 메모 · 저장 유지</div>
-        <div class="card-desc">7가지 태그·카드 색상 선택·검색·필터·고정·내보내기. 세션이 끊겨도 메모가 유지됩니다.</div>
+      <div class="card" style="cursor:pointer" onclick="showPage('perspective')">
+        <div class="card-badge badge-purple">Hacker News 화제글</div>
+        <div class="card-title">🎯 도구보다 제품</div>
+        <div class="card-desc">"AI 얘기, 솔직히 질리지 않았어?" — 도구 최적화 루프의 함정. "무엇을 만들 것인가"라는 본질적 질문.</div>
       </div>
     </div>
 
-    <div class="section-title">🆕 최신 업데이트 — 2026.03</div>
-    <div class="g3">
-      <div class="card" style="cursor:pointer;border-top:3px solid var(--accent)" onclick="showPage('harness')">
-        <div class="card-badge badge-purple">Anthropic Engineering Blog</div>
-        <div class="card-title">⚙️ 하네스(Harness) 구조 →</div>
-        <div class="card-desc">Claude Code 제대로 쓰는 핵심. 기획자·생성자·평가자 3인조 AI 팀. 단일 에이전트 실패 원인 2가지와 해결법.</div>
+    <div class="section-title">🛠 설정 & 운영</div>
+    <div class="g4">
+      <div class="card" style="cursor:pointer" onclick="showPage('claudemd')">
+        <div class="card-badge badge-purple">CLAUDE.md</div>
+        <div class="card-title">완벽 가이드</div>
+        <div class="card-desc">파일 위치·범위·200줄 규칙·@import·경로별 규칙·자동 메모리 구분</div>
       </div>
-      <div class="card" style="cursor:pointer;border-top:3px solid var(--red)" onclick="showPage('security')">
-        <div class="card-badge badge-red">바이브코딩 앱 5,600개 분석</div>
-        <div class="card-title">🔒 보안 체크리스트 →</div>
-        <div class="card-desc">보안 취약점 2,000개 · API 키 400개 노출 발견. 배포 전 반드시 확인할 5가지 체크리스트.</div>
+      <div class="card" style="cursor:pointer" onclick="showPage('skills-guide')">
+        <div class="card-badge badge-teal">Skills 꿀팁</div>
+        <div class="card-title">9가지 유형</div>
+        <div class="card-desc">Anthropic 내부 교훈. 함정 목록·점진적 공개·Description 필드 작성법</div>
       </div>
-      <div class="card" style="cursor:pointer;border-top:3px solid var(--green)" onclick="showPage('claude12')">
-        <div class="card-badge badge-green">Claude 완전 활용 가이드</div>
-        <div class="card-title">💡 Claude 12가지 활용법 →</div>
-        <div class="card-desc">10명 중 9명이 모르는 기능들. 3대 원칙·프롬프트 3요소·4D 프레임워크·Projects·Skills·직군별 활용법.</div>
+      <div class="card" style="cursor:pointer" onclick="showPage('memory')">
+        <div class="card-badge badge-amber">Auto Dream</div>
+        <div class="card-title">메모리 설정</div>
+        <div class="card-desc">Auto Memory vs CLAUDE.md 차이. /memory · /dream 3단계 설정법</div>
       </div>
-      <div class="card" style="cursor:pointer;border-top:3px solid var(--text2)" onclick="showPage('perspective')">
-        <div class="card-badge badge-purple">Hacker News 화제글</div>
-        <div class="card-title">🎯 도구보다 제품 →</div>
-        <div class="card-desc">"AI 얘기, 솔직히 질리지 않았어?" — 도구 최적화 루프의 함정과 "무엇을 만들 것인가"라는 본질적 질문.</div>
-      </div>
-      <div class="card" style="cursor:pointer;border-top:3px solid var(--blue)" onclick="showPage('ailoop')">
-        <div class="card-badge badge-blue">2026 AI 승부처</div>
-        <div class="card-title">🔁 AI Loop 전략 →</div>
-        <div class="card-desc">Ralph Loop·RLM·autoresearch·반복의 강력함. 잠든 사이 100번 돌아가는 루프 하나가 복잡한 파이프라인을 이깁니다.</div>
+      <div class="card" style="cursor:pointer" onclick="showPage('security')">
+        <div class="card-badge badge-red">보안</div>
+        <div class="card-title">체크리스트 5가지</div>
+        <div class="card-desc">5,600개 앱 분석 결과. 배포 전 인증·API키·패키지·RLS·console.log 점검</div>
       </div>
     </div>
+
+    <div class="section-title">🤖 에이전트 전략</div>
+    <div class="g3">
+      <div class="card" style="cursor:pointer" onclick="showPage('harness')">
+        <div class="card-badge badge-accent" style="background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE">하네스 구조</div>
+        <div class="card-title">⚙️ 하네스 & 자율 개발</div>
+        <div class="card-desc">기획자·생성자·평가자 3인조. 스프린트 계약. 인수인계 파일 3개. Claude Code 혼자 앱 만들게 하는 설계법.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('ailoop')">
+        <div class="card-badge badge-blue">2026 승부처</div>
+        <div class="card-title">🔁 AI Loop 전략</div>
+        <div class="card-desc">Ralph Loop · RLM · autoresearch · 반복의 강력함. 잠든 사이 100번 돌아가는 루프 하나가 복잡한 파이프라인을 이깁니다.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('agentic')">
+        <div class="card-badge badge-pink">패턴 북 424p</div>
+        <div class="card-title">📖 에이전트 패턴 21개</div>
+        <div class="card-desc">Antonio Gulli (Google CTO Office) 무료 책. LangGraph·CrewAI·Google ADK 비교 구현. 기초~고급 전체 커버.</div>
+      </div>
+    </div>
+
+    <div class="section-title">📦 리소스</div>
+    <div class="g2">
+      <div class="card" style="cursor:pointer" onclick="showPage('skills-mcp')">
+        <div class="card-badge badge-teal">01~10번</div>
+        <div class="card-title">🔌 Skills & MCP 25선</div>
+        <div class="card-desc">Anthropic 공식 · Marketing · SEO · Brand · NotebookLM · Obsidian · Tavily · Context7 · Task Master</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('repos')">
+        <div class="card-badge badge-blue">11~25번</div>
+        <div class="card-title">📦 GitHub Repos 25선</div>
+        <div class="card-desc">OpenClaw(210k⭐) · LangGraph · OWL · Firecrawl · Vanna AI · gstack · cmux · claude-squad</div>
+      </div>
+    </div>
+
+    <div class="section-title">🎓 강의 & 워크플로우</div>
+    <div class="g3">
+      <div class="card" style="cursor:pointer" onclick="showPage('courses')">
+        <div class="card-badge badge-green">수료증 10개</div>
+        <div class="card-title">🎓 무료 강의 12개</div>
+        <div class="card-desc">OpenAI · Google · Anthropic 공식 강의 총정리. Claude Code in Action 정확한 링크 포함.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('learn')">
+        <div class="card-badge badge-purple">강의 핵심 12가지</div>
+        <div class="card-title">📚 학습 로드맵</div>
+        <div class="card-desc">Claude Code in Action 21강 핵심 내용 아코디언 정리. 설치·CLAUDE.md·Skills·Hooks·에이전트.</div>
+      </div>
+      <div class="card" style="cursor:pointer" onclick="showPage('workflow')">
+        <div class="card-badge badge-amber">일일 루틴</div>
+        <div class="card-title">🔄 실전 워크플로우</div>
+        <div class="card-desc">4단계 아키텍처. 비개발자·개발자 일일 루틴. gstack /office-hours → /review → /ship.</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- ─────────────── LEARN ─────────────── -->
@@ -1132,44 +1167,71 @@ Esc Esc         → 되감기
 
   <!-- ─────────────── MEMO ─────────────── -->
   <div class="page" id="page-memo">
-    <div class="hero"><div class="hero-tag">📒 학습 메모장</div><h1>자유 메모 — 세션 간 유지</h1><p>태그·색상·검색·고정·내보내기 지원. 메모가 자동 저장되어 다음에도 유지됩니다.</p></div>
-
-    <div class="memo-stats">
-      <div class="memo-stat"><div class="memo-stat-num" id="s-total">0</div><div class="memo-stat-label">전체 메모</div></div>
-      <div class="memo-stat"><div class="memo-stat-num" id="s-pinned">0</div><div class="memo-stat-label">고정됨</div></div>
-      <div class="memo-stat"><div class="memo-stat-num" id="s-today">0</div><div class="memo-stat-label">오늘 작성</div></div>
-      <div class="memo-stat"><div class="memo-stat-num" id="s-chars">0</div><div class="memo-stat-label">총 글자</div></div>
+    <div class="hero">
+      <div class="hero-tag">💬 커뮤니티 보드 · 공개 · 실시간 공유</div>
+      <h1>AI 개발자 커뮤니티</h1>
+      <p>Claude Code 쓰면서 발견한 팁, 질문, 인사이트를 자유롭게 나누세요.<br>여기 올라온 좋은 내용은 허브 업데이트에 반영됩니다. 닉네임을 먼저 설정하세요.</p>
     </div>
 
-    <div class="input-area">
-      <div class="tag-row" id="tag-sel"></div>
-      <textarea class="memo-ta" id="m-input" placeholder="자유롭게 메모하세요...&#10;예) CLAUDE.md 팁, Skills 아이디어, 나중에 확인할 링크, 업무 인사이트 등&#10;&#10;Ctrl+Enter 또는 Cmd+Enter로 빠르게 저장" onkeydown="memoKey(event)" oninput="memoCount()"></textarea>
+    <!-- 닉네임 설정 -->
+    <div id="nick-setup" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:1rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span style="font-size:12px;font-weight:600;color:var(--text2);flex-shrink:0">👤 닉네임</span>
+      <input id="nick-input" style="flex:1;min-width:140px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:7px 12px;font-size:12px;color:var(--text);outline:none;font-family:'Pretendard',sans-serif" placeholder="닉네임 입력 (예: claude-dev, 김철수)">
+      <button onclick="saveNick()" style="background:var(--accent);color:#fff;border:none;border-radius:var(--r2);padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Pretendard',sans-serif">설정</button>
+      <span id="nick-display" style="font-size:12px;color:var(--text3)"></span>
+    </div>
+
+    <!-- 통계 -->
+    <div class="memo-stats">
+      <div class="memo-stat"><div class="memo-stat-num" id="c-total">0</div><div class="memo-stat-label">전체 글</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="c-today">0</div><div class="memo-stat-label">오늘 올라온 글</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="c-tips">0</div><div class="memo-stat-label">팁 & 노하우</div></div>
+      <div class="memo-stat"><div class="memo-stat-num" id="c-ask">0</div><div class="memo-stat-label">질문</div></div>
+    </div>
+
+    <!-- 글 작성 -->
+    <div class="input-area" id="post-form">
+      <!-- 주제 선택 -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:8px;letter-spacing:.04em">📌 주제 선택 <span style="color:var(--red)">*</span></div>
+        <div id="c-tag-sel" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      </div>
+      <!-- 제목 -->
+      <div style="margin-bottom:8px">
+        <input id="c-title" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:9px 12px;font-size:13px;font-weight:500;color:var(--text);outline:none;font-family:'Pretendard',sans-serif;transition:border-color .15s" placeholder="제목을 입력하세요 (선택)" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <!-- 본문 -->
+      <textarea class="memo-ta" id="c-input" style="min-height:100px" placeholder="내용을 자유롭게 작성하세요 ✍️&#10;&#10;예시)&#10;• CLAUDE.md에서 효과 있었던 패턴 공유&#10;• 특정 MCP 써본 후기&#10;• 하네스 구조 적용해봤는데...&#10;• Claude Code 쓰다가 막힌 것 질문&#10;• 이 허브에 추가됐으면 하는 내용&#10;&#10;Ctrl+Enter로 빠르게 게시" onkeydown="postKey(event)" oninput="postCount()"></textarea>
       <div class="input-footer">
-        <span class="char-count" id="m-count">0자</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="tb-btn" onclick="exportMemos()" style="padding:5px 10px;font-size:10px">⬇ 내보내기</button>
-          <button class="add-btn" id="m-add" onclick="addMemo()" disabled>저장 ↵</button>
-        </div>
+        <span class="char-count" id="c-count">0자</span>
+        <button class="add-btn" id="c-post-btn" onclick="addPost()" disabled>게시하기 ↵</button>
       </div>
     </div>
 
+    <!-- 검색 + 필터 -->
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input class="search-input" id="m-search" placeholder="메모 검색..." oninput="renderMemos()">
+      <input class="search-input" id="c-search" placeholder="글 검색..." oninput="renderPosts()">
     </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:8px">
-      <div class="filter-row" id="m-filters" style="margin-bottom:0"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:6px">
+      <div class="filter-row" id="c-filters" style="margin-bottom:0"></div>
       <div class="sort-row" style="margin-bottom:0">
         <span class="sort-label">정렬</span>
-        <button class="sort-btn active" id="sb-new" onclick="setSort('new')">최신순</button>
-        <button class="sort-btn" id="sb-old" onclick="setSort('old')">오래된순</button>
-        <button class="sort-btn" id="sb-pin" onclick="setSort('pin')">고정 우선</button>
+        <button class="sort-btn active" id="cs-new" onclick="setCSort('new')">최신순</button>
+        <button class="sort-btn" id="cs-like" onclick="setCSort('like')">좋아요순</button>
       </div>
     </div>
 
-    <div class="memo-grid" id="m-grid"></div>
-    <div class="empty-state" id="m-empty" style="display:none"><div class="empty-icon">📝</div><div class="empty-text">메모가 없습니다. 위에서 첫 메모를 작성해보세요!</div></div>
+    <!-- 글 목록 -->
+    <div id="c-grid" style="display:flex;flex-direction:column;gap:10px"></div>
+    <div class="empty-state" id="c-empty" style="display:none">
+      <div class="empty-icon">💬</div>
+      <div class="empty-text">아직 글이 없습니다. 첫 번째 글을 작성해보세요!</div>
+    </div>
+
+    <div class="note" style="margin-top:1.5rem">
+      📌 <strong>운영 방침</strong>: Claude Code·AI 개발 관련 내용이면 무엇이든 환영합니다. 좋은 팁과 인사이트는 관리자가 확인 후 허브 본문에 반영합니다. 비방·광고성 글은 삭제될 수 있습니다.
+    </div>
   </div>
 
   <!-- ─────────────── HARNESS ─────────────── -->
@@ -1249,6 +1311,64 @@ Esc Esc         → 되감기
 
     <div class="note" style="margin-top:1rem">
       💡 <strong>핵심 통찰</strong>: AI 모델이 똑똑해질수록 기존의 복잡한 시스템은 단순해집니다. 동시에 더 똑똑한 AI로 이전에 불가능했던 거대한 애플리케이션을 만들기 위한 <strong>"새로운 시스템 조합(Novel combination)"</strong>을 끊임없이 찾아내는 것이 AI 엔지니어의 영원한 과제입니다.
+    </div>
+
+    <div class="section-title">🔧 Claude Code 혼자 앱 만들게 하는 하네스 설계 4단계</div>
+    <div class="tip-card">
+      <div class="tip-head"><div class="tip-icon">💬</div><div class="tip-title">왜 사람이 계속 개입하게 되는가</div></div>
+      <div class="tip-body">기능 하나가 끝날 때마다 다음 지시를 내려야 하고, 컨텍스트가 쌓이다 세션이 종료되면 이전 설계를 온전히 이어받지 못합니다. <strong>엔지니어가 인수인계 없이 일을 시작하는 것과 같습니다.</strong> Anthropic은 이 문제의 원인이 모델 성능이 아닌 <strong>구조</strong>에 있다고 봤습니다.</div>
+    </div>
+
+    <div class="dream-step">
+      <div class="dream-num">1</div>
+      <div>
+        <div class="dream-title">플래너에게 스펙을 맡겨라</div>
+        <div class="dream-desc">한두 문장 프롬프트를 주면 <strong>플래너 에이전트(Planner Agent)</strong>가 전체 제품 스펙으로 확장합니다. 초반에 구현 디테일을 너무 구체적으로 잡으면 그 오류가 이후 작업 전체로 번지기 때문에, <strong>"무엇을 만들지"에만 집중</strong>하도록 설계하는 게 핵심입니다.</div>
+      </div>
+    </div>
+
+    <div class="dream-step">
+      <div class="dream-num">2</div>
+      <div>
+        <div class="dream-title">인수인계 구조를 만들어라 — 파일 3개</div>
+        <div class="dream-desc">
+          <strong>초기화 에이전트(Initializer Agent)</strong>가 첫 세션에서 파일 3개를 만듭니다:<br><br>
+          <div class="codebox">feature_list.json     # 기능 목록
+claude-progress.txt   # 진행 상황 기록
+init.sh               # 서버 시작 방법 정의</div>
+          이후 코딩 에이전트는 <strong>새 세션 시작 때마다</strong> 이 파일들을 읽고 어디서부터 이어갈지 파악합니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="dream-step">
+      <div class="dream-num">3</div>
+      <div>
+        <div class="dream-title">세션 시작 루틴을 고정하라</div>
+        <div class="dream-desc">
+          매 세션은 <strong>항상 같은 순서</strong>로 시작합니다:
+          <div class="codebox">① 진행 파일 확인
+② 기능 목록 읽기
+③ 테스트 실행
+④ 기능 하나 선택 → 구현
+⑤ 커밋
+⑥ 진행 파일 업데이트
+⑦ 다음 기능으로 → ①로 반복</div>
+          이 사이클을 반복하면 사람 개입 없이 연속 작업이 가능합니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="dream-step">
+      <div class="dream-num">4</div>
+      <div>
+        <div class="dream-title">만드는 에이전트와 검토하는 에이전트를 나눠라</div>
+        <div class="dream-desc">코드를 짜는 에이전트와 검토하는 에이전트를 분리하면 품질이 올라갑니다. 사람으로 치면 <strong>개발자와 QA를 나누는 것</strong>과 같습니다. 정답이 없는 프론트엔드 디자인 영역에서도 효과적이었다고 합니다.</div>
+      </div>
+    </div>
+
+    <div class="note">
+      🙌 <strong>하네스 설계는 방법을 안다고 바로 되는 건 아닙니다.</strong> 구조를 이해하고 직접 써보면서 자기 프로젝트에 맞게 깎아나가야 합니다. 그래도 오피셜한 기준이 있으니 시작은 해볼 수 있습니다.
     </div>
   </div>
 
@@ -1677,13 +1797,15 @@ build/
 <script>
 // ── PAGE NAV ─────────────────────────────────────────────────────────
 const pageLabels={
-  home:'홈',learn:'학습 로드맵',cheatsheet:'치트시트',
-  claudemd:'CLAUDE.md 가이드','skills-guide':'Skills 꿀팁',
-  memory:'메모리 & Dream','skills-mcp':'Skills & MCP 25선',
-  repos:'GitHub Repos',agentic:'에이전트 패턴',
-  courses:'무료 AI 강의',workflow:'실전 워크플로우',memo:'학습 메모장',
-  harness:'⚙️ 하네스 구조',security:'🔒 보안 체크리스트',claude12:'💡 Claude 12가지 활용법',
-  perspective:'🎯 도구보다 제품',ailoop:'🔁 AI Loop 전략'
+  home:'홈',
+  learn:'📚 학습 로드맵',cheatsheet:'⚡ 치트시트',
+  claude12:'💡 12가지 핵심 활용법',perspective:'🎯 도구보다 제품',
+  claudemd:'📝 CLAUDE.md 가이드','skills-guide':'🔧 Skills 꿀팁 9가지',
+  memory:'🧠 메모리 & Auto Dream',security:'🔒 보안 체크리스트',
+  harness:'⚙️ 하네스 & 자율 개발',ailoop:'🔁 AI Loop 전략',agentic:'📖 에이전트 패턴 21개',
+  'skills-mcp':'🔌 Skills & MCP 25선',repos:'📦 GitHub Repos 25선',
+  courses:'🎓 무료 강의 12개',workflow:'🔄 실전 워크플로우',
+  memo:'💬 커뮤니티 보드'
 };
 // ── EXTERNAL LINK HANDLER ─────────────────────────────────────────────
 // Claude iframe sandbox blocks target="_blank" — use window.open instead
@@ -1723,129 +1845,223 @@ function acc(head){
   arrow.classList.toggle('open');
 }
 
-// ── MEMO ─────────────────────────────────────────────────────────────
-const TAGS=[
-  {id:'idea',label:'💡 아이디어',bg:'#EEF2FF',color:'#4338CA'},
-  {id:'claude',label:'🤖 Claude',bg:'#ECFDF5',color:'#065F46'},
-  {id:'skill',label:'🛠 Skill',bg:'#FFF7ED',color:'#9A3412'},
-  {id:'todo',label:'✅ TODO',bg:'#FFFBEB',color:'#92400E'},
-  {id:'insight',label:'✨ 인사이트',bg:'#EFF6FF',color:'#1E40AF'},
-  {id:'link',label:'🔗 링크',bg:'#F9FAFB',color:'#374151'},
-  {id:'memo',label:'📌 일반',bg:'#F5F3FF',color:'#5B21B6'},
+// ── COMMUNITY BOARD ──────────────────────────────────────────────────
+const CTAGS=[
+  {id:'tip',    label:'💡 팁&노하우', bg:'#EEF2FF', color:'#4338CA'},
+  {id:'ask',    label:'❓ 질문',      bg:'#ECFDF5', color:'#065F46'},
+  {id:'review', label:'📝 후기',      bg:'#FFF7ED', color:'#9A3412'},
+  {id:'idea',   label:'🚀 아이디어',  bg:'#FFFBEB', color:'#92400E'},
+  {id:'update', label:'📢 업데이트 요청', bg:'#EFF6FF', color:'#1E40AF'},
+  {id:'free',   label:'💬 자유',      bg:'#F5F3FF', color:'#5B21B6'},
 ];
-const CARD_COLORS=['#EEF2FF','#ECFDF5','#FFF7ED','#FFFBEB','#EFF6FF','#F9FAFB','#F5F3FF'];
-const CARD_BORDERS=['#C7D2FE','#A7F3D0','#FED7AA','#FDE68A','#BFDBFE','#E5E7EB','#DDD6FE'];
-const STORAGE_KEY='retooling_memos_v2';
-let memos=[],selTag='memo',selColor=0,filterTag='all',sortMode='new',editId=null;
+const COMM_KEY='retooling_community_v1';
+const NICK_KEY='retooling_nick_v1';
+let posts=[], cFilter='all', cSort='new', myNick='', cEditId=null;
+let cSelTag='free';
 
+// Init
 (async()=>{
-  try{const r=await window.storage.get(STORAGE_KEY);if(r&&r.value)memos=JSON.parse(r.value);}catch(e){memos=[];}
-  renderTagSel();renderFilters();renderMemos();updateMemoStats();
+  // Load nick from personal storage
+  try{const r=await window.storage.get(NICK_KEY,false);if(r&&r.value)myNick=r.value;}catch(e){}
+  updateNickDisplay();
+  renderCTagSel();
+  await loadPosts();
 })();
 
-function renderTagSel(){
-  const el=document.getElementById('tag-sel');
-  const dots=CARD_COLORS.map((c,i)=>`<div class="color-dot${i===selColor?' active':''}" style="background:${c};border-color:${CARD_BORDERS[i]}" onclick="selCol(${i})"></div>`).join('');
-  el.innerHTML=TAGS.map(t=>`<span class="tag-chip${t.id===selTag?' selected':''}" style="background:${t.bg};color:${t.color}" onclick="selT('${t.id}')">${t.label}</span>`).join('')+'<div style="width:1px;height:16px;background:var(--border);margin:0 3px"></div>'+dots;
-}
-function selT(id){selTag=id;renderTagSel();}
-function selCol(i){selColor=i;renderTagSel();}
-
-function renderFilters(){
-  const cnts={};TAGS.forEach(t=>{cnts[t.id]=memos.filter(m=>m.tag===t.id).length;});
-  const el=document.getElementById('m-filters');
-  el.innerHTML=`<button class="f-btn${filterTag==='all'?' active':''}" onclick="setFilter('all')">전체<span class="count-badge">${memos.length}</span></button>`
-    +`<button class="f-btn${filterTag==='pinned'?' active':''}" onclick="setFilter('pinned')">고정<span class="count-badge">${memos.filter(m=>m.pinned).length}</span></button>`
-    +TAGS.map(t=>`<button class="f-btn${filterTag===t.id?' active':''}" onclick="setFilter('${t.id}')">${t.label}<span class="count-badge">${cnts[t.id]||0}</span></button>`).join('');
-}
-function setFilter(tag){filterTag=tag;renderMemos();renderFilters();}
-function setSort(mode){sortMode=mode;['new','old','pin'].forEach(m=>document.getElementById('sb-'+m).classList.toggle('active',m===mode));renderMemos();}
-
-function addMemo(){
-  const input=document.getElementById('m-input');
-  const text=input.value.trim();if(!text)return;
-  const tag=TAGS.find(t=>t.id===selTag)||TAGS[6];
-  const now=new Date();
-  if(editId){
-    const m=memos.find(m=>m.id===editId);
-    if(m){m.text=text;m.tag=selTag;m.bg=CARD_COLORS[selColor];m.border=CARD_BORDERS[selColor];m.edited=now.toISOString();}
-    editId=null;document.getElementById('m-add').textContent='저장 ↵';toast('수정 완료 ✏️');
-  }else{
-    memos.unshift({id:Date.now()+Math.random(),text,tag:selTag,bg:CARD_COLORS[selColor],border:CARD_BORDERS[selColor],pinned:false,created:now.toISOString()});
-    toast('저장 완료 ✅');
+function updateNickDisplay(){
+  const inp=document.getElementById('nick-input');
+  const disp=document.getElementById('nick-display');
+  if(!inp||!disp)return;
+  if(myNick){
+    inp.value=myNick;
+    disp.textContent='✅ '+myNick+' 으로 활동 중';
+    disp.style.color='var(--green)';
+  } else {
+    disp.textContent='닉네임을 설정하면 글을 작성할 수 있습니다';
   }
-  input.value='';document.getElementById('m-count').textContent='0자';document.getElementById('m-add').disabled=true;
-  saveMemos();renderMemos();renderFilters();updateMemoStats();
 }
-function memoKey(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();addMemo();}}
-function memoCount(){
-  const v=document.getElementById('m-input').value;
-  document.getElementById('m-count').textContent=v.length+'자';
-  document.getElementById('m-add').disabled=!v.trim();
+async function saveNick(){
+  const v=document.getElementById('nick-input').value.trim();
+  if(!v){toast('닉네임을 입력해주세요');return;}
+  if(v.length>20){toast('닉네임은 20자 이하');return;}
+  myNick=v;
+  try{await window.storage.set(NICK_KEY,v,false);}catch(e){}
+  updateNickDisplay();
+  toast('닉네임 설정 완료 ✅');
 }
 
-function renderMemos(){
-  const q=document.getElementById('m-search').value.toLowerCase();
-  let list=[...memos];
-  if(filterTag==='pinned')list=list.filter(m=>m.pinned);
-  else if(filterTag!=='all')list=list.filter(m=>m.tag===filterTag);
-  if(q)list=list.filter(m=>m.text.toLowerCase().includes(q));
-  if(sortMode==='old')list.sort((a,b)=>new Date(a.created)-new Date(b.created));
-  else if(sortMode==='pin')list.sort((a,b)=>b.pinned-a.pinned);
+async function loadPosts(){
+  try{
+    const r=await window.storage.get(COMM_KEY,true);
+    posts=r&&r.value?JSON.parse(r.value):[];
+  }catch(e){posts=[];}
+  renderCTagSel();
+  renderCFilters();
+  renderPosts();
+  updateCommStats();
+}
+async function savePosts(){
+  try{await window.storage.set(COMM_KEY,JSON.stringify(posts),true);}catch(e){console.error(e);}
+}
+
+function renderCTagSel(){
+  const el=document.getElementById('c-tag-sel');
+  if(!el)return;
+  el.innerHTML=CTAGS.map(t=>{
+    const active=t.id===cSelTag;
+    return `<button onclick="cSelTag='${t.id}';renderCTagSel();postCount()" style="
+      display:inline-flex;align-items:center;gap:5px;
+      padding:7px 14px;border-radius:20px;
+      font-size:11px;font-weight:600;cursor:pointer;
+      font-family:'Pretendard',sans-serif;
+      transition:all .15s;
+      background:${active?t.color:'var(--bg3)'};
+      color:${active?'#fff':t.color};
+      border:1.5px solid ${active?t.color:t.bg};
+      transform:${active?'scale(1.04)':'scale(1)'};
+      box-shadow:${active?`0 2px 8px ${t.color}33`:'none'};
+    ">${t.label}</button>`;
+  }).join('');
+}
+
+function renderCFilters(){
+  const el=document.getElementById('c-filters');
+  if(!el)return;
+  const cnts={};CTAGS.forEach(t=>{cnts[t.id]=posts.filter(p=>p.tag===t.id).length;});
+  el.innerHTML=
+    `<button class="f-btn${cFilter==='all'?' active':''}" onclick="cFilter='all';renderPosts();renderCFilters()">전체<span class="count-badge">${posts.length}</span></button>`+
+    `<button class="f-btn${cFilter==='mine'?' active':''}" onclick="cFilter='mine';renderPosts();renderCFilters()">내 글<span class="count-badge">${posts.filter(p=>p.nick===myNick).length}</span></button>`+
+    CTAGS.map(t=>`<button class="f-btn${cFilter===t.id?' active':''}" onclick="cFilter='${t.id}';renderPosts();renderCFilters()">${t.label}<span class="count-badge">${cnts[t.id]||0}</span></button>`).join('');
+}
+
+function setCSort(mode){
+  cSort=mode;
+  ['new','like'].forEach(m=>{const el=document.getElementById('cs-'+m);if(el)el.classList.toggle('active',m===mode);});
+  renderPosts();
+}
+
+function postKey(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();addPost();}}
+function postCount(){
+  const v=document.getElementById('c-input').value;
+  document.getElementById('c-count').textContent=v.length+'자';
+  document.getElementById('c-post-btn').disabled=!v.trim();
+}
+
+async function addPost(){
+  if(!myNick){toast('먼저 닉네임을 설정해주세요 👆');return;}
+  const inp=document.getElementById('c-input');
+  const titleInp=document.getElementById('c-title');
+  const text=inp.value.trim();if(!text)return;
+  const title=(titleInp?titleInp.value.trim():'');
+  const tag=CTAGS.find(t=>t.id===cSelTag)||CTAGS[5];
+  const now=new Date().toISOString();
+  if(cEditId){
+    const p=posts.find(p=>p.id===cEditId);
+    if(p&&p.nick===myNick){p.text=text;p.title=title;p.tag=cSelTag;p.edited=now;}
+    cEditId=null;
+    document.getElementById('c-post-btn').textContent='게시하기 ↵';
+    toast('수정 완료 ✏️');
+  } else {
+    posts.unshift({id:Date.now()+Math.random(),title,text,tag:cSelTag,nick:myNick,created:now,likes:[],pinned:false});
+    toast('게시 완료 🎉');
+  }
+  inp.value='';
+  if(titleInp)titleInp.value='';
+  document.getElementById('c-count').textContent='0자';
+  document.getElementById('c-post-btn').disabled=true;
+  await savePosts();renderCFilters();renderPosts();updateCommStats();
+}
+
+function renderPosts(){
+  const q=(document.getElementById('c-search')||{value:''}).value.toLowerCase();
+  let list=[...posts];
+  if(cFilter==='mine') list=list.filter(p=>p.nick===myNick);
+  else if(cFilter!=='all') list=list.filter(p=>p.tag===cFilter);
+  if(q) list=list.filter(p=>p.text.toLowerCase().includes(q)||(p.nick||'').toLowerCase().includes(q));
+  if(cSort==='like') list.sort((a,b)=>(b.likes||[]).length-(a.likes||[]).length);
   else list.sort((a,b)=>new Date(b.created)-new Date(a.created));
-  const grid=document.getElementById('m-grid');
-  const empty=document.getElementById('m-empty');
-  if(!list.length){grid.innerHTML='';empty.style.display='block';return;}
-  empty.style.display='none';
-  grid.innerHTML=list.map(m=>{
-    const tag=TAGS.find(t=>t.id===m.tag)||TAGS[6];
-    const d=new Date(m.created);
-    const ds=`${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
-    const textEsc=m.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return `<div class="memo-card${m.pinned?' pinned':''}" style="background:${m.bg||'#F5F3FF'};border-color:${m.border||'#DDD6FE'}">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span class="memo-tag-chip" style="background:${tag.bg};color:${tag.color}">${tag.label}</span>
-        ${m.edited?'<span style="font-size:9px;opacity:.5;color:#52526E">수정됨</span>':''}
+
+  const grid=document.getElementById('c-grid');
+  const empty=document.getElementById('c-empty');
+  if(!grid)return;
+  if(!list.length){grid.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+
+  grid.innerHTML=list.map(p=>{
+    const tag=CTAGS.find(t=>t.id===p.tag)||CTAGS[5];
+    const d=new Date(p.created);
+    const now=new Date();
+    const diff=Math.floor((now-d)/60000);
+    const timeStr=diff<1?'방금 전':diff<60?diff+'분 전':diff<1440?Math.floor(diff/60)+'시간 전':Math.floor(diff/1440)+'일 전';
+    const liked=(p.likes||[]).includes(myNick);
+    const isMine=p.nick===myNick;
+    const textEsc=p.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    const titleEsc=p.title?p.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
+    return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .15s" onmouseenter="this.style.borderColor='var(--border2)'" onmouseleave="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+        <span style="font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;background:${tag.bg};color:${tag.color};letter-spacing:.04em">${tag.label}</span>
+        <span style="font-size:11px;font-weight:600;color:var(--text)">${p.nick||'익명'}</span>
+        ${isMine?'<span style="font-size:9px;background:#EEF2FF;color:#4338CA;padding:1px 5px;border-radius:3px;font-weight:600">나</span>':''}
+        <span style="font-size:10px;color:var(--text3);margin-left:auto">${timeStr}${p.edited?' · 수정됨':''}</span>
       </div>
-      <div class="memo-body"style="color:${tag.color}">${textEsc}</div>
-      <div class="memo-footer">
-        <span class="memo-date" style="color:${tag.color}">${ds}</span>
-        <div class="memo-actions">
-          <button class="memo-action-btn" onclick="togglePin(${m.id})" title="${m.pinned?'고정 해제':'고정'}">${m.pinned?'📍':'📌'}</button>
-          <button class="memo-action-btn" onclick="editMemo(${m.id})" title="수정">✏️</button>
-          <button class="memo-action-btn" onclick="copyMemo(${m.id})" title="복사">📋</button>
-          <button class="memo-action-btn" onclick="deleteMemo(${m.id})" title="삭제">🗑</button>
-        </div>
+      ${titleEsc?`<div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.4">${titleEsc}</div>`:''}
+      <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">${textEsc}</div>
+      <div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--border)">
+        <button onclick="toggleLike('${p.id}')" style="background:${liked?'#EEF2FF':'none'};border:1px solid ${liked?'#C7D2FE':'var(--border)'};border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;color:${liked?'#4338CA':'var(--text2)'};cursor:pointer;display:flex;align-items:center;gap:4px">
+          ${liked?'❤️':'🤍'} ${(p.likes||[]).length}
+        </button>
+        <button onclick="copyPost('${p.id}')" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text2);cursor:pointer">📋 복사</button>
+        ${isMine?`<button onclick="editPost('${p.id}')" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--text2);cursor:pointer">✏️ 수정</button>
+        <button onclick="deletePost('${p.id}')" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--red);cursor:pointer">🗑 삭제</button>`:''}
+        <span style="margin-left:auto;font-size:10px;color:var(--text3)">${new Date(p.created).toLocaleDateString('ko-KR')}</span>
       </div>
     </div>`;
   }).join('');
 }
-function togglePin(id){const m=memos.find(m=>m.id===id);if(m){m.pinned=!m.pinned;saveMemos();renderMemos();renderFilters();updateMemoStats();toast(m.pinned?'고정됨 📍':'고정 해제');}}
-function editMemo(id){
-  const m=memos.find(m=>m.id===id);if(!m)return;
-  editId=id;
-  document.getElementById('m-input').value=m.text;
-  document.getElementById('m-count').textContent=m.text.length+'자';
-  document.getElementById('m-add').disabled=false;
-  document.getElementById('m-add').textContent='수정 완료 ↵';
-  selTag=m.tag;renderTagSel();
-  document.getElementById('m-input').focus();
+
+async function toggleLike(id){
+  if(!myNick){toast('좋아요는 닉네임 설정 후 가능합니다');return;}
+  const p=posts.find(p=>String(p.id)===String(id));
+  if(!p)return;
+  if(!p.likes)p.likes=[];
+  const idx=p.likes.indexOf(myNick);
+  if(idx>=0)p.likes.splice(idx,1); else p.likes.push(myNick);
+  await savePosts();renderPosts();
 }
-function deleteMemo(id){memos=memos.filter(m=>m.id!==id);saveMemos();renderMemos();renderFilters();updateMemoStats();toast('삭제됨 🗑');}
-function copyMemo(id){const m=memos.find(m=>m.id===id);if(!m)return;navigator.clipboard.writeText(m.text).then(()=>toast('복사됨 📋')).catch(()=>toast('복사 실패'));}
-function exportMemos(){
-  const text=memos.map(m=>{const tag=TAGS.find(t=>t.id===m.tag)||TAGS[6];const d=new Date(m.created).toLocaleString('ko-KR');return`[${tag.label}] ${d}\n${m.text}\n${'─'.repeat(40)}`;}).join('\n\n');
-  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='retooling_memos.txt';a.click();URL.revokeObjectURL(url);toast('내보내기 완료 ⬇');
+function editPost(id){
+  const p=posts.find(p=>String(p.id)===String(id));
+  if(!p||p.nick!==myNick)return;
+  cEditId=id;
+  document.getElementById('c-input').value=p.text;
+  const titleInp=document.getElementById('c-title');
+  if(titleInp)titleInp.value=p.title||'';
+  document.getElementById('c-count').textContent=p.text.length+'자';
+  document.getElementById('c-post-btn').disabled=false;
+  document.getElementById('c-post-btn').textContent='수정 완료 ↵';
+  cSelTag=p.tag;renderCTagSel();
+  document.getElementById('c-input').focus();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function updateMemoStats(){
+async function deletePost(id){
+  const p=posts.find(p=>String(p.id)===String(id));
+  if(!p||p.nick!==myNick)return;
+  if(!confirm('삭제할까요?'))return;
+  posts=posts.filter(p=>String(p.id)!==String(id));
+  await savePosts();renderCFilters();renderPosts();updateCommStats();toast('삭제됨 🗑');
+}
+function copyPost(id){
+  const p=posts.find(p=>String(p.id)===String(id));
+  if(!p)return;
+  navigator.clipboard.writeText(p.text).then(()=>toast('복사됨 📋')).catch(()=>toast('복사 실패'));
+}
+function updateCommStats(){
   const today=new Date().toDateString();
-  document.getElementById('s-total').textContent=memos.length;
-  document.getElementById('s-pinned').textContent=memos.filter(m=>m.pinned).length;
-  document.getElementById('s-today').textContent=memos.filter(m=>new Date(m.created).toDateString()===today).length;
-  document.getElementById('s-chars').textContent=memos.reduce((s,m)=>s+m.text.length,0).toLocaleString();
+  const el=id=>document.getElementById(id);
+  if(el('c-total'))el('c-total').textContent=posts.length;
+  if(el('c-today'))el('c-today').textContent=posts.filter(p=>new Date(p.created).toDateString()===today).length;
+  if(el('c-tips'))el('c-tips').textContent=posts.filter(p=>p.tag==='tip').length;
+  if(el('c-ask'))el('c-ask').textContent=posts.filter(p=>p.tag==='ask').length;
 }
-async function saveMemos(){try{await window.storage.set(STORAGE_KEY,JSON.stringify(memos));}catch(e){console.error(e);}}
 
 // ── TOAST ────────────────────────────────────────────────────────────
 let toastTimer;
