@@ -6,6 +6,20 @@
 <title>Claude Code Retooling Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyCEm50UQZEEs-6RBo1Z6bWoJUpg4GMT-4k",
+    authDomain: "claude-retooling-hub.firebaseapp.com",
+    projectId: "claude-retooling-hub",
+    storageBucket: "claude-retooling-hub.firebasestorage.app",
+    messagingSenderId: "327039356281",
+    appId: "1:327039356281:web:76b03f2a297f406f2833a8"
+  });
+  const db = firebase.firestore();
+</script>
 <style>
 /* ── RESET & BASE ──────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1861,8 +1875,8 @@ let cSelTag='free';
 
 // Init
 (async()=>{
-  // Load nick from personal storage
-  try{const r=await window.storage.get(NICK_KEY,false);if(r&&r.value)myNick=r.value;}catch(e){}
+  // Load nick from localStorage
+  try{const v=localStorage.getItem(NICK_KEY);if(v)myNick=v;}catch(e){}
   updateNickDisplay();
   renderCTagSel();
   await loadPosts();
@@ -1885,23 +1899,23 @@ async function saveNick(){
   if(!v){toast('닉네임을 입력해주세요');return;}
   if(v.length>20){toast('닉네임은 20자 이하');return;}
   myNick=v;
-  try{await window.storage.set(NICK_KEY,v,false);}catch(e){}
+  try{localStorage.setItem(NICK_KEY,v);}catch(e){}
   updateNickDisplay();
   toast('닉네임 설정 완료 ✅');
 }
 
 async function loadPosts(){
   try{
-    const r=await window.storage.get(COMM_KEY,true);
-    posts=r&&r.value?JSON.parse(r.value):[];
-  }catch(e){posts=[];}
+    const snapshot=await db.collection('posts').orderBy('created','desc').get();
+    posts=snapshot.docs.map(doc=>({docId:doc.id,...doc.data()}));
+  }catch(e){console.error('loadPosts error:',e);posts=[];}
   renderCTagSel();
   renderCFilters();
   renderPosts();
   updateCommStats();
 }
 async function savePosts(){
-  try{await window.storage.set(COMM_KEY,JSON.stringify(posts),true);}catch(e){console.error(e);}
+  // savePosts is now handled per-operation (add/update/delete)
 }
 
 function renderCTagSel(){
@@ -1953,23 +1967,27 @@ async function addPost(){
   const titleInp=document.getElementById('c-title');
   const text=inp.value.trim();if(!text)return;
   const title=(titleInp?titleInp.value.trim():'');
-  const tag=CTAGS.find(t=>t.id===cSelTag)||CTAGS[5];
   const now=new Date().toISOString();
-  if(cEditId){
-    const p=posts.find(p=>p.id===cEditId);
-    if(p&&p.nick===myNick){p.text=text;p.title=title;p.tag=cSelTag;p.edited=now;}
-    cEditId=null;
-    document.getElementById('c-post-btn').textContent='게시하기 ↵';
-    toast('수정 완료 ✏️');
-  } else {
-    posts.unshift({id:Date.now()+Math.random(),title,text,tag:cSelTag,nick:myNick,created:now,likes:[],pinned:false});
-    toast('게시 완료 🎉');
-  }
+  try{
+    if(cEditId){
+      const p=posts.find(p=>String(p.id)===String(cEditId));
+      if(p&&p.nick===myNick&&p.docId){
+        await db.collection('posts').doc(p.docId).update({text,title,tag:cSelTag,edited:now});
+      }
+      cEditId=null;
+      document.getElementById('c-post-btn').textContent='게시하기 ↵';
+      toast('수정 완료 ✏️');
+    } else {
+      const newPost={id:Date.now()+Math.random(),title,text,tag:cSelTag,nick:myNick,created:now,likes:[],pinned:false};
+      await db.collection('posts').add(newPost);
+      toast('게시 완료 🎉');
+    }
+  }catch(e){console.error(e);toast('저장 실패 😢');return;}
   inp.value='';
   if(titleInp)titleInp.value='';
   document.getElementById('c-count').textContent='0자';
   document.getElementById('c-post-btn').disabled=true;
-  await savePosts();renderCFilters();renderPosts();updateCommStats();
+  await loadPosts();
 }
 
 function renderPosts(){
@@ -2022,11 +2040,12 @@ function renderPosts(){
 async function toggleLike(id){
   if(!myNick){toast('좋아요는 닉네임 설정 후 가능합니다');return;}
   const p=posts.find(p=>String(p.id)===String(id));
-  if(!p)return;
+  if(!p||!p.docId)return;
   if(!p.likes)p.likes=[];
   const idx=p.likes.indexOf(myNick);
   if(idx>=0)p.likes.splice(idx,1); else p.likes.push(myNick);
-  await savePosts();renderPosts();
+  try{await db.collection('posts').doc(p.docId).update({likes:p.likes});}catch(e){console.error(e);}
+  renderPosts();
 }
 function editPost(id){
   const p=posts.find(p=>String(p.id)===String(id));
@@ -2046,8 +2065,9 @@ async function deletePost(id){
   const p=posts.find(p=>String(p.id)===String(id));
   if(!p||p.nick!==myNick)return;
   if(!confirm('삭제할까요?'))return;
+  try{if(p.docId)await db.collection('posts').doc(p.docId).delete();}catch(e){console.error(e);}
   posts=posts.filter(p=>String(p.id)!==String(id));
-  await savePosts();renderCFilters();renderPosts();updateCommStats();toast('삭제됨 🗑');
+  renderCFilters();renderPosts();updateCommStats();toast('삭제됨 🗑');
 }
 function copyPost(id){
   const p=posts.find(p=>String(p.id)===String(id));
