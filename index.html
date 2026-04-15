@@ -660,20 +660,20 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <!-- 최신 인사이트 하이라이트 -->
     <div class="section-title">🔥 최신 인사이트 & 트렌드</div>
     <div class="g3">
+      <div class="card" style="cursor:pointer;border-left:3px solid var(--red)" onclick="showPage('insights')">
+        <div class="card-badge badge-red">🔥 HOT · 데스크탑</div>
+        <div class="card-title">Claude Code, 프로그래밍을 넘어서</div>
+        <div class="card-desc">데스크탑 앱 리디자인 · Opus 4.7 디자인 도구 · 병렬 세션. 코딩 에이전트 → 작업 에이전트로 확장. Adobe·Figma 주가 하락의 진짜 이유.</div>
+      </div>
       <div class="card" style="cursor:pointer;border-left:3px solid var(--accent)" onclick="showPage('insights')">
         <div class="card-badge badge-purple">NEW · 하네스</div>
         <div class="card-title">프롬프트 시대는 끝났다 — 하네스의 시대</div>
         <div class="card-desc">프롬프트 → 컨텍스트 → 하네스. AI 에이전트를 감싸는 시스템 설계가 진정한 경쟁력인 시대.</div>
       </div>
-      <div class="card" style="cursor:pointer;border-left:3px solid var(--red)" onclick="showPage('insights')">
-        <div class="card-badge badge-red">NEW · 분석</div>
+      <div class="card" style="cursor:pointer;border-left:3px solid var(--amber)" onclick="showPage('insights')">
+        <div class="card-badge badge-amber">NEW · 분석</div>
         <div class="card-title">Claude Code 50만 줄 소스 유출 사건</div>
         <div class="card-desc">숨겨진 다마고치 Buddy System, Kairos 데몬 모드, 토큰 최적화 메커니즘의 전모.</div>
-      </div>
-      <div class="card" style="cursor:pointer;border-left:3px solid var(--green)" onclick="showPage('insights')">
-        <div class="card-badge badge-green">NEW · 원칙</div>
-        <div class="card-title">에이전틱 엔지니어링 5가지 핵심 원칙</div>
-        <div class="card-desc">Planning · Tool Calling · Memory · 위임-검토-소유 모델. AI 에이전트 시대의 필수 역량.</div>
       </div>
     </div>
 
@@ -1248,8 +1248,79 @@ Esc Esc         → 되감기
       <p>에이전틱 엔지니어링, 하네스, Claude Code 내부 구조까지. 교육자와 실무자를 위한 엄선된 인사이트 모음.</p>
     </div>
 
+    <!-- 0. Claude Code 데스크탑 앱 리디자인 (최신) -->
+    <div class="section-title" style="display:flex;align-items:center;gap:10px">
+      🖥️ Claude Code, 프로그래밍을 넘어 더 많은 것으로
+      <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 8px;border-radius:12px;font-weight:700">HOT</span>
+    </div>
+    <div class="note" style="border-left-color:var(--red)">📌 <strong>핵심 메시지</strong>: Claude Code가 <strong>코딩 에이전트 → 작업 에이전트</strong>로 확장되고 있습니다. 데스크탑 앱 리디자인, Opus 4.7 디자인 도구, 병렬 세션이라는 세 가지 신호가 이를 가리킵니다. 발표 직후 Adobe(ADBE), Figma(FIG) 주가가 2~3% 이상 하락했습니다.</div>
+
+    <div class="g2">
+      <div class="card" style="border-top:3px solid var(--red);padding:20px">
+        <div class="card-badge badge-red">신호 1</div>
+        <div class="card-title">🎨 HTML 프리뷰 패널 — 디자인 도구의 포석</div>
+        <div class="card-desc" style="margin-top:10px">
+          코딩 도구에 왜 웹페이지 프리뷰가 필요했을까요?<br><br>
+          <strong>Opus 4.7 디자인 도구</strong>가 이번 주 출시 예정입니다. 프롬프트로 웹사이트와 프레젠테이션을 만드는 자연어 디자인 도구예요. 데스크탑 앱에 HTML/PDF 프리뷰 패널을 먼저 넣은 이유가 여기 있습니다.<br><br>
+          <strong>디자인을 만들면서 바로 확인할 수 있는 환경을 먼저 깔아놓은 겁니다.</strong> artifact로 랜딩 페이지를 만들 때보다, 전용 도구가 붙으면 비개발자도 결과물 수준이 완전히 달라질 것입니다.
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent);padding:20px">
+        <div class="card-badge badge-purple">신호 2</div>
+        <div class="card-title">🧩 패널 조립형 레이아웃 — 결국 IDE가 정답</div>
+        <div class="card-desc" style="margin-top:10px">
+          터미널, 파일 에디터, diff viewer, 프리뷰가 각각 독립 패널로 존재합니다. <strong>Drag-and-drop으로 원하는 위치에 배치</strong>. VS Code처럼 터미널은 아래, 에디터는 가운데, 파일 트리는 사이드바에 두는 방식입니다.<br><br>
+          AI 코딩 에이전트를 쓸 때 가장 많이 보는 화면은 여전히 <strong>터미널</strong>이에요. 에이전트가 어떤 명령을 실행하는지 로그를 직접 봐야 신뢰가 생깁니다.<br><br>
+          Anthropic은 터미널을 없애지 않고 앱 안에 그대로 품었고, 기존 CLI 플러그인과 hooks 설정도 그대로 작동합니다.
+        </div>
+        <ul style="margin-top:12px;padding-left:18px;font-size:11px;color:var(--text2);line-height:1.8">
+          <li>diff viewer 패널에서 <strong>라인별 코멘트 후 일괄 제출</strong> 가능</li>
+          <li>파일 에디터 내장 — 에이전트 작업 중 수동 수정도 같은 창에서 처리</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="card" style="border-top:3px solid var(--amber);padding:20px">
+        <div class="card-badge badge-amber">신호 3</div>
+        <div class="card-title">🔀 병렬 세션 — Codex가 연 시장에 다른 답</div>
+        <div class="card-desc" style="margin-top:10px">
+          Codex가 2월에 데스크탑 앱을 내놓으면서 <strong>병렬 에이전트 관리</strong>라는 카테고리를 열었습니다. 터미널 하나에 세션 하나로 쓰던 시절의 가장 아쉬웠던 부분.<br><br>
+          이번 리디자인으로 하나의 창에서 여러 세션을 나란히 띄우고 사이드바에서 전환합니다. <strong>Git worktree 자동 격리</strong>까지 들어가서 에이전트끼리 코드 충돌이 없어요.<br><br>
+          중요한 건 <strong>병렬로 돌리는 세션이 전부 코딩일 필요가 없다</strong>는 점입니다. 한쪽에서 버그 수정, 다른 쪽에서 랜딩 페이지 제작, 또 다른 쪽에서 프레젠테이션 생성이 동시에 가능합니다.
+        </div>
+        <ul style="margin-top:12px;padding-left:18px;font-size:11px;color:var(--text2);line-height:1.8">
+          <li>Codex 앱: 출시 3개월 만에 <strong>주간 활성 사용자 200만 돌파</strong></li>
+          <li>Claude Code: worktree 격리로 세션 간 코드 충돌 방지</li>
+          <li><strong>Routines 기능</strong> 같은 날 발표 — 반복 작업 스케줄링 지원</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid var(--pink);padding:20px">
+        <div class="card-badge badge-pink">결론</div>
+        <div class="card-title">🎯 세 요소가 가리키는 방향</div>
+        <div class="card-desc" style="margin-top:10px">
+          공통점이 있습니다. <strong>Claude Code가 코딩 에이전트에서 작업 에이전트로 확장</strong>되고 있다는 겁니다.<br><br>
+          <strong>① HTML 프리뷰 패널</strong> → 디자인 도구의 출력 화면<br>
+          <strong>② IDE형 레이아웃</strong> → 코딩과 디자인을 같은 공간에서<br>
+          <strong>③ 병렬 세션</strong> → 여러 종류 작업을 동시에 돌리는 기반<br><br>
+          모델을 더 똑똑하게 만드는 것만으로는 부족합니다. <strong>그 모델이 할 수 있는 일의 범위를 넓히고, 그걸 담는 작업 환경까지 먼저 깔아야</strong> 합니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:20px"><div class="tip-head"><div class="tip-icon">💥</div><div class="tip-title">시장의 반응: Adobe · Figma 주가 하락의 진짜 이유</div></div><div class="tip-body">
+      Adobe(ADBE)와 Figma(FIG) 주가가 2~3% 이상 하락한 건 <strong>코딩 도구의 리디자인 때문이 아닙니다</strong>. <strong>"코딩 도구가 더 이상 코딩만 하지 않겠다"는 신호</strong> 때문입니다.<br><br>
+      사실 이미 많은 사람들이 소프트웨어 개발을 넘어 다양한 업무를 Claude Code와 함께 하고 있고, Claude Code는 더 무섭게 진화하고 있습니다. <strong>"도구보다 제품"</strong>이라는 본질적 질문이 그 어느 때보다 중요해지는 시점입니다.
+    </div></div>
+
+    <div class="g3" style="margin-top:16px">
+      <div class="card" style="cursor:pointer" onclick="goLink('https://lnkd.in/gdD75u5R')"><div class="card-badge badge-red">참고</div><div class="card-title">The Information: Opus 4.7 디자인 도구 ↗</div><div class="card-desc">프롬프트로 웹사이트·프레젠테이션 생성하는 디자인 도구 소식</div></div>
+      <div class="card" style="cursor:pointer" onclick="goLink('https://lnkd.in/gCXSY8Qh')"><div class="card-badge badge-purple">참고</div><div class="card-title">Claude Code 공식 문서 ↗</div><div class="card-desc">패널 조립형 레이아웃, hooks, 데스크탑 앱 가이드</div></div>
+      <div class="card" style="cursor:pointer" onclick="goLink('https://lnkd.in/gf42Ka_b')"><div class="card-badge badge-amber">참고</div><div class="card-title">Codex 데스크탑 앱 ↗</div><div class="card-desc">병렬 에이전트 관리 카테고리를 연 OpenAI Codex</div></div>
+    </div>
+
     <!-- 1. 하네스 시대 -->
-    <div class="section-title">1. 프롬프트 엔지니어링은 끝났다 — 하네스의 시대</div>
+    <div class="section-title" style="margin-top:2rem">1. 프롬프트 엔지니어링은 끝났다 — 하네스의 시대</div>
     <div class="note">📌 <strong>핵심 공식</strong>: Agent = Model + Harness. 모델이 아닌 모든 것 — 시스템 프롬프트, 도구, 샌드박스, 피드백 루프, 메모리 — 이 하네스를 구성합니다. 2026년의 경쟁력은 모델이 아니라 <strong>마구(harness)</strong>에서 나옵니다.</div>
     <div class="g3">
       <div class="card" style="border-top:3px solid var(--accent)">
