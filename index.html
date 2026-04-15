@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Metanet AI Hub · 교육 & 커뮤니티</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='translate(50,50)'%3E%3Cpath d='M 0,-38 A 38,38 0 0,1 32.9,19 L 21.9,12.6 A 25,25 0 0,0 0,-25 Z' fill='%231B8AE8'/%3E%3Cpath d='M 32.9,19 A 38,38 0 0,1 -32.9,19 L -21.9,12.6 A 25,25 0 0,0 21.9,12.6 Z' fill='%23FFC629'/%3E%3Cpath d='M -32.9,19 A 38,38 0 0,1 0,-38 L 0,-25 A 25,25 0 0,0 -21.9,12.6 Z' fill='%23E8322C'/%3E%3Ccircle cx='0' cy='0' r='15' fill='white'/%3E%3Ccircle cx='0' cy='0' r='10' fill='%231B8AE8'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="metanet-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Firebase SDK -->
@@ -82,36 +82,24 @@ code{font-family:'JetBrains Mono',monospace}
   transition:transform .3s ease;
 }
 .sidebar-logo{
-  padding:22px 18px 18px;
+  padding:20px 18px 16px;
   border-bottom:1px solid var(--border);
-  background:linear-gradient(180deg,#ffffff 0%,#F7FAFF 100%);
+  background:#ffffff;
 }
 .logo-mark{
-  display:flex;align-items:center;gap:11px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:8px;
   text-decoration:none;
 }
-.logo-svg{
-  width:38px;height:38px;flex-shrink:0;
-  filter:drop-shadow(0 2px 6px rgba(0,86,210,.15));
-}
-.logo-text{
-  font-size:15px;font-weight:800;
-  color:#0056D2;
-  letter-spacing:-.4px;
-  line-height:1.15;
-  font-family:'Pretendard',sans-serif;
+.logo-img{
+  width:100%;max-width:180px;height:auto;
+  display:block;
 }
 .logo-sub{
-  font-size:10px;color:var(--text2);font-weight:500;
-  letter-spacing:-.1px;margin-top:2px;
+  font-size:11px;color:var(--text2);font-weight:600;
+  letter-spacing:-.1px;
+  padding-left:2px;
 }
-.logo-badge{
-  display:inline-block;
-  font-size:8px;font-weight:700;
-  color:#fff;background:linear-gradient(135deg,#0056D2,#00A3E0);
-  padding:2px 6px;border-radius:3px;
-  letter-spacing:.5px;margin-right:4px;
-}
+.logo-sub strong{color:#0056D2;font-weight:700}
 
 .sidebar-section{padding:10px 0}
 .sidebar-section-label{
@@ -530,21 +518,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <a href="#" class="logo-mark" onclick="showPage('home');return false">
-      <!-- Metanet logo SVG -->
-      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Circular ring logo (4-color: blue, red, yellow, cyan) -->
-        <g transform="translate(50,50)">
-          <path d="M 0,-32 A 32,32 0 0,1 27.7,16 L 17.3,10 A 20,20 0 0,0 0,-20 Z" fill="#1B8AE8"/>
-          <path d="M 27.7,16 A 32,32 0 0,1 -27.7,16 L -17.3,10 A 20,20 0 0,0 17.3,10 Z" fill="#FFC629"/>
-          <path d="M -27.7,16 A 32,32 0 0,1 0,-32 L 0,-20 A 20,20 0 0,0 -17.3,10 Z" fill="#E8322C"/>
-          <circle cx="0" cy="0" r="12" fill="#fff"/>
-          <circle cx="0" cy="0" r="8" fill="#1B8AE8"/>
-        </g>
-      </svg>
-      <div>
-        <div class="logo-text">Metanet <span style="color:#E8322C">AI Hub</span></div>
-        <div class="logo-sub"><span class="logo-badge">META</span>교육 & 커뮤니티 v5</div>
-      </div>
+      <img class="logo-img" src="metanet-logo.png" alt="Metanet">
+      <div class="logo-sub"><strong>AI Hub</strong> · 교육 & 커뮤니티 v5</div>
     </a>
   </div>
 
