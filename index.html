@@ -600,6 +600,10 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       <span class="ni-icon">🎓</span> 무료 강의 12개
       <span class="ni-badge">수료증</span>
     </a>
+    <a class="nav-item" onclick="showPage('downloads')" href="#">
+      <span class="ni-icon">📥</span> 교육 자료 다운로드
+      <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
+    </a>
     <a class="nav-item" onclick="showPage('workflow')" href="#">
       <span class="ni-icon">🔄</span> 실전 워크플로우
     </a>
@@ -1194,6 +1198,45 @@ Esc Esc         → 되감기
         <div class="wf-item"><div class="wf-icon">⚙️</div><div><div class="wf-title">병렬 에이전트</div><div class="wf-desc">cmux new feature-a / cmux new bugfix-b → 각 에이전트 독립 브랜치 작업</div></div></div>
         <div class="wf-item"><div class="wf-icon">🔍</div><div><div class="wf-title">gstack 리뷰·배포</div><div class="wf-desc">/review (XSS·보안 감지) → /qa (버그 리포트) → /ship (자동 배포) → /retro</div></div></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ─────────────── DOWNLOADS ─────────────── -->
+  <div class="page" id="page-downloads">
+    <div class="hero">
+      <div class="hero-tag">📥 교육 자료 다운로드 센터</div>
+      <h1>Anthropic 공식 코스 요약본</h1>
+      <p>17개 공식 교육 자료를 정주행할 시간이 없는 분들을 위한 핵심 요약본. 메타넷 구성원이라면 누구나 다운로드 가능합니다.</p>
+    </div>
+
+    <div class="note">📌 <strong>다운로드 전 닉네임 설정 필요</strong>: 오른쪽 상단 커뮤니티 보드에서 닉네임을 먼저 설정해주세요. 관리자가 누가 다운로드했는지 확인할 수 있습니다.</div>
+
+    <div class="section-title">📚 제공 자료</div>
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--accent);padding:24px">
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="width:56px;min-width:56px;height:72px;background:linear-gradient(135deg,#DC2626,#B91C1C);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0">📄</div>
+          <div style="flex:1">
+            <div class="card-badge badge-red" style="margin-bottom:8px">PDF · 826KB · 17개 코스</div>
+            <div class="card-title" style="font-size:16px;margin-bottom:8px">Anthropic 교육자료 요약본</div>
+            <div class="card-desc" style="margin-bottom:14px">Anthropic 공식 코스 17개의 핵심 내용 요약본. Claude Code, Skills, MCP, Agentic 패턴 등 필수 개념 압축 정리.</div>
+            <button class="btn btn-primary" onclick="downloadPdf()" style="font-size:12px;padding:8px 16px">
+              📥 다운로드
+            </button>
+            <span id="dl-count" style="margin-left:12px;font-size:11px;color:var(--text3)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">📊 다운로드 로그 (관리자)</div>
+    <div class="note" style="border-left-color:var(--amber)">🔐 <strong>관리자 접근</strong>: 아래 입력창에 관리자 암호를 입력하면 다운로드 기록을 볼 수 있습니다.</div>
+    <div class="card" style="padding:20px">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <input type="password" id="admin-pass" placeholder="관리자 암호 입력" style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:9px 12px;font-size:12px;color:var(--text);outline:none;font-family:'Pretendard',sans-serif">
+        <button class="btn btn-primary" onclick="loadDownloadLogs()" style="font-size:12px;padding:8px 16px">로그 조회</button>
+      </div>
+      <div id="dl-logs" style="font-size:12px;color:var(--text2)">암호 입력 후 '로그 조회' 버튼을 누르세요.</div>
     </div>
   </div>
 
@@ -1977,6 +2020,8 @@ const pageLabels={
   harness:'⚙️ 하네스 & 자율 개발',ailoop:'🔁 AI Loop 전략',agentic:'📖 에이전트 패턴 21개',
   'skills-mcp':'🔌 Skills & MCP 25선',repos:'📦 GitHub Repos 25선',
   courses:'🎓 무료 강의 12개',workflow:'🔄 실전 워크플로우',
+  downloads:'📥 교육 자료 다운로드',
+  insights:'🔥 인사이트 & 트렌드',
   memo:'💬 커뮤니티 보드'
 };
 // ── EXTERNAL LINK HANDLER ─────────────────────────────────────────────
@@ -1999,6 +2044,7 @@ function showPage(id){
   document.getElementById('tb-section').textContent=pageLabels[id]||id;
   window.scrollTo({top:0,behavior:'smooth'});
   closeSidebar();
+  if(id==='downloads'&&typeof updateDlCount==='function')updateDlCount();
 }
 function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
@@ -2239,6 +2285,69 @@ function updateCommStats(){
   if(el('c-today'))el('c-today').textContent=posts.filter(p=>new Date(p.created).toDateString()===today).length;
   if(el('c-tips'))el('c-tips').textContent=posts.filter(p=>p.tag==='tip').length;
   if(el('c-ask'))el('c-ask').textContent=posts.filter(p=>p.tag==='ask').length;
+}
+
+// ── DOWNLOAD LOG (PDF) ───────────────────────────────────────────────
+const ADMIN_PASS='metanet2026'; // 관리자 암호
+async function downloadPdf(){
+  if(!myNick){
+    toast('먼저 커뮤니티에서 닉네임을 설정해주세요 👆');
+    showPage('memo');
+    return;
+  }
+  try{
+    await db.collection('downloads').add({
+      nick: myNick,
+      file: 'Anthropic 교육자료 요약본.pdf',
+      downloaded: new Date().toISOString(),
+      userAgent: navigator.userAgent.substring(0,150)
+    });
+    toast('다운로드 기록 완료 📥');
+  }catch(e){console.error(e);}
+  // 실제 파일 다운로드
+  const a=document.createElement('a');
+  a.href='resources/Anthropic_교육자료_요약본.pdf';
+  a.download='Anthropic 교육자료 요약본.pdf';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  updateDlCount();
+}
+async function updateDlCount(){
+  try{
+    const snap=await db.collection('downloads').get();
+    const el=document.getElementById('dl-count');
+    if(el)el.textContent=`총 ${snap.size}회 다운로드됨`;
+  }catch(e){}
+}
+async function loadDownloadLogs(){
+  const pass=document.getElementById('admin-pass').value;
+  const box=document.getElementById('dl-logs');
+  if(pass!==ADMIN_PASS){box.innerHTML='<span style="color:var(--red)">❌ 암호가 틀렸습니다</span>';return;}
+  box.innerHTML='⏳ 로딩 중...';
+  try{
+    const snap=await db.collection('downloads').orderBy('downloaded','desc').get();
+    if(snap.empty){box.innerHTML='아직 다운로드 기록이 없습니다.';return;}
+    const rows=snap.docs.map((d,i)=>{
+      const x=d.data();
+      const dt=new Date(x.downloaded);
+      const dateStr=dt.toLocaleString('ko-KR');
+      return `<tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px;font-weight:600;color:var(--text3)">${i+1}</td>
+        <td style="padding:8px;font-weight:600;color:var(--text)">${x.nick||'익명'}</td>
+        <td style="padding:8px;color:var(--text2)">${x.file||''}</td>
+        <td style="padding:8px;color:var(--text3);font-size:11px">${dateStr}</td>
+      </tr>`;
+    }).join('');
+    box.innerHTML=`<div style="margin-bottom:12px;color:var(--green);font-weight:600">✅ 총 ${snap.size}건의 다운로드 기록</div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:var(--bg3);border-bottom:2px solid var(--border2)">
+        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">#</th>
+        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">닉네임</th>
+        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">파일</th>
+        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">다운로드 일시</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+  }catch(e){box.innerHTML='<span style="color:var(--red)">❌ 로드 실패: '+e.message+'</span>';}
 }
 
 // ── TOAST ────────────────────────────────────────────────────────────
