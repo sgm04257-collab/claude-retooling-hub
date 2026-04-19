@@ -1,0 +1,73 @@
+<!--
+  ─────────────────────────────────────────────────────────────────────
+  비밀번호 게이트 (Case A: 내부 전용 임시방편)
+
+  적용 방법:
+    1) 아래 <script> 블록을 index.html 의 <head> 최상단(meta 태그 뒤)에 삽입
+    2) PASSWORD 값을 사내에서 공유할 비밀번호로 변경
+    3) (선택) HASH 방식으로 강화하려면 SHA-256 해시 비교로 교체
+
+  ⚠️ 한계:
+    - HTML 소스를 보면 비밀번호가 노출됨 (보안 수준 낮음)
+    - 진정한 보호는 Cloudflare Access / Firebase Auth 필요
+    - "공개 인덱싱 차단 + 우연한 외부인 접근 방지" 정도의 효과
+  ─────────────────────────────────────────────────────────────────────
+-->
+<script>
+(function(){
+  const PASSWORD = "metanet2026";   // ← 운영 시 변경
+  const KEY = "mnh_auth_v1";
+  const TTL_DAYS = 30;
+
+  // 이미 인증된 세션이면 통과
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){
+      const {ok, exp} = JSON.parse(raw);
+      if(ok && exp > Date.now()) return;
+    }
+  }catch(e){}
+
+  // 게이트 화면 렌더 (페이지 로드 차단)
+  document.addEventListener('DOMContentLoaded', function(){
+    document.body.style.cssText = 'margin:0;padding:0;font-family:Pretendard,sans-serif;background:#F7F7FB';
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+        <div style="background:#fff;border:1px solid #E2E2EE;border-radius:12px;padding:40px;max-width:400px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.06)">
+          <div style="font-size:32px;margin-bottom:8px">🔒</div>
+          <h1 style="font-size:18px;font-weight:600;color:#1A1A2E;margin:0 0 6px">Metanet AI Hub</h1>
+          <p style="font-size:13px;color:#52526E;margin:0 0 24px">사내 전용 — 비밀번호를 입력해주세요</p>
+          <input id="_gate_pw" type="password" placeholder="비밀번호"
+            style="width:100%;padding:12px 14px;border:1px solid #E2E2EE;border-radius:8px;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box"
+            autofocus>
+          <button id="_gate_btn"
+            style="width:100%;padding:12px;margin-top:10px;background:#6152E8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">
+            입장
+          </button>
+          <p id="_gate_err" style="font-size:12px;color:#DC2626;margin:10px 0 0;min-height:16px"></p>
+          <p style="font-size:11px;color:#9090A8;margin:20px 0 0">© 2026 Metanet · 외부 공유 금지</p>
+        </div>
+      </div>`;
+
+    function submit(){
+      const pw = document.getElementById('_gate_pw').value;
+      if(pw === PASSWORD){
+        localStorage.setItem(KEY, JSON.stringify({
+          ok:true, exp: Date.now() + TTL_DAYS*24*60*60*1000
+        }));
+        location.reload();
+      } else {
+        document.getElementById('_gate_err').textContent = '비밀번호가 일치하지 않습니다';
+        document.getElementById('_gate_pw').value = '';
+      }
+    }
+    document.getElementById('_gate_btn').onclick = submit;
+    document.getElementById('_gate_pw').addEventListener('keydown', e => {
+      if(e.key === 'Enter') submit();
+    });
+  });
+
+  // body 가 그려지기 전에 기존 콘텐츠가 깜빡이지 않도록 즉시 비움
+  document.documentElement.innerHTML = '<head>'+document.head.innerHTML+'</head><body></body>';
+})();
+</script>

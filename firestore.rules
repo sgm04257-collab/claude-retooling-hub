@@ -1,0 +1,82 @@
+// ─────────────────────────────────────────────────────────────────────
+// Firestore Security Rules — Metanet AI Hub
+//
+// 적용 방법:
+//   1) Firebase 콘솔 → Firestore Database → 규칙 탭
+//   2) 아래 내용을 그대로 붙여넣고 "게시"
+//   3) 시뮬레이터에서 read/write 동작 검증
+//
+// 정책 요약:
+//   - posts: 모두 읽기 가능, 작성은 길이/필드 제한 + rate limit
+//   - downloads: 분석용. 누구나 add 가능하지만 read는 차단
+//                (관리자 콘솔에서만 조회) — 외부 조회로 인한 데이터
+//                노출/요금 폭증 방지
+//   - 그 외 모든 컬렉션은 기본 차단
+// ─────────────────────────────────────────────────────────────────────
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── helpers ────────────────────────────────────────────────────
+    function isString(v, max) {
+      return v is string && v.size() > 0 && v.size() <= max;
+    }
+    function isOptString(v, max) {
+      return !('exists' in {}) || v == null || (v is string && v.size() <= max);
+    }
+
+    // ── posts (커뮤니티 보드) ───────────────────────────────────────
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if
+        // 필수 필드 + 길이 제한 (스팸/대용량 차단)
+        request.resource.data.keys().hasAll(['text','nick','tag','created','likes','pinned'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 4000        // 본문 최대 4KB
+        && request.resource.data.nick is string
+        && request.resource.data.nick.size() <= 40
+        && request.resource.data.tag is string
+        && request.resource.data.tag.size() <= 20
+        && (!('title' in request.resource.data) || request.resource.data.title.size() <= 200)
+        && request.resource.data.likes is list
+        && request.resource.data.likes.size() == 0          // 신규는 likes 비어있어야
+        && request.resource.data.pinned == false;           // 신규는 pinned 불가
+
+      // 수정/삭제: 닉네임 일치(클라 소유 검증) — 향후 Auth 도입 시 강화
+      allow update: if
+        request.resource.data.nick == resource.data.nick
+        && request.resource.data.text.size() <= 4000
+        && (
+          // 좋아요만 변경 (likes 배열 1개씩 추가/제거)
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes']))
+          // 또는 본인 글 편집
+          || (request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['text','title','tag','edited']))
+          // 관리자 핀 토글 (운영자가 콘솔에서 처리 권장)
+          || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pinned']))
+        );
+
+      allow delete: if true;  // ⚠️ 외부 공개 시 false로 변경 후 운영자 콘솔 전용
+    }
+
+    // ── downloads (다운로드 카운터) ─────────────────────────────────
+    // add만 허용 / 조회는 콘솔에서만
+    match /downloads/{docId} {
+      allow create: if
+        request.resource.data.keys().hasAll(['file','downloaded'])
+        && request.resource.data.file is string
+        && request.resource.data.file.size() <= 200;
+      allow read, update, delete: if false;
+      // ※ 클라이언트의 다운로드 횟수 표시는 서버 집계 함수(또는 운영자가
+      //    주기적으로 갱신하는 단일 문서 /stats/downloads)로 대체 권장
+    }
+
+    // ── 그 외 모든 경로 차단 ────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

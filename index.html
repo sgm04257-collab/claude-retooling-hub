@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Metanet AI Hub · 교육 & 커뮤니티</title>
+<meta name="description" content="Metanet AI Hub — Claude Code · Skills · Harness 기반 사내 AI 교육 & 기술 공유 허브">
+<meta name="robots" content="noindex, nofollow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Metanet AI Hub · 교육 & 커뮤니티">
+<meta property="og:description" content="Claude Code · Skills · Harness 기반 사내 AI 교육 & 기술 공유 허브">
+<meta property="og:image" content="metanet-logo.png">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
 <link rel="icon" type="image/png" href="metanet-logo.png">
+<link rel="apple-touch-icon" href="metanet-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Firebase SDK -->
@@ -532,11 +542,43 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('insights')" href="#">
       <span class="ni-icon">🔥</span> 인사이트 & 트렌드
     </a>
+    <a class="nav-item" onclick="showPage('weekly-report')" href="#">
+      <span class="ni-icon">📊</span> 주간 리포트
+      <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
+    </a>
     <a class="nav-item" onclick="showPage('learn')" href="#">
       <span class="ni-icon">📚</span> 학습 로드맵
     </a>
     <a class="nav-item" onclick="showPage('cheatsheet')" href="#">
       <span class="ni-icon">⚡</span> 치트시트
+    </a>
+  </div>
+
+  <!-- 강의 & 워크플로우 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🎓 강의 & 워크플로우</div>
+    <a class="nav-item" onclick="showPage('courses')" href="#">
+      <span class="ni-icon">🎓</span> 무료 강의 12개
+      <span class="ni-badge">수료증</span>
+    </a>
+    <a class="nav-item" onclick="showPage('downloads')" href="#">
+      <span class="ni-icon">📥</span> 교육 자료 다운로드
+      <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
+    </a>
+    <a class="nav-item" onclick="showPage('workflow')" href="#">
+      <span class="ni-icon">🔄</span> 실전 워크플로우
+    </a>
+  </div>
+
+  <!-- 커뮤니티 -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">커뮤니티</div>
+    <a class="nav-item" onclick="showPage('memo')" href="#">
+      <span class="ni-icon">💬</span> 커뮤니티 보드
+    </a>
+    <a class="nav-item" onclick="showPage('ai-curation')" href="#">
+      <span class="ni-icon">📰</span> AI 큐레이션
+      <span class="ni-badge" style="background:var(--accent);color:#fff">VOL.1</span>
     </a>
   </div>
 
@@ -593,33 +635,12 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </a>
   </div>
 
-  <!-- 강의 & 워크플로우 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">🎓 강의 & 워크플로우</div>
-    <a class="nav-item" onclick="showPage('courses')" href="#">
-      <span class="ni-icon">🎓</span> 무료 강의 12개
-      <span class="ni-badge">수료증</span>
-    </a>
-    <a class="nav-item" onclick="showPage('downloads')" href="#">
-      <span class="ni-icon">📥</span> 교육 자료 다운로드
-      <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
-    </a>
-    <a class="nav-item" onclick="showPage('workflow')" href="#">
-      <span class="ni-icon">🔄</span> 실전 워크플로우
-    </a>
-  </div>
-
-  <!-- 도구 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">커뮤니티</div>
-    <a class="nav-item" onclick="showPage('memo')" href="#">
-      <span class="ni-icon">💬</span> 커뮤니티 보드
-    </a>
-  </div>
-
   <div class="sidebar-bottom">
     <strong style="color:#0056D2">Metanet AI Hub</strong><br>
-    사내 교육 & 기술 공유 · 지속 업데이트 중
+    사내 교육 & 기술 공유 · 지속 업데이트 중<br>
+    <span style="font-size:10px;color:var(--text3);display:inline-block;margin-top:6px">
+      © 2026 Metanet · 사내 자료<br>외부 공유·재배포 금지
+    </span>
   </div>
 </nav>
 
@@ -984,7 +1005,7 @@ Esc Esc         → 되감기
     <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚠️</div><div class="tip-title">① 함정 목록(Pitfall List)을 반드시 넣을 것 — 가장 중요</div></div><div class="tip-body">AI가 자주 틀리는 부분을 미리 적어두면 같은 실수를 반복하지 않습니다. <strong>새로운 실패가 발견될 때마다 한 줄씩 추가</strong>하는 것이 핵심입니다.<div class="codebox">## Pitfalls
 - axios 타임아웃 기본값은 0 (무한대) — 반드시 timeout: 5000 명시
 - React key는 index 대신 고유 ID 사용
-- 2025-01 이후 버전은 deprecated API 사용 금지</div></div></div>
+- 2026-01 이후 버전은 deprecated API 사용 금지</div></div></div>
     <div class="tip-card"><div class="tip-head"><div class="tip-icon">📂</div><div class="tip-title">② 점진적 공개(Progressive Disclosure) — 파일로 나눌 것</div></div><div class="tip-body">상세한 API 시그니처는 references/api.md에, 출력 템플릿은 assets/ 폴더에 분리. <strong>모든 정보를 한 번에 넣으면 AI가 오히려 혼란</strong>스러워합니다.<div class="codebox">my-skill/
 ├── SKILL.md          ← 핵심 지침만
 ├── references/api.md ← 상세 API
@@ -1240,6 +1261,104 @@ Esc Esc         → 되감기
     </div>
   </div>
 
+  <!-- ─────────────── WEEKLY REPORT ─────────────── -->
+  <div class="page" id="page-weekly-report">
+    <div class="hero">
+      <div class="hero-tag">📊 주간 리포트 · 2026년 4월 3주차 (4/14 ~ 4/18)</div>
+      <h1>AI & Claude Code 주간 리포트</h1>
+      <p>이번 주 핵심 업데이트, 트렌드, 실전 팁을 한눈에 정리합니다. 매주 월요일 업데이트됩니다.</p>
+    </div>
+
+    <!-- 이번 주 하이라이트 -->
+    <div class="section-title">🔥 이번 주 하이라이트 TOP 3</div>
+    <div class="g3">
+      <div class="card" style="border-top:3px solid var(--red);padding:20px">
+        <div class="card-badge badge-red">1위</div>
+        <div class="card-title">Claude Code 데스크탑 앱 리디자인</div>
+        <div class="card-desc" style="margin-top:8px">패널 조립형 IDE 레이아웃, HTML 프리뷰, 병렬 세션 지원. 코딩 에이전트에서 <strong>작업 에이전트</strong>로의 전환 신호.<br><br>Adobe·Figma 주가 2~3% 하락 — "코딩 도구가 더 이상 코딩만 하지 않겠다"는 시장 반응.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent);padding:20px">
+        <div class="card-badge badge-purple">2위</div>
+        <div class="card-title">Opus 4.7 디자인 도구 출시 임박</div>
+        <div class="card-desc" style="margin-top:8px">프롬프트로 웹사이트·프레젠테이션 생성하는 자연어 디자인 도구. 데스크탑 앱 HTML 프리뷰 패널은 이를 위한 <strong>사전 포석</strong>이었습니다.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--green);padding:20px">
+        <div class="card-badge badge-green">3위</div>
+        <div class="card-title">Routines 기능 발표</div>
+        <div class="card-desc" style="margin-top:8px">반복 작업을 스케줄링하는 기능. 병렬 세션과 결합하면 <strong>무인 자동화 워크플로우</strong>가 가능해집니다. 잠든 사이 에이전트가 루프를 돌리는 시대.</div>
+      </div>
+    </div>
+
+    <!-- 핵심 수치 -->
+    <div class="section-title">📈 이번 주 핵심 수치</div>
+    <div class="g4">
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:32px;font-weight:700;color:var(--accent)">200만+</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px">Codex 앱 주간 활성 사용자<br>(출시 3개월 만에 달성)</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:32px;font-weight:700;color:var(--green)">5,600+</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px">Claude Code로 분석된<br>보안 취약점 앱 수</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:32px;font-weight:700;color:var(--amber)">21개</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px">에이전트 패턴 북<br>무료 공개 (424p)</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px">
+        <div style="font-size:32px;font-weight:700;color:var(--red)">12개</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px">수료증 발급 가능<br>무료 AI 강의</div>
+      </div>
+    </div>
+
+    <!-- 실전 팁 -->
+    <div class="section-title">💡 이번 주 실전 팁</div>
+    <div class="g2">
+      <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚡</div><div class="tip-title">Git Worktree로 병렬 세션 충돌 방지</div></div><div class="tip-body">
+        Claude Code 병렬 세션을 쓸 때 같은 브랜치에서 작업하면 충돌이 발생합니다. <strong>Git worktree 자동 격리</strong>를 활성화하면 각 세션이 독립된 작업 공간을 갖게 됩니다.<div class="codebox">claude --worktree
+# 또는 대화 중
+/worktree</div>
+      </div></div>
+      <div class="tip-card"><div class="tip-head"><div class="tip-icon">🔧</div><div class="tip-title">Skills Description = 트리거 조건으로 쓸 것</div></div><div class="tip-body">
+        Skills의 description 필드는 "이 스킬이 뭘 하는가"가 아니라 <strong>"언제 이 스킬을 실행할지"</strong>로 써야 자동 활성화가 잘 됩니다.<div class="codebox">❌ "코드 리뷰를 수행합니다"
+✅ "사용자가 'PR 리뷰해줘', '코드 검토'를 요청할 때 실행"</div>
+      </div></div>
+    </div>
+
+    <!-- 추천 학습 -->
+    <div class="section-title">🎓 이번 주 추천 학습</div>
+    <div class="g3">
+      <div class="card" style="border-left:3px solid var(--accent);padding:16px">
+        <div class="card-badge badge-purple">초급</div>
+        <div class="card-title">CLAUDE.md 완벽 가이드</div>
+        <div class="card-desc" style="margin-top:6px">파일 위치·범위·200줄 규칙·@import. AI 업무 매뉴얼의 모든 것.</div>
+        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('claudemd')">가이드 보기 →</button>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);padding:16px">
+        <div class="card-badge badge-green">중급</div>
+        <div class="card-title">Skills 꿀팁 9가지</div>
+        <div class="card-desc" style="margin-top:6px">함정 목록·점진적 공개·Description 작성법. Anthropic 내부 교훈.</div>
+        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('skills-guide')">꿀팁 보기 →</button>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red);padding:16px">
+        <div class="card-badge badge-red">고급</div>
+        <div class="card-title">하네스 & 자율 개발</div>
+        <div class="card-desc" style="margin-top:6px">기획자·생성자·평가자 3인조. 스프린트 계약. Claude Code 혼자 앱 만들기.</div>
+        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('harness')">하네스 보기 →</button>
+      </div>
+    </div>
+
+    <!-- 다음 주 예고 -->
+    <div class="tip-card" style="margin-top:20px;border-left-color:var(--accent)"><div class="tip-head"><div class="tip-icon">📅</div><div class="tip-title">다음 주 예고 (4/21 ~ 4/25)</div></div><div class="tip-body">
+      <strong>• Opus 4.7 디자인 도구 정식 출시 리뷰</strong> — 실제 사용 후기와 비개발자 활용법<br>
+      <strong>• MCP 서버 연동 실전 가이드</strong> — Tavily, Context7, Obsidian 연동 핵심 정리<br>
+      <strong>• 에이전트 패턴 북 핵심 요약</strong> — 424페이지 중 실무에 바로 쓸 수 있는 패턴 5선
+    </div></div>
+
+    <!-- 지난 리포트 아카이브 -->
+    <div class="section-title">📂 지난 리포트</div>
+    <div class="note">📌 주간 리포트는 매주 월요일 업데이트됩니다. 이번 주가 첫 발행입니다. 지난 리포트는 여기에 누적됩니다.</div>
+  </div>
+
   <!-- ─────────────── INSIGHTS ─────────────── -->
   <div class="page" id="page-insights">
     <div class="hero">
@@ -1326,7 +1445,7 @@ Esc Esc         → 되감기
       <div class="card" style="border-top:3px solid var(--accent)">
         <div class="card-badge badge-purple">진화 과정</div>
         <div class="card-title">프롬프트 → 컨텍스트 → 하네스</div>
-        <div class="card-desc">2023~24: 프롬프트 엔지니어링 전성기<br>2025 중반: 컨텍스트 엔지니어링 부상<br>2026: 전체 환경 설계 = 하네스 엔지니어링<br><br>하네스 안에 컨텍스트가 있고, 그 안에 프롬프트가 있습니다.</div>
+        <div class="card-desc">2023~24: 프롬프트 엔지니어링 전성기<br>2025~26 중반: 컨텍스트 엔지니어링 부상<br>2026: 전체 환경 설계 = 하네스 엔지니어링<br><br>하네스 안에 컨텍스트가 있고, 그 안에 프롬프트가 있습니다.</div>
       </div>
       <div class="card" style="border-top:3px solid var(--green)">
         <div class="card-badge badge-green">3대 핵심 요소</div>
@@ -2075,6 +2194,184 @@ build/
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════════════════════════
+       AI CURATION (사내 뉴스레터)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="page" id="page-ai-curation">
+
+    <!-- HERO -->
+    <div style="background:linear-gradient(135deg,#1E2761 0%,#3C3489 100%);color:#fff;border-radius:14px;padding:32px 28px;margin-bottom:20px;position:relative;overflow:hidden">
+      <div style="display:inline-block;background:rgba(255,255,255,.15);color:#CADCFC;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;letter-spacing:.05em;margin-bottom:14px">
+        METANET AI NewsLetter · VOL.1 · MAR 2026
+      </div>
+      <h1 style="font-size:32px;font-weight:700;margin:0 0 8px;letter-spacing:-.02em">Metanet AI Curation</h1>
+      <p style="font-size:14px;color:#CADCFC;margin:0">일하는 방식의 새로운 진화 · AI로 더 똑똑하게, 더 빠르게</p>
+      <div style="position:absolute;right:-30px;bottom:-30px;font-size:160px;opacity:.08">📰</div>
+    </div>
+
+    <!-- 우리의 AI DNA -->
+    <div class="section-title">🧬 우리의 AI DNA</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:14px">메타넷은 지금 어떻게 변화하고 있을까요?</div>
+    <div class="g3" style="margin-bottom:16px">
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.05em;margin-bottom:6px">01 · AI 해커톤 대회</div>
+        <div class="card-desc">M-SIS 운영(AI 과제 적용)과 AI 에이전트 기반 아이디어 해커톤 진행을 통해 AI 활용 역량 강화</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue)">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.05em;margin-bottom:6px">02 · BTS (Beyond Tech Synergy)</div>
+        <div class="card-desc">BTS 기술 세션을 통해 CAST AI, Verkada, Red Hat AI 등 최신 AI 기술과 실제 적용 사례 공유</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green)">
+        <div style="font-size:11px;font-weight:700;color:var(--green);letter-spacing:.05em;margin-bottom:6px">03 · AI BootCamp</div>
+        <div class="card-desc">Azure AI, 리더 AI 교육, AI Practice 과정 등 부트캠프 운영을 통해 임직원 AI 실무 역량 강화 및 일부 인력 AIE 전환 진행</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:24px">
+      <div class="card" style="border-left:3px solid var(--amber)">
+        <div style="font-size:11px;font-weight:700;color:var(--amber);letter-spacing:.05em;margin-bottom:6px">04 · Monthly AI 리터러시 교육</div>
+        <div class="card-desc">생성형 AI 활용, 파이썬 기초 등 2025 Monthly AI 교육을 통해 <strong>총 182명</strong> 임직원의 AI 기초 및 활용 역량 강화</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--pink)">
+        <div style="font-size:11px;font-weight:700;color:var(--pink);letter-spacing:.05em;margin-bottom:6px">05 · AIE Jump UP</div>
+        <div class="card-desc">AIE 인재 확보를 위한 신입 채용연계형 교육 운영 진행 중</div>
+      </div>
+    </div>
+
+    <!-- InflearnAI 수강 현황 -->
+    <div class="section-title">📊 InflearnAI 교육 수강 현황</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:14px">메타넷 직원들은 인프런에서 어떤 AI 강의를 듣고 있을까요?</div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px">
+      <div style="background:linear-gradient(135deg,#EEF2FF 0%,#E0E7FF 100%);border:1px solid #C7D2FE;border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:11px;color:#4338CA;font-weight:600;margin-bottom:6px">메타넷 임직원</div>
+        <div style="font-size:32px;font-weight:700;color:#3730A3;line-height:1">156<span style="font-size:14px;font-weight:500">명</span></div>
+      </div>
+      <div style="background:linear-gradient(135deg,#ECFDF5 0%,#D1FAE5 100%);border:1px solid #A7F3D0;border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:11px;color:#065F46;font-weight:600;margin-bottom:6px">총 수강강의</div>
+        <div style="font-size:32px;font-weight:700;color:#064E3B;line-height:1">302<span style="font-size:14px;font-weight:500">건</span></div>
+      </div>
+      <div style="background:linear-gradient(135deg,#FEF3C7 0%,#FDE68A 100%);border:1px solid #FCD34D;border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:11px;color:#92400E;font-weight:600;margin-bottom:6px">AI 관련 강의 비중</div>
+        <div style="font-size:32px;font-weight:700;color:#78350F;line-height:1">33.1<span style="font-size:14px;font-weight:500">%</span></div>
+        <div style="font-size:10px;color:#92400E;margin-top:4px">전체 912건 중</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#FCE7F3 0%,#FBCFE8 100%);border:1px solid #F9A8D4;border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:11px;color:#9D174D;font-weight:600;margin-bottom:6px">총 수강시간</div>
+        <div style="font-size:32px;font-weight:700;color:#831843;line-height:1">2,114<span style="font-size:14px;font-weight:500">h</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">인프런 AI 카테고리별 수강 현황</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:12px;color:var(--text);width:32px;font-weight:600">1.</div>
+          <div style="flex:1;font-size:13px;color:var(--text)"><strong>AI 핵심 기술 개발</strong> <span style="color:var(--text3);font-size:11px">(에이전트 / LLM / 바이브코딩)</span></div>
+          <div style="background:var(--accent);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">107건</div>
+          <div style="width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:100%;height:100%;background:var(--accent)"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:12px;color:var(--text);width:32px;font-weight:600">2.</div>
+          <div style="flex:1;font-size:13px;color:var(--text)"><strong>AI 데이터 & 인프라</strong> <span style="color:var(--text3);font-size:11px">(파이썬 / 데이터 / 클라우드 / 검색)</span></div>
+          <div style="background:var(--blue);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">100건</div>
+          <div style="width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:93%;height:100%;background:var(--blue)"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:12px;color:var(--text);width:32px;font-weight:600">3.</div>
+          <div style="flex:1;font-size:13px;color:var(--text)"><strong>AI 이론 & 모델링</strong> <span style="color:var(--text3);font-size:11px">(딥러닝 / 머신러닝 / NLP / 비전)</span></div>
+          <div style="background:var(--green);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">34건</div>
+          <div style="width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:32%;height:100%;background:var(--green)"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:12px;color:var(--text);width:32px;font-weight:600">4.</div>
+          <div style="flex:1;font-size:13px;color:var(--text)"><strong>AI 활용 & 업무 혁신</strong> <span style="color:var(--text3);font-size:11px">(GPT 활용 / 업무 자동화 / 디자인)</span></div>
+          <div style="background:var(--amber);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">33건</div>
+          <div style="width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:31%;height:100%;background:var(--amber)"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:12px;color:var(--text);width:32px;font-weight:600">5.</div>
+          <div style="flex:1;font-size:13px;color:var(--text)"><strong>AI 비즈니스 & 전략</strong> <span style="color:var(--text3);font-size:11px">(기획 / 트렌드 / 미래기술)</span></div>
+          <div style="background:var(--pink);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">28건</div>
+          <div style="width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:26%;height:100%;background:var(--pink)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이달의 교육 & 세미나 -->
+    <div class="section-title">🎯 이달의 AI 교육 및 세미나</div>
+    <div class="g2" style="margin-bottom:14px">
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">SK AX 상생아카데미 교육</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--text2);line-height:1.9">
+          <li>· Prompt Engineering 실무 — <strong style="color:var(--accent)">3.16, 3.19</strong></li>
+          <li>· 생성형 AI를 활용한 서비스 기획 실무 — <strong style="color:var(--accent)">3.17, 3.20</strong></li>
+          <li>· 생성형 AI를 활용한 서비스 기획 실무 — <strong style="color:var(--accent)">3.9 ~ 3.11</strong></li>
+          <li>· 생성형 AI를 활용한 서비스 기획 실무 — <strong style="color:var(--accent)">3.12 ~ 3.13</strong></li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:3px solid var(--blue)">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">MS Copilot & Agent 집중 교육</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--text2);line-height:1.9">
+          <li>📅 <strong>3월 18일(수) 13:00 ~ 18:00</strong></li>
+          <li>💻 온라인 Teams</li>
+          <li>📚 Copilot 전략, Agent Framework, Copilot Studio 기능 소개 및 실습</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;background:var(--bg3)">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">▸ AI 세미나 일정</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--bg2);border-radius:8px;padding:10px 14px;border-left:3px solid var(--green)">
+          <div style="font-size:13px;font-weight:600;color:var(--text)">.NET Universe 2026</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:3px">.NET, 클라우드, AI 연계 개발 · <strong style="color:var(--green)">3.12</strong></div>
+        </div>
+        <div style="background:var(--bg2);border-radius:8px;padding:10px 14px;border-left:3px solid var(--blue)">
+          <div style="font-size:13px;font-weight:600;color:var(--text)">IntelliJ IDEA Conf 2026</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:3px">JVM, AI 코드 어시스트 · <strong style="color:var(--blue)">3.26 ~ 27</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 추천 도서 -->
+    <div class="section-title">📚 전자도서관 AI 추천 도서</div>
+    <div class="g3" style="margin-bottom:24px">
+      <div class="card">
+        <div style="background:linear-gradient(135deg,#6152E8,#7C6EF8);color:#fff;border-radius:8px;padding:14px;margin-bottom:10px;text-align:center;font-weight:700;letter-spacing:.05em">📕 AI 2026</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">AI 2026 트렌드 & 활용백과</div>
+        <div class="card-desc">최신 AI 기술 흐름과 산업 활용 사례를 통해 AI 트렌드 이해와 전략적 활용 역량을 높이는 데 도움</div>
+      </div>
+      <div class="card">
+        <div style="background:linear-gradient(135deg,#0D9488,#14B8A6);color:#fff;border-radius:8px;padding:14px;margin-bottom:10px;text-align:center;font-weight:700;letter-spacing:.05em">📗 Agentic AI</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">에이전틱 AI 시스템 구축하기</div>
+        <div class="card-desc">AI Agent 기반 시스템 설계와 구현 방법을 통해 차세대 AI 서비스 개발 역량을 이해하고 확장하는 데 유용</div>
+      </div>
+      <div class="card">
+        <div style="background:linear-gradient(135deg,#D97706,#F59E0B);color:#fff;border-radius:8px;padding:14px;margin-bottom:10px;text-align:center;font-weight:700;letter-spacing:.05em">📙 AI Engineering</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">AI 엔지니어링</div>
+        <div class="card-desc">LLM, 데이터, 인프라 등 AI 시스템 구축 전반을 다루며 실무 중심의 AI 애플리케이션 개발 역량을 강화하는 데 도움</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="background:linear-gradient(135deg,#1E2761 0%,#3C3489 100%);color:#fff;border-radius:14px;padding:24px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">💬 여러분의 AI 활용 이야기가 궁금합니다!</div>
+        <div style="font-size:12px;color:#CADCFC;line-height:1.7">
+          현업에서 경험한 AI 활용 및 DX 사례를 공유해주세요.<br>
+          AI역량 강화를 위한 교육이나 프로그램 아이디어도 자유롭게 남겨주세요.
+        </div>
+      </div>
+      <button onclick="showPage('memo')" style="background:#fff;color:#3C3489;border:none;border-radius:24px;padding:11px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">
+        ▲ 의견 남기기
+      </button>
+    </div>
+
+    <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+      © 2026 Metanet · AI Hub Curation · 사내 자료 (외부 공유 금지)
+    </div>
+  </div>
+
 </div><!-- /main -->
 
 <!-- TOAST -->
@@ -2093,7 +2390,8 @@ const pageLabels={
   courses:'🎓 무료 강의 12개',workflow:'🔄 실전 워크플로우',
   downloads:'📥 교육 자료 다운로드',
   insights:'🔥 인사이트 & 트렌드',
-  memo:'💬 커뮤니티 보드'
+  memo:'💬 커뮤니티 보드',
+  'ai-curation':'📰 Metanet AI Curation'
 };
 // ── EXTERNAL LINK HANDLER ─────────────────────────────────────────────
 // Claude iframe sandbox blocks target="_blank" — use window.open instead
@@ -2236,12 +2534,25 @@ function postCount(){
   document.getElementById('c-post-btn').disabled=!v.trim();
 }
 
+// ── 클라이언트측 방어 (서버 규칙 firestore.rules 와 이중) ───────────
+const POST_MAX=4000, TITLE_MAX=200, NICK_MAX=40;
+const POST_COOLDOWN_MS=8000; // 연속 게시 8초 쿨다운
+let _lastPostAt=0;
 async function addPost(){
   if(!myNick){toast('먼저 닉네임을 설정해주세요 👆');return;}
   const inp=document.getElementById('c-input');
   const titleInp=document.getElementById('c-title');
   const text=inp.value.trim();if(!text)return;
   const title=(titleInp?titleInp.value.trim():'');
+  // 길이 제한 (서버 규칙과 동일 기준)
+  if(text.length>POST_MAX){toast(`본문은 ${POST_MAX}자 이내로 작성해주세요`);return;}
+  if(title.length>TITLE_MAX){toast(`제목은 ${TITLE_MAX}자 이내`);return;}
+  if(myNick.length>NICK_MAX){toast(`닉네임은 ${NICK_MAX}자 이내`);return;}
+  // 쿨다운 (스팸 차단)
+  const dt=Date.now()-_lastPostAt;
+  if(!cEditId && dt<POST_COOLDOWN_MS){
+    toast(`${Math.ceil((POST_COOLDOWN_MS-dt)/1000)}초 후 다시 시도해주세요`);return;
+  }
   const now=new Date().toISOString();
   try{
     if(cEditId){
@@ -2255,6 +2566,7 @@ async function addPost(){
     } else {
       const newPost={id:Date.now()+Math.random(),title,text,tag:cSelTag,nick:myNick,created:now,likes:[],pinned:false};
       await db.collection('posts').add(newPost);
+      _lastPostAt=Date.now();
       toast('게시 완료 🎉');
     }
   }catch(e){console.error(e);toast('저장 실패 😢');return;}
