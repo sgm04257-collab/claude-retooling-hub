@@ -62,16 +62,31 @@ service cloud.firestore {
       allow delete: if true;  // ⚠️ 외부 공개 시 false로 변경 후 운영자 콘솔 전용
     }
 
-    // ── downloads (다운로드 카운터) ─────────────────────────────────
-    // add만 허용 / 조회는 콘솔에서만
+    // ── downloads (구 컬렉션) ───────────────────────────────────────
+    // 더 이상 사용하지 않음. 기존 데이터는 Firebase 콘솔에서 수동 삭제 권장.
     match /downloads/{docId} {
+      allow read, write: if false;
+    }
+
+    // ── stats/downloads (익명 카운터 단일 문서) ──────────────────────
+    // 정책: 누구나 total 값을 +1씩만 증가시킬 수 있고, 누구나 읽을 수 있음
+    //      개인 식별 정보는 일절 저장되지 않음
+    match /stats/downloads {
+      allow read: if true;
+      // 신규 생성: total은 1로 시작
       allow create: if
-        request.resource.data.keys().hasAll(['file','downloaded'])
-        && request.resource.data.file is string
-        && request.resource.data.file.size() <= 200;
-      allow read, update, delete: if false;
-      // ※ 클라이언트의 다운로드 횟수 표시는 서버 집계 함수(또는 운영자가
-      //    주기적으로 갱신하는 단일 문서 /stats/downloads)로 대체 권장
+        request.resource.data.keys().hasOnly(['total'])
+        && request.resource.data.total == 1;
+      // 업데이트: total 필드만, 정확히 +1 증가만 허용 (조작 방지)
+      allow update: if
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['total'])
+        && request.resource.data.total == resource.data.total + 1;
+      allow delete: if false;
+    }
+
+    // 그 외 stats/* 는 차단
+    match /stats/{docId} {
+      allow read, write: if false;
     }
 
     // ── 그 외 모든 경로 차단 ────────────────────────────────────────

@@ -1235,8 +1235,6 @@ Esc Esc         → 되감기
       <p>17개 공식 교육 자료를 정주행할 시간이 없는 분들을 위한 핵심 요약본. 메타넷 구성원이라면 누구나 다운로드 가능합니다.</p>
     </div>
 
-    <div class="note">📌 <strong>다운로드 전 닉네임 설정 필요</strong>: 오른쪽 상단 커뮤니티 보드에서 닉네임을 먼저 설정해주세요. 관리자가 누가 다운로드했는지 확인할 수 있습니다.</div>
-
     <div class="section-title">📚 제공 자료</div>
     <div class="g2">
       <div class="card" style="border-left:3px solid var(--accent);padding:24px">
@@ -1255,14 +1253,8 @@ Esc Esc         → 되감기
       </div>
     </div>
 
-    <div class="section-title">📊 다운로드 로그 (관리자)</div>
-    <div class="note" style="border-left-color:var(--amber)">🔐 <strong>관리자 접근</strong>: 아래 입력창에 관리자 암호를 입력하면 다운로드 기록을 볼 수 있습니다.</div>
-    <div class="card" style="padding:20px">
-      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-        <input type="password" id="admin-pass" placeholder="관리자 암호 입력" style="flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:9px 12px;font-size:12px;color:var(--text);outline:none;font-family:'Pretendard',sans-serif">
-        <button class="btn btn-primary" onclick="loadDownloadLogs()" style="font-size:12px;padding:8px 16px">로그 조회</button>
-      </div>
-      <div id="dl-logs" style="font-size:12px;color:var(--text2)">암호 입력 후 '로그 조회' 버튼을 누르세요.</div>
+    <div class="note" style="border-left-color:var(--green);font-size:12px">
+      🔒 <strong>익명 다운로드</strong>: 누가 받았는지는 기록하지 않습니다. 자료 활용도 파악을 위해 <strong>총 다운로드 횟수만</strong> 익명으로 집계됩니다.
     </div>
   </div>
 
@@ -2698,67 +2690,34 @@ function updateCommStats(){
   if(el('c-ask'))el('c-ask').textContent=posts.filter(p=>p.tag==='ask').length;
 }
 
-// ── DOWNLOAD LOG (PDF) ───────────────────────────────────────────────
-const ADMIN_PASS='metanet2026'; // 관리자 암호
+// ── DOWNLOAD COUNTER (PDF) ───────────────────────────────────────────
+// ⚠️ 완전 익명: 누가·언제·어떤 환경에서 받았는지 일절 저장하지 않습니다.
+//    오직 /stats/downloads 단일 문서의 total 값만 +1씩 증가시킵니다.
+//    누적 횟수는 Firebase 콘솔(또는 사이트 표시값)에서만 확인 가능합니다.
 async function downloadPdf(){
-  if(!myNick){
-    toast('먼저 커뮤니티에서 닉네임을 설정해주세요 👆');
-    showPage('memo');
-    return;
-  }
+  // 1) 익명 카운터 +1 (실패해도 다운로드는 진행)
   try{
-    await db.collection('downloads').add({
-      nick: myNick,
-      file: 'Anthropic 교육자료 요약본.pdf',
-      downloaded: new Date().toISOString(),
-      userAgent: navigator.userAgent.substring(0,150)
-    });
-    toast('다운로드 기록 완료 📥');
-  }catch(e){console.error(e);}
-  // 실제 파일 다운로드
+    await db.collection('stats').doc('downloads').set({
+      total: firebase.firestore.FieldValue.increment(1)
+    }, {merge:true});
+  }catch(e){ console.warn('counter increment skipped:', e.message); }
+
+  // 2) 실제 파일 다운로드
   const a=document.createElement('a');
   a.href='resources/Anthropic_교육자료_요약본.pdf';
   a.download='Anthropic 교육자료 요약본.pdf';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast('다운로드를 시작합니다 📥');
   updateDlCount();
 }
+
 async function updateDlCount(){
   try{
-    const snap=await db.collection('downloads').get();
+    const doc=await db.collection('stats').doc('downloads').get();
+    const total=doc.exists ? (doc.data().total || 0) : 0;
     const el=document.getElementById('dl-count');
-    if(el)el.textContent=`총 ${snap.size}회 다운로드됨`;
-  }catch(e){}
-}
-async function loadDownloadLogs(){
-  const pass=document.getElementById('admin-pass').value;
-  const box=document.getElementById('dl-logs');
-  if(pass!==ADMIN_PASS){box.innerHTML='<span style="color:var(--red)">❌ 암호가 틀렸습니다</span>';return;}
-  box.innerHTML='⏳ 로딩 중...';
-  try{
-    const snap=await db.collection('downloads').orderBy('downloaded','desc').get();
-    if(snap.empty){box.innerHTML='아직 다운로드 기록이 없습니다.';return;}
-    const rows=snap.docs.map((d,i)=>{
-      const x=d.data();
-      const dt=new Date(x.downloaded);
-      const dateStr=dt.toLocaleString('ko-KR');
-      return `<tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:8px;font-weight:600;color:var(--text3)">${i+1}</td>
-        <td style="padding:8px;font-weight:600;color:var(--text)">${x.nick||'익명'}</td>
-        <td style="padding:8px;color:var(--text2)">${x.file||''}</td>
-        <td style="padding:8px;color:var(--text3);font-size:11px">${dateStr}</td>
-      </tr>`;
-    }).join('');
-    box.innerHTML=`<div style="margin-bottom:12px;color:var(--green);font-weight:600">✅ 총 ${snap.size}건의 다운로드 기록</div>
-    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="background:var(--bg3);border-bottom:2px solid var(--border2)">
-        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">#</th>
-        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">닉네임</th>
-        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">파일</th>
-        <th style="padding:10px;text-align:left;font-weight:700;color:var(--text)">다운로드 일시</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
-  }catch(e){box.innerHTML='<span style="color:var(--red)">❌ 로드 실패: '+e.message+'</span>';}
+    if(el)el.textContent=`총 ${total}회 다운로드됨`;
+  }catch(e){ /* 조용히 무시 */ }
 }
 
 // ── TOAST ────────────────────────────────────────────────────────────
