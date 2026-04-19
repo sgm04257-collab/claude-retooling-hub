@@ -543,7 +543,7 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       <span class="ni-icon">🔥</span> 인사이트 & 트렌드
     </a>
     <a class="nav-item" onclick="showPage('weekly-report')" href="#">
-      <span class="ni-icon">📊</span> 주간 리포트
+      <span class="ni-icon">📊</span> AI 월간 리포트
       <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
     </a>
     <a class="nav-item" onclick="showPage('learn')" href="#">
@@ -1264,13 +1264,13 @@ Esc Esc         → 되감기
   <!-- ─────────────── WEEKLY REPORT ─────────────── -->
   <div class="page" id="page-weekly-report">
     <div class="hero">
-      <div class="hero-tag">📊 주간 리포트 · 2026년 4월 3주차 (4/14 ~ 4/18)</div>
-      <h1>AI & Claude Code 주간 리포트</h1>
-      <p>이번 주 핵심 업데이트, 트렌드, 실전 팁을 한눈에 정리합니다. 매주 월요일 업데이트됩니다.</p>
+      <div class="hero-tag">📊 AI 월간 리포트 · 2026년 4월호 (VOL.1)</div>
+      <h1>AI & Claude Code 월간 리포트</h1>
+      <p>이번 달 AI 업계의 핵심 업데이트, 트렌드, 실전 팁을 한눈에 정리합니다. 매월 첫째 주에 업데이트됩니다.</p>
     </div>
 
-    <!-- 이번 주 하이라이트 -->
-    <div class="section-title">🔥 이번 주 하이라이트 TOP 3</div>
+    <!-- 이달의 하이라이트 -->
+    <div class="section-title">🔥 이달의 하이라이트 TOP 3</div>
     <div class="g3">
       <div class="card" style="border-top:3px solid var(--red);padding:20px">
         <div class="card-badge badge-red">1위</div>
@@ -1289,8 +1289,8 @@ Esc Esc         → 되감기
       </div>
     </div>
 
-    <!-- 핵심 수치 -->
-    <div class="section-title">📈 이번 주 핵심 수치</div>
+    <!-- 이달의 핵심 수치 -->
+    <div class="section-title">📈 이달의 AI 핵심 수치</div>
     <div class="g4">
       <div class="card" style="text-align:center;padding:24px">
         <div style="font-size:32px;font-weight:700;color:var(--accent)">200만+</div>
@@ -1310,8 +1310,29 @@ Esc Esc         → 되감기
       </div>
     </div>
 
-    <!-- 실전 팁 -->
-    <div class="section-title">💡 이번 주 실전 팁</div>
+    <!-- 이달의 AI 트렌드 -->
+    <div class="section-title">🌐 이달의 AI 업계 트렌드</div>
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--blue);padding:18px">
+        <div class="card-title">🎨 AI 디자인 도구 본격화</div>
+        <div class="card-desc" style="margin-top:8px">프롬프트만으로 웹사이트·슬라이드·이미지를 생성하는 자연어 디자인 도구가 메인스트림으로 진입. Adobe·Figma 등 기존 디자인 도구 시장이 직접적인 위협을 받기 시작했습니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent);padding:18px">
+        <div class="card-title">🤖 작업 에이전트로의 전환</div>
+        <div class="card-desc" style="margin-top:8px">"코드를 짜는 에이전트"에서 "업무를 수행하는 에이전트"로 정의가 확장. Anthropic·OpenAI 모두 작업 자동화·스케줄링 기능을 강화하며 디지털 노동자 패러다임이 가속화되고 있습니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);padding:18px">
+        <div class="card-title">🔌 MCP 생태계 확대</div>
+        <div class="card-desc" style="margin-top:8px">Tavily(검색), Context7(문서), Notion·Slack 등 MCP 서버가 급속히 늘면서 에이전트와 외부 도구의 연결이 표준화. 사내 데이터·도구 통합 진입 장벽이 크게 낮아졌습니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--amber);padding:18px">
+        <div class="card-title">📚 패턴북·플레이북 시대</div>
+        <div class="card-desc" style="margin-top:8px">에이전트 설계의 모범 사례를 정리한 무료 자료가 잇따라 공개. 더 이상 "어떻게 만들까"가 아니라 <strong>"검증된 패턴을 어떻게 적용할까"</strong>의 시대로 이동 중입니다.</div>
+      </div>
+    </div>
+
+    <!-- 이달의 실전 팁 -->
+    <div class="section-title">💡 이달의 실전 팁</div>
     <div class="g2">
       <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚡</div><div class="tip-title">Git Worktree로 병렬 세션 충돌 방지</div></div><div class="tip-body">
         Claude Code 병렬 세션을 쓸 때 같은 브랜치에서 작업하면 충돌이 발생합니다. <strong>Git worktree 자동 격리</strong>를 활성화하면 각 세션이 독립된 작업 공간을 갖게 됩니다.<div class="codebox">claude --worktree
@@ -1325,7 +1346,7 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 추천 학습 -->
-    <div class="section-title">🎓 이번 주 추천 학습</div>
+    <div class="section-title">🎓 이달의 추천 학습</div>
     <div class="g3">
       <div class="card" style="border-left:3px solid var(--accent);padding:16px">
         <div class="card-badge badge-purple">초급</div>
@@ -1347,16 +1368,17 @@ Esc Esc         → 되감기
       </div>
     </div>
 
-    <!-- 다음 주 예고 -->
-    <div class="tip-card" style="margin-top:20px;border-left-color:var(--accent)"><div class="tip-head"><div class="tip-icon">📅</div><div class="tip-title">다음 주 예고 (4/21 ~ 4/25)</div></div><div class="tip-body">
+    <!-- 다음 달 예고 -->
+    <div class="tip-card" style="margin-top:20px;border-left-color:var(--accent)"><div class="tip-head"><div class="tip-icon">📅</div><div class="tip-title">다음 달 예고 (5월호)</div></div><div class="tip-body">
       <strong>• Opus 4.7 디자인 도구 정식 출시 리뷰</strong> — 실제 사용 후기와 비개발자 활용법<br>
       <strong>• MCP 서버 연동 실전 가이드</strong> — Tavily, Context7, Obsidian 연동 핵심 정리<br>
-      <strong>• 에이전트 패턴 북 핵심 요약</strong> — 424페이지 중 실무에 바로 쓸 수 있는 패턴 5선
+      <strong>• 에이전트 패턴 북 핵심 요약</strong> — 424페이지 중 실무에 바로 쓸 수 있는 패턴 5선<br>
+      <strong>• 사내 AI 도입 사례 인터뷰</strong> — 실제 업무에 적용한 임직원 케이스 스터디
     </div></div>
 
     <!-- 지난 리포트 아카이브 -->
     <div class="section-title">📂 지난 리포트</div>
-    <div class="note">📌 주간 리포트는 매주 월요일 업데이트됩니다. 이번 주가 첫 발행입니다. 지난 리포트는 여기에 누적됩니다.</div>
+    <div class="note">📌 AI 월간 리포트는 <strong>매월 첫째 주</strong>에 업데이트됩니다. 이번 호가 첫 발행(VOL.1)입니다. 지난 호는 여기에 누적됩니다.<br><br>📰 사내 AI 활동 소식은 <a href="#" onclick="showPage('ai-curation');return false" style="color:var(--accent);font-weight:600">Metanet AI Curation</a> 페이지에서 별도 발행됩니다.</div>
   </div>
 
   <!-- ─────────────── INSIGHTS ─────────────── -->
@@ -2390,6 +2412,7 @@ const pageLabels={
   courses:'🎓 무료 강의 12개',workflow:'🔄 실전 워크플로우',
   downloads:'📥 교육 자료 다운로드',
   insights:'🔥 인사이트 & 트렌드',
+  'weekly-report':'📊 AI 월간 리포트',
   memo:'💬 커뮤니티 보드',
   'ai-curation':'📰 Metanet AI Curation'
 };
