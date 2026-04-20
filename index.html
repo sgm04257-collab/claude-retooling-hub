@@ -1648,8 +1648,116 @@ Esc Esc         → 되감기
       </div>
     </div>
 
-    <!-- 7. 지식이 기억처럼 작동하는 구조 -->
-    <div class="section-title" style="margin-top:2rem">7. 검색이 아니라 기억처럼 — 에이전트의 지식 활용 구조</div>
+    <!-- 7. 설정 변경으로 토큰 절약 -->
+    <div class="section-title" style="margin-top:2rem">7. 설정 변경만으로 토큰 절약 — Claude Code & Codex 점검 가이드</div>
+    <div class="note">
+      📌 <strong>대상</strong>: Claude Code 또는 OpenAI Codex를 일상적으로 쓰는 개발자. 비개발자라면 <em>"AI 코딩 도구도 설정으로 토큰을 줄일 수 있구나"</em>라는 흐름만 챙겨가셔도 충분합니다.<br>
+      💡 Claude Opus 4.7 출시 후 <strong>토큰 사용량이 4.6 대비 약 1.35~1.5배 늘었다</strong>는 측정 결과가 공유되면서, 코딩 에이전트의 설정값 자체를 손보는 흐름이 활발해졌습니다. 외부 도구 설치 없이 <strong>설정 한두 줄로 절감하는 방법</strong>을 정리합니다.
+    </div>
+
+    <!-- 토큰이 새는 3가지 경로 -->
+    <div class="section-title" style="margin-top:1.5rem;font-size:14px">▸ 코딩 에이전트에서 토큰이 새는 3가지 경로</div>
+    <div class="g3">
+      <div class="card" style="border-top:3px solid var(--red);padding:18px">
+        <div class="card-badge badge-red">경로 ①</div>
+        <div class="card-title">자동 부착 텍스트</div>
+        <div class="card-desc" style="margin-top:8px">매 세션·매 턴마다 자동으로 붙는 시스템 프리앰블, Git 안내문, IDE 연동 메타데이터 등.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--amber);padding:18px">
+        <div class="card-badge badge-amber">경로 ②</div>
+        <div class="card-title">대화 히스토리에 남는 긴 툴 호출 출력</div>
+        <div class="card-desc" style="margin-top:8px">Bash·파일 읽기·MCP 호출이 큰 출력을 그대로 컨텍스트에 누적. 한 번 들어가면 세션 내내 비용으로 남습니다.</div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--blue);padding:18px">
+        <div class="card-badge badge-blue">경로 ③</div>
+        <div class="card-title">외부 연결로 인한 추가 호출</div>
+        <div class="card-desc" style="margin-top:8px">웹 검색, 커넥터(앱 연결), IDE 자동 연결 등이 만드는 부수적 토큰 소모.</div>
+      </div>
+    </div>
+
+    <!-- Claude Code 레버 -->
+    <div class="section-title" style="margin-top:1.5rem;font-size:14px">▸ Claude Code 설정 레버 6가지</div>
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--accent);padding:16px">
+        <div class="card-badge badge-purple">01</div>
+        <div class="card-title"><code style="font-family:var(--font-mono);font-size:12px">includeGitInstructions: false</code></div>
+        <div class="card-desc" style="margin-top:6px">매 세션마다 붙는 Git 안내 텍스트를 끕니다. Git 워크플로가 익숙하다면 안전한 절감.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue);padding:16px">
+        <div class="card-badge badge-blue">02</div>
+        <div class="card-title"><code style="font-family:var(--font-mono);font-size:12px">autoConnectIde: false</code></div>
+        <div class="card-desc" style="margin-top:6px">IDE 자동 연결을 비활성화. IDE 통합이 꼭 필요할 때만 수동으로 켜는 방식.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);padding:16px">
+        <div class="card-badge badge-green">03</div>
+        <div class="card-title"><code style="font-family:var(--font-mono);font-size:11px">CLAUDE_CODE_GLOB_NO_IGNORE=false</code></div>
+        <div class="card-desc" style="margin-top:6px">.gitignore 등을 무시하지 않게 해서 불필요한 파일 스캔과 컨텍스트 부풀림 방지.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--amber);padding:16px">
+        <div class="card-badge badge-amber">04 · 핵심</div>
+        <div class="card-title">출력 상한 설정 (3종)</div>
+        <div class="card-desc" style="margin-top:6px">
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">BASH_MAX_OUTPUT_LENGTH</code><br>
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS</code><br>
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">MAX_MCP_OUTPUT_TOKENS</code><br><br>
+          큰 출력이 통째로 히스토리에 박히는 걸 막는 가장 효과적인 레버.
+        </div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--pink);padding:16px">
+        <div class="card-badge badge-pink">05</div>
+        <div class="card-title">비대화형 모드용 환경변수·플래그</div>
+        <div class="card-desc" style="margin-top:6px">짧은 작업이나 스크립트로 호출하는 비대화형 모드에서 불필요한 컨텍스트를 빼는 옵션 활용.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--teal);padding:16px">
+        <div class="card-badge badge-teal">06</div>
+        <div class="card-title">attribution 비우기</div>
+        <div class="card-desc" style="margin-top:6px">기본으로 붙는 attribution 문자열을 비워서 매 응답에 들어가는 토큰을 절감.</div>
+      </div>
+    </div>
+
+    <!-- Codex 레버 -->
+    <div class="section-title" style="margin-top:1.5rem;font-size:14px">▸ OpenAI Codex 설정 레버 5가지</div>
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--accent);padding:16px">
+        <div class="card-badge badge-purple">01</div>
+        <div class="card-title">ChatGPT 연결 MCP(앱·커넥터) 끄기</div>
+        <div class="card-desc" style="margin-top:6px">사용하지 않는 ChatGPT 측 MCP 연결을 정리. 매 호출마다 따라붙는 메타데이터를 줄입니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue);padding:16px">
+        <div class="card-badge badge-blue">02</div>
+        <div class="card-title"><code style="font-family:var(--font-mono);font-size:12px">web_search = "disabled"</code></div>
+        <div class="card-desc" style="margin-top:6px">필요 없는 작업에서는 웹 검색을 꺼두고 명시적 요청 시에만 활성화.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);padding:16px">
+        <div class="card-badge badge-green">03 · 핵심</div>
+        <div class="card-title"><code style="font-family:var(--font-mono);font-size:12px">tool_output_token_limit</code></div>
+        <div class="card-desc" style="margin-top:6px">툴 호출 출력의 토큰 상한을 직접 지정. 한 번 큰 출력이 들어가면 세션 내내 비용이 되는 문제를 차단.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--amber);padding:16px">
+        <div class="card-badge badge-amber">04</div>
+        <div class="card-title">비대화형 모드 최적화 플래그</div>
+        <div class="card-desc" style="margin-top:6px">스크립트 호출·CI 환경에서는 대화형 컨텍스트가 필요 없으므로 불필요 부분을 제거.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--pink);padding:16px">
+        <div class="card-badge badge-pink">05</div>
+        <div class="card-title">attribution 비우기</div>
+        <div class="card-desc" style="margin-top:6px">Claude Code와 동일 — 매 응답에 자동 부착되는 attribution을 비워 누적 절감.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:16px;border-left-color:var(--green)">
+      <div class="tip-head"><div class="tip-icon">🎯</div><div class="tip-title">우선순위 추천</div></div>
+      <div class="tip-body">
+        외부 도구 설치 없이 <strong>가장 큰 효과</strong>를 보고 싶다면 다음 순서로 적용해보세요:<br><br>
+        <strong>1순위</strong> · <strong>출력 상한 3종 설정</strong> (Claude Code) / <code style="font-family:var(--font-mono);font-size:10px">tool_output_token_limit</code> (Codex) — 가장 큰 누수원<br>
+        <strong>2순위</strong> · 사용 안 하는 외부 연결(IDE, 웹 검색, MCP) 비활성화<br>
+        <strong>3순위</strong> · attribution 등 매 응답 부착 텍스트 정리<br><br>
+        <span style="font-size:11px;color:var(--text3)">※ 일부 옵션은 IDE 연동·자동 워크플로 등 편의 기능을 함께 끄게 되니, 실제 업무 흐름에 맞춰 트레이드오프를 확인 후 적용하시는 게 좋습니다.</span>
+      </div>
+    </div>
+
+    <!-- 8. 지식이 기억처럼 작동하는 구조 -->
+    <div class="section-title" style="margin-top:2rem">8. 검색이 아니라 기억처럼 — 에이전트의 지식 활용 구조</div>
     <div class="note">
       📌 <strong>대상</strong>: AI 시스템 설계·에이전트 아키텍처에 관심 있는 분. 비개발자라면 <em>"AI에게 지식을 어떻게 줘야 자연스러운가"</em>라는 관점만 챙겨가셔도 충분합니다.<br>
       💡 카파시(Andrej Karpathy)가 제안한 <strong>LLM Wiki</strong> 개념을 실제로 구현한 한 개발자의 실험 후속편. 지식을 RAG로 "꺼내오는" 방식과, 대화 전에 미리 "올려두는" 방식의 차이를 다룹니다.
