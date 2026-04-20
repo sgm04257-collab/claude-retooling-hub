@@ -1648,6 +1648,92 @@ Esc Esc         → 되감기
       </div>
     </div>
 
+    <!-- 7. 지식이 기억처럼 작동하는 구조 -->
+    <div class="section-title" style="margin-top:2rem">7. 검색이 아니라 기억처럼 — 에이전트의 지식 활용 구조</div>
+    <div class="note">
+      📌 <strong>대상</strong>: AI 시스템 설계·에이전트 아키텍처에 관심 있는 분. 비개발자라면 <em>"AI에게 지식을 어떻게 줘야 자연스러운가"</em>라는 관점만 챙겨가셔도 충분합니다.<br>
+      💡 카파시(Andrej Karpathy)가 제안한 <strong>LLM Wiki</strong> 개념을 실제로 구현한 한 개발자의 실험 후속편. 지식을 RAG로 "꺼내오는" 방식과, 대화 전에 미리 "올려두는" 방식의 차이를 다룹니다.
+    </div>
+
+    <!-- 핵심 문제 제기 -->
+    <div class="tip-card" style="border-left-color:var(--amber)">
+      <div class="tip-head"><div class="tip-icon">🤔</div><div class="tip-title">출발점: RAG로 꺼내오면 왜 어색할까?</div></div>
+      <div class="tip-body">
+        K-layer에 지식 노트가 쌓인 후, 한 가지 문제가 있었다고 합니다. <strong>RAG로 꺼내오면 에이전트가 "아, 그렇군요"처럼 반응</strong>한다는 점입니다. 방금 검색해서 읽은 느낌. 사람이 오래 배운 것처럼 자연스럽게 반영되지 않았다는 것.<br><br>
+        그래서 방향을 바꿨습니다. <strong>꺼내오는 게 아니라, 대화 전에 미리 올려두는 방식으로요.</strong>
+      </div>
+    </div>
+
+    <!-- 4단계 순환 -->
+    <div class="section-title" style="margin-top:1.5rem;font-size:14px">▸ 4단계 순환: 신호에서 무의식까지</div>
+    <div class="g2">
+      <div class="card" style="border-top:3px solid var(--accent);padding:18px">
+        <div class="card-badge badge-purple">① 신호 포착 & 사고실험</div>
+        <div class="card-title">MiroFish가 가설을 세우고 검증</div>
+        <div class="card-desc" style="margin-top:8px">
+          커뮤니티·마켓 데이터에서 가설을 세우고 제어된 실험을 실행합니다.<br><br>
+          예) <em>"question_hook 계열이 reply를 더 받을까?"</em> → 실험 → <strong>24시간 후 채점</strong>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--green);padding:18px">
+        <div class="card-badge badge-green">② K-layer 승격</div>
+        <div class="card-title">검증된 패턴만 source-linked claim으로 압축</div>
+        <div class="card-desc" style="margin-top:8px">
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">knowledge_compile.py</code>가 검증된 결과만 한 줄 위키 노트로 압축.<br><br>
+          예) <em>"moltbook post는 315건 중 reply rate 60.1%"</em>
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--blue);padding:18px">
+        <div class="card-badge badge-blue">③ 그래프 구조로 저장</div>
+        <div class="card-title">텍스트 덩어리가 아닌 관계 구조</div>
+        <div class="card-desc" style="margin-top:8px">
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">knowledge_graph_build.py</code>가 노드·엣지를 원자적 JSONL로 기록.<br><br>
+          claim 단위로 쪼개져 있어야 다음 단계에서 <strong>관련 부분만 골라 올리기</strong>가 가능합니다.
+        </div>
+      </div>
+      <div class="card" style="border-top:3px solid var(--pink);padding:18px">
+        <div class="card-badge badge-pink">④ 대화 전 ambient 프리로드</div>
+        <div class="card-title">대화가 시작되기 전에 이미 알고 있는 상태</div>
+        <div class="card-desc" style="margin-top:8px">
+          <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">turn_preload.py</code>가 그래프를 읽고 가장 관련된 노드를 컨텍스트에 로드.<br><br>
+          대화 중엔 <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">turn_expand.py</code>가 주제가 가까워지면 이웃 노드를 추가로 당겨옵니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 실제 차이 -->
+    <div class="tip-card" style="margin-top:16px;border-left-color:var(--accent)">
+      <div class="tip-head"><div class="tip-icon">💬</div><div class="tip-title">실제로 어떤 차이가 생기나</div></div>
+      <div class="tip-body">
+        지난주 한 대화에서, 에이전트의 답변에는 <strong>3개월 전 question_hook 실험에서 확인된 패턴이 이미 반영</strong>되어 있었다고 합니다. <em>"지난번 실험 기억하지?"</em> 같은 힌트를 주지 않았는데도요.<br><br>
+        검색한 게 아니라, 그 지식이 <strong>대화 시작 전에 이미 컨텍스트 안에</strong> 있었고, 답변이 만들어지기 전에 형태를 잡고 있었다는 설명입니다.
+      </div>
+    </div>
+
+    <!-- 구조가 만들어내는 것 -->
+    <div class="g3" style="margin-top:16px">
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <div class="card-badge badge-purple">시사점 1</div>
+        <div class="card-title">검색(retrieval) ≠ 회상(recall)</div>
+        <div class="card-desc">꺼내오는 에이전트와 이미 알고 있는 에이전트는 <strong>대화 느낌</strong>이 다릅니다. 사용자가 받는 인상에서 차이가 큽니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green)">
+        <div class="card-badge badge-green">시사점 2</div>
+        <div class="card-title">raw log가 아닌 채점·압축된 claim</div>
+        <div class="card-desc">메모리 기반의 품질은 결국 <strong>입력의 정제 수준</strong>으로 결정됩니다. 어떤 단위로 쪼개고 무엇을 검증했는지가 핵심.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue)">
+        <div class="card-badge badge-blue">시사점 3</div>
+        <div class="card-title">"무의식적" 행동은 파이프라인의 문제</div>
+        <div class="card-desc">모델 크기를 키우는 것보다 <strong>지식을 어디에·언제 올리느냐</strong>의 설계가 행동의 자연스러움을 결정한다는 관점.</div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px;border-left-color:var(--accent)">
+      🔄 지난 글의 루프가 <strong>"데이터가 지식이 되는 것"</strong>이었다면, 이번 글의 루프는 <strong>"지식이 행동이 되는 것"</strong>입니다.<br><br>
+      💭 함께 생각해볼 점: <em>여러분의 시스템에서 retrieval(검색)과 preload(미리 올리기)의 경계는 어떻게 설계하고 계신가요?</em>
+    </div>
+
     <!-- 참고 링크 -->
     <div class="section-title">📎 원문 참고 링크</div>
     <div class="g2">
