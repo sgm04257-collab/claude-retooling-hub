@@ -119,6 +119,34 @@ code{font-family:'JetBrains Mono',monospace}
   letter-spacing:.1em;
   padding:0 16px 6px;
 }
+/* ── COLLAPSIBLE SECTIONS (아코디언) ─────────────────────────────── */
+.sidebar-section.collapsible > .sidebar-section-label{
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  user-select:none;
+  padding:6px 16px;
+  border-radius:4px;
+  transition:background .12s, color .12s;
+}
+.sidebar-section.collapsible > .sidebar-section-label:hover{
+  background:var(--bg3);
+  color:var(--text2);
+}
+.sidebar-section.collapsible > .sidebar-section-label::after{
+  content:'▾';
+  font-size:11px;
+  color:var(--text3);
+  transition:transform .15s ease;
+  margin-left:6px;
+}
+.sidebar-section.collapsible.collapsed > .sidebar-section-label::after{
+  transform:rotate(-90deg);
+}
+.sidebar-section.collapsible.collapsed .nav-item{
+  display:none;
+}
 .nav-item{
   display:flex;align-items:center;gap:10px;
   padding:8px 16px;
@@ -583,8 +611,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
   </div>
 
   <!-- Claude 활용법 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">💡 Claude 활용법</div>
+  <div class="sidebar-section collapsible collapsed" data-sec="claude">
+    <div class="sidebar-section-label" onclick="toggleSection(this)">💡 Claude 활용법</div>
     <a class="nav-item" onclick="showPage('claude12')" href="#">
       <span class="ni-icon">💡</span> 12가지 핵심 활용법
     </a>
@@ -594,8 +622,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
   </div>
 
   <!-- 설정 & 운영 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">🛠 설정 & 운영</div>
+  <div class="sidebar-section collapsible collapsed" data-sec="settings">
+    <div class="sidebar-section-label" onclick="toggleSection(this)">🛠 설정 & 운영</div>
     <a class="nav-item" onclick="showPage('claudemd')" href="#">
       <span class="ni-icon">📝</span> CLAUDE.md 가이드
     </a>
@@ -611,8 +639,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
   </div>
 
   <!-- 에이전트 전략 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">🤖 에이전트 전략</div>
+  <div class="sidebar-section collapsible collapsed" data-sec="agent">
+    <div class="sidebar-section-label" onclick="toggleSection(this)">🤖 에이전트 전략</div>
     <a class="nav-item" onclick="showPage('harness')" href="#">
       <span class="ni-icon">⚙️</span> 하네스 & 자율 개발
     </a>
@@ -625,8 +653,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
   </div>
 
   <!-- 리소스 -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">📦 리소스</div>
+  <div class="sidebar-section collapsible collapsed" data-sec="resource">
+    <div class="sidebar-section-label" onclick="toggleSection(this)">📦 리소스</div>
     <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
       <span class="ni-icon">🔌</span> Skills & MCP 25선
     </a>
@@ -2823,10 +2851,38 @@ function showPage(id){
   window.scrollTo({top:0,behavior:'smooth'});
   closeSidebar();
   if(id==='downloads'&&typeof updateDlCount==='function')updateDlCount();
+  // 활성 항목이 속한 collapsible 섹션은 자동으로 펼침
+  document.querySelectorAll('.sidebar-section.collapsible').forEach(sec=>{
+    if(sec.querySelector('.nav-item.active')) sec.classList.remove('collapsed');
+  });
 }
 function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
+}
+
+// ── COLLAPSIBLE SIDEBAR SECTIONS (아코디언) ────────────────────────
+function toggleSection(labelEl){
+  const sec=labelEl.parentElement;
+  sec.classList.toggle('collapsed');
+  // 사용자 선택을 localStorage에 저장 (선택)
+  try{
+    const key=sec.getAttribute('data-sec');
+    if(key) localStorage.setItem('mnh_sec_'+key, sec.classList.contains('collapsed')?'1':'0');
+  }catch(e){}
+}
+// 페이지 로드 시: 저장된 상태 복원 + 활성 페이지가 속한 섹션은 자동 펼침
+function restoreSectionStates(){
+  document.querySelectorAll('.sidebar-section.collapsible').forEach(sec=>{
+    try{
+      const key=sec.getAttribute('data-sec');
+      const saved=key?localStorage.getItem('mnh_sec_'+key):null;
+      if(saved==='0') sec.classList.remove('collapsed');
+      else if(saved==='1') sec.classList.add('collapsed');
+    }catch(e){}
+    // 활성 항목이 안에 있으면 강제로 펼침
+    if(sec.querySelector('.nav-item.active')) sec.classList.remove('collapsed');
+  });
 }
 function closeSidebar(){
   document.getElementById('sidebar').classList.remove('open');
@@ -2861,6 +2917,8 @@ let cSelTag='free';
   try{const v=localStorage.getItem(NICK_KEY);if(v)myNick=v;}catch(e){}
   updateNickDisplay();
   renderCTagSel();
+  // 사이드바 collapsible 섹션 상태 복원 (저장값 우선, 활성 항목 자동 펼침)
+  if(typeof restoreSectionStates==='function') restoreSectionStates();
   await loadPosts();
 })();
 
