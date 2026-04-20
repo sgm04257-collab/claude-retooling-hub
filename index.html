@@ -332,6 +332,109 @@ code{font-family:'JetBrains Mono',monospace}
   color:var(--text2);
   line-height:1.55;
 }
+
+/* ── INSIGHTS 카드 슬라이더 ───────────────────────────────────────── */
+.ix-slider-wrap{
+  position:relative;
+  margin-top:1rem;
+}
+.ix-slide{
+  display:none;
+  animation:ixSlideIn .35s ease;
+}
+.ix-slide.active{display:block}
+@keyframes ixSlideIn{
+  from{opacity:0;transform:translateX(18px)}
+  to{opacity:1;transform:translateX(0)}
+}
+/* 스티키 네비게이션 바 */
+.ix-nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  background:rgba(247,247,251,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin:1rem 0 1.2rem;
+  position:sticky;
+  top:60px;
+  z-index:15;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.ix-nav-btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  width:36px;height:36px;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:700;
+  transition:all .15s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.ix-nav-btn:hover:not(:disabled){background:var(--accent2);transform:translateY(-1px)}
+.ix-nav-btn:disabled{background:var(--border2);cursor:not-allowed;opacity:.5}
+.ix-dots{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  justify-content:center;
+  flex:1;
+  min-width:0;
+}
+.ix-dot{
+  background:var(--bg3);
+  color:var(--text2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  min-width:30px;
+  height:30px;
+  padding:0 8px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .12s;
+  font-family:inherit;
+}
+.ix-dot:hover{background:var(--bg2);color:var(--text);transform:translateY(-1px)}
+.ix-dot.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ix-pos{
+  font-size:12px;
+  color:var(--text2);
+  font-weight:600;
+  white-space:nowrap;
+  min-width:48px;
+  text-align:center;
+}
+.ix-autoplay{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;
+  color:var(--text2);
+  cursor:pointer;
+  user-select:none;
+  padding:6px 10px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:var(--bg2);
+  transition:all .12s;
+  font-family:inherit;
+}
+.ix-autoplay:hover{border-color:var(--accent)}
+.ix-autoplay.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* 모바일: 점 네비게이션 단축 */
+@media (max-width:640px){
+  .ix-dot{min-width:26px;height:26px;font-size:10px;padding:0 5px}
+  .ix-nav-btn{width:32px;height:32px;font-size:16px}
+}
 .nav-item{
   display:flex;align-items:center;gap:10px;
   padding:8px 16px;
@@ -1559,6 +1662,18 @@ Esc Esc         → 되감기
       </a>
     </div>
 
+    <!-- ═══ 카드 슬라이더 시작 ═══ -->
+    <!-- 슬라이더 네비게이션 (스티키) -->
+    <div class="ix-nav" id="ix-nav">
+      <button class="ix-nav-btn" id="ix-prev-btn" onclick="ixNext(-1)" aria-label="이전">‹</button>
+      <div class="ix-dots" id="ix-dots"><!-- 동적 생성 --></div>
+      <button class="ix-nav-btn" id="ix-next-btn" onclick="ixNext(1)" aria-label="다음">›</button>
+      <span class="ix-pos" id="ix-pos">1 / 11</span>
+      <button class="ix-autoplay" id="ix-auto" onclick="ixToggleAutoplay()" title="자동 재생 (5초 간격)">▶ 자동</button>
+    </div>
+
+    <div class="ix-slider-wrap" id="ix-slider-wrap">
+
     <!-- ★ NEW: Claude Design 출시 -->
     <div class="ix-section" id="ix-design">
       <div class="ix-head">
@@ -2347,6 +2462,8 @@ Esc Esc         → 되감기
 ✅ "사용자가 'PR 리뷰해줘', '코드 검토'를 요청할 때 실행"</div>
       </div></div>
     </div>
+
+    </div><!-- ═══ /ix-slider-wrap 슬라이더 끝 ═══ -->
 
     <!-- 참고 링크 -->
     <div class="section-title" style="margin-top:2.5rem">📎 원문 참고 링크</div>
@@ -3168,6 +3285,8 @@ function showPage(id){
   window.scrollTo({top:0,behavior:'smooth'});
   closeSidebar();
   if(id==='downloads'&&typeof updateDlCount==='function')updateDlCount();
+  // 인사이트 페이지 진입 시 슬라이더 초기화 (1회)
+  if(id==='insights'&&typeof ixInit==='function')ixInit();
   // 활성 항목이 속한 collapsible 섹션은 자동으로 펼침
   document.querySelectorAll('.sidebar-section.collapsible').forEach(sec=>{
     if(sec.querySelector('.nav-item.active')) sec.classList.remove('collapsed');
@@ -3178,17 +3297,145 @@ function toggleSidebar(){
   document.getElementById('overlay').classList.toggle('show');
 }
 
-// ── INSIGHTS TOC JUMP (목차 클릭 시 해당 섹션으로 스크롤) ───────────
+// ── INSIGHTS 카드 슬라이더 ──────────────────────────────────────────
+let _ixCurrent=0;
+let _ixSlides=[];
+let _ixAutoplayTimer=null;
+let _ixInitialized=false;
+
+function ixInit(){
+  if(_ixInitialized)return;
+  const wrap=document.getElementById('ix-slider-wrap');
+  if(!wrap)return;
+  // 1) 자식들을 ix-section 경계로 그룹핑하여 슬라이드로 묶기
+  const children=Array.from(wrap.children);
+  const slides=[];
+  let cur=null;
+  children.forEach(el=>{
+    if(el.classList.contains('ix-section')){
+      cur=document.createElement('div');
+      cur.className='ix-slide';
+      cur.setAttribute('data-anchor', el.id||'');
+      slides.push(cur);
+    }
+    if(cur) cur.appendChild(el); // 노드 이동 (clone 아님)
+  });
+  // 2) wrap을 비우고 슬라이드 다시 채우기
+  wrap.innerHTML='';
+  slides.forEach((s,i)=>{
+    if(i===0)s.classList.add('active');
+    wrap.appendChild(s);
+  });
+  _ixSlides=slides;
+  // 3) 점 네비게이션 동적 생성
+  buildIxDots();
+  updateIxPos();
+  // 4) 키보드/스와이프 바인딩
+  bindIxControls();
+  _ixInitialized=true;
+}
+
+function buildIxDots(){
+  const dotsEl=document.getElementById('ix-dots');
+  if(!dotsEl)return;
+  // 라벨: ★(최신) → 0(HOT) → 1~8(심화/실용) → +(팁)
+  const labelMap={
+    'ix-design':'★',
+    'ix-desktop':'0',
+    'ix-harness':'1',
+    'ix-aeprinciple':'2',
+    'ix-meta':'3',
+    'ix-internal':'4',
+    'ix-harness5':'5',
+    'ix-tokentools':'6',
+    'ix-tokenconfig':'7',
+    'ix-recall':'8',
+    'ix-tips':'+'
+  };
+  const labels=_ixSlides.map((s,i)=>{
+    const anchor=s.getAttribute('data-anchor')||'';
+    return labelMap[anchor] !== undefined ? labelMap[anchor] : String(i);
+  });
+  dotsEl.innerHTML=labels.map((lbl,i)=>
+    `<button class="ix-dot${i===0?' on':''}" data-idx="${i}" onclick="ixSlideTo(${i})">${lbl}</button>`
+  ).join('');
+}
+
+function ixSlideTo(idx){
+  if(!_ixSlides.length)return;
+  if(idx<0)idx=0;
+  if(idx>=_ixSlides.length)idx=_ixSlides.length-1;
+  _ixSlides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+  document.querySelectorAll('.ix-dot').forEach((d,i)=>d.classList.toggle('on', i===idx));
+  _ixCurrent=idx;
+  updateIxPos();
+  updateIxNavBtns();
+  // 슬라이더 상단으로 스크롤
+  const nav=document.getElementById('ix-nav');
+  if(nav){
+    const y=nav.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
+
+function ixNext(delta){
+  ixSlideTo(_ixCurrent + delta);
+}
+
+function updateIxPos(){
+  const el=document.getElementById('ix-pos');
+  if(el) el.textContent=`${_ixCurrent+1} / ${_ixSlides.length}`;
+}
+function updateIxNavBtns(){
+  const prev=document.getElementById('ix-prev-btn');
+  const next=document.getElementById('ix-next-btn');
+  if(prev) prev.disabled = _ixCurrent === 0;
+  if(next) next.disabled = _ixCurrent === _ixSlides.length-1;
+}
+
+// 자동재생 (5초 간격)
+function ixToggleAutoplay(){
+  const btn=document.getElementById('ix-auto');
+  if(_ixAutoplayTimer){
+    clearInterval(_ixAutoplayTimer);
+    _ixAutoplayTimer=null;
+    if(btn){btn.textContent='▶ 자동';btn.classList.remove('on');}
+  } else {
+    _ixAutoplayTimer=setInterval(()=>{
+      const next=(_ixCurrent+1) % _ixSlides.length;
+      ixSlideTo(next);
+    }, 5000);
+    if(btn){btn.textContent='⏸ 정지';btn.classList.add('on');}
+  }
+}
+
+// 키보드 화살표 + 터치 스와이프
+function bindIxControls(){
+  document.addEventListener('keydown', e=>{
+    const insightsActive=document.getElementById('page-insights');
+    if(!insightsActive||!insightsActive.classList.contains('active'))return;
+    if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+    if(e.key==='ArrowLeft'){e.preventDefault();ixNext(-1);}
+    if(e.key==='ArrowRight'){e.preventDefault();ixNext(1);}
+  });
+  const wrap=document.getElementById('ix-slider-wrap');
+  if(!wrap)return;
+  let ts=null;
+  wrap.addEventListener('touchstart', e=>{ ts=e.changedTouches[0].screenX; });
+  wrap.addEventListener('touchend', e=>{
+    if(ts===null)return;
+    const te=e.changedTouches[0].screenX;
+    const dx=te-ts;
+    if(Math.abs(dx)>60){ ixNext(dx>0?-1:1); }
+    ts=null;
+  });
+}
+
+// 목차 카드 클릭 → 해당 슬라이드로 이동 (기존 ixJump 호환)
 function ixJump(id){
-  const el=document.getElementById(id);
-  if(!el)return;
-  // 상단 topbar 높이만큼 보정
-  const y=el.getBoundingClientRect().top + window.pageYOffset - 70;
-  window.scrollTo({top:y, behavior:'smooth'});
-  // 잠깐 강조 효과
-  el.style.transition='background .3s';
-  el.style.background='rgba(97,82,232,.06)';
-  setTimeout(()=>{ el.style.background=''; }, 1200);
+  ixInit(); // 안전망
+  const idx=_ixSlides.findIndex(s=>s.getAttribute('data-anchor')===id);
+  if(idx>=0){ ixSlideTo(idx); }
 }
 
 // ── COLLAPSIBLE SIDEBAR SECTIONS (아코디언) ────────────────────────
