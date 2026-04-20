@@ -147,6 +147,27 @@ code{font-family:'JetBrains Mono',monospace}
 .sidebar-section.collapsible.collapsed .nav-item{
   display:none;
 }
+/* 부모 collapsible 안의 서브 섹션 구분 라벨 (시각적 구분만, 클릭 불가) */
+.sidebar-subsection-label{
+  font-size:10px;
+  font-weight:600;
+  color:var(--text3);
+  padding:10px 16px 4px;
+  margin-top:4px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.sidebar-subsection-label::before,
+.sidebar-subsection-label::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+.sidebar-section.collapsible.collapsed .sidebar-subsection-label{
+  display:none;
+}
 .nav-item{
   display:flex;align-items:center;gap:10px;
   padding:8px 16px;
@@ -610,20 +631,21 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </a>
   </div>
 
-  <!-- Claude 활용법 -->
-  <div class="sidebar-section collapsible collapsed" data-sec="claude">
-    <div class="sidebar-section-label" onclick="toggleSection(this)">💡 Claude 활용법</div>
+  <!-- Claude Code 심화 (4개 서브 섹션 통합) -->
+  <div class="sidebar-section collapsible collapsed" data-sec="cc-deep">
+    <div class="sidebar-section-label" onclick="toggleSection(this)">🤖 Claude Code 심화</div>
+
+    <!-- 활용법 -->
+    <div class="sidebar-subsection-label">💡 활용법</div>
     <a class="nav-item" onclick="showPage('claude12')" href="#">
       <span class="ni-icon">💡</span> 12가지 핵심 활용법
     </a>
     <a class="nav-item" onclick="showPage('perspective')" href="#">
       <span class="ni-icon">🎯</span> 도구보다 제품
     </a>
-  </div>
 
-  <!-- 설정 & 운영 -->
-  <div class="sidebar-section collapsible collapsed" data-sec="settings">
-    <div class="sidebar-section-label" onclick="toggleSection(this)">🛠 설정 & 운영</div>
+    <!-- 설정 & 운영 -->
+    <div class="sidebar-subsection-label">🛠 설정 & 운영</div>
     <a class="nav-item" onclick="showPage('claudemd')" href="#">
       <span class="ni-icon">📝</span> CLAUDE.md 가이드
     </a>
@@ -636,11 +658,9 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('security')" href="#">
       <span class="ni-icon">🔒</span> 보안 체크리스트
     </a>
-  </div>
 
-  <!-- 에이전트 전략 -->
-  <div class="sidebar-section collapsible collapsed" data-sec="agent">
-    <div class="sidebar-section-label" onclick="toggleSection(this)">🤖 에이전트 전략</div>
+    <!-- 에이전트 전략 -->
+    <div class="sidebar-subsection-label">🤖 에이전트 전략</div>
     <a class="nav-item" onclick="showPage('harness')" href="#">
       <span class="ni-icon">⚙️</span> 하네스 & 자율 개발
     </a>
@@ -650,11 +670,9 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('agentic')" href="#">
       <span class="ni-icon">📖</span> 패턴 북 21개
     </a>
-  </div>
 
-  <!-- 리소스 -->
-  <div class="sidebar-section collapsible collapsed" data-sec="resource">
-    <div class="sidebar-section-label" onclick="toggleSection(this)">📦 리소스</div>
+    <!-- 리소스 -->
+    <div class="sidebar-subsection-label">📦 리소스</div>
     <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
       <span class="ni-icon">🔌</span> Skills & MCP 25선
     </a>
