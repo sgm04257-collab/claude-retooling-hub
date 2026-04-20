@@ -168,6 +168,170 @@ code{font-family:'JetBrains Mono',monospace}
 .sidebar-section.collapsible.collapsed .sidebar-subsection-label{
   display:none;
 }
+
+/* ── INSIGHTS PAGE READABILITY ENHANCEMENTS ───────────────────────── */
+/* 목차 카드 */
+.toc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;
+  margin:14px 0 32px;
+}
+.toc-item{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  cursor:pointer;
+  transition:all .15s ease;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  text-decoration:none;
+  color:inherit;
+}
+.toc-item:hover{
+  background:var(--bg3);
+  border-color:var(--accent);
+  transform:translateY(-1px);
+  box-shadow:0 2px 8px rgba(97,82,232,.08);
+}
+.toc-item-meta{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  color:var(--text3);
+  font-weight:600;
+}
+.toc-item-num{
+  background:var(--accent);
+  color:#fff;
+  width:18px;height:18px;
+  border-radius:4px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:700;
+}
+.toc-item-num.hot{background:var(--red)}
+.toc-item-num.new{background:var(--green)}
+.toc-item-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+  line-height:1.45;
+  margin-top:2px;
+}
+.toc-item-tldr{
+  font-size:11px;
+  color:var(--text2);
+  line-height:1.5;
+  margin-top:2px;
+}
+
+/* TL;DR 한줄 요약 박스 */
+.tldr-box{
+  background:linear-gradient(90deg, rgba(97,82,232,.06), rgba(97,82,232,0));
+  border-left:3px solid var(--accent);
+  padding:10px 14px;
+  border-radius:6px;
+  margin:6px 0 14px;
+  font-size:13px;
+  color:var(--text);
+  line-height:1.6;
+}
+.tldr-box strong{color:var(--accent)}
+
+/* 강화된 섹션 타이틀 (번호 뱃지 + 메타) */
+.ix-section{
+  margin-top:2.5rem;
+  padding-top:1.5rem;
+  border-top:1px dashed var(--border);
+}
+.ix-section:first-of-type{border-top:none;padding-top:0}
+.ix-head{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:8px;
+  flex-wrap:wrap;
+}
+.ix-num{
+  background:var(--accent);
+  color:#fff;
+  width:32px;height:32px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:700;
+  flex-shrink:0;
+}
+.ix-num.hot{background:var(--red)}
+.ix-num.new{background:var(--green)}
+.ix-title-wrap{flex:1;min-width:200px}
+.ix-title{
+  font-size:18px;
+  font-weight:700;
+  color:var(--text);
+  line-height:1.35;
+  margin:0;
+}
+.ix-meta{
+  display:flex;
+  gap:8px;
+  margin-top:4px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.ix-tag{
+  font-size:10px;
+  font-weight:600;
+  padding:3px 8px;
+  border-radius:10px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.ix-tag.analysis{background:#EEF2FF;color:#4338CA}
+.ix-tag.howto{background:#ECFDF5;color:#065F46}
+.ix-tag.curation{background:#FEF3C7;color:#92400E}
+.ix-tag.concept{background:#FCE7F3;color:#9D174D}
+.ix-tag.news{background:#FEE2E2;color:#991B1B}
+.ix-time{
+  font-size:10px;
+  color:var(--text3);
+  display:flex;
+  align-items:center;
+  gap:3px;
+}
+/* 빠르게 보기 (highlight strip) */
+.quick-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;
+  margin:14px 0 24px;
+}
+.quick-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  border-radius:8px;
+  padding:12px 14px;
+}
+.quick-card-title{
+  font-size:13px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:4px;
+}
+.quick-card-desc{
+  font-size:11.5px;
+  color:var(--text2);
+  line-height:1.55;
+}
 .nav-item{
   display:flex;align-items:center;gap:10px;
   padding:8px 16px;
@@ -591,10 +755,6 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('insights')" href="#">
       <span class="ni-icon">🔥</span> 인사이트 & 트렌드
     </a>
-    <a class="nav-item" onclick="showPage('weekly-report')" href="#">
-      <span class="ni-icon">📊</span> AI 월간 리포트
-      <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
-    </a>
     <a class="nav-item" onclick="showPage('learn')" href="#">
       <span class="ni-icon">📚</span> 학습 로드맵
     </a>
@@ -722,7 +882,7 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="stat-num" style="color:var(--accent)">18</div><div class="stat-label">학습 페이지</div></div>
+      <div class="stat"><div class="stat-num" style="color:var(--accent)">17</div><div class="stat-label">학습 페이지</div></div>
       <div class="stat"><div class="stat-num" style="color:var(--green)">12</div><div class="stat-label">무료 강의 (수료증 10개)</div></div>
       <div class="stat"><div class="stat-num" style="color:var(--amber)">50</div><div class="stat-label">Skills & MCP & Repos</div></div>
       <div class="stat"><div class="stat-num" style="color:var(--pink)">5</div><div class="stat-label">최신 인사이트 아티클</div></div>
@@ -1305,137 +1465,114 @@ Esc Esc         → 되감기
   </div>
 
   <!-- ─────────────── WEEKLY REPORT ─────────────── -->
-  <div class="page" id="page-weekly-report">
-    <div class="hero">
-      <div class="hero-tag">📊 AI 월간 리포트 · 2026년 4월호 (VOL.1)</div>
-      <h1>AI & Claude Code 월간 리포트</h1>
-      <p>이번 달 AI 업계의 핵심 업데이트, 트렌드, 실전 팁을 한눈에 정리합니다. 매월 첫째 주에 업데이트됩니다.</p>
-    </div>
-
-    <!-- 이달의 하이라이트 -->
-    <div class="section-title">🔥 이달의 하이라이트 TOP 3</div>
-    <div class="g3">
-      <div class="card" style="border-top:3px solid var(--red);padding:20px">
-        <div class="card-badge badge-red">1위</div>
-        <div class="card-title">Claude Code 데스크탑 앱 리디자인</div>
-        <div class="card-desc" style="margin-top:8px">패널 조립형 IDE 레이아웃, HTML 프리뷰, 병렬 세션 지원. 코딩 에이전트에서 <strong>작업 에이전트</strong>로의 전환 신호로 해석되며, 디자인 도구 시장에도 변화의 움직임이 감지되고 있습니다.</div>
-      </div>
-      <div class="card" style="border-top:3px solid var(--accent);padding:20px">
-        <div class="card-badge badge-purple">2위</div>
-        <div class="card-title">Opus 4.7 디자인 도구 출시 임박</div>
-        <div class="card-desc" style="margin-top:8px">프롬프트로 웹사이트·프레젠테이션 생성하는 자연어 디자인 도구. 데스크탑 앱 HTML 프리뷰 패널은 이를 위한 <strong>사전 포석</strong>이었습니다.</div>
-      </div>
-      <div class="card" style="border-top:3px solid var(--green);padding:20px">
-        <div class="card-badge badge-green">3위</div>
-        <div class="card-title">Routines 기능 발표</div>
-        <div class="card-desc" style="margin-top:8px">반복 작업을 스케줄링하는 기능. 병렬 세션과 결합하면 <strong>무인 자동화 워크플로우</strong>를 구성하기 좋습니다. 자리에 없을 때도 정해진 작업이 자동으로 흘러가는 구조.</div>
-      </div>
-    </div>
-
-    <!-- 이달의 핵심 수치 -->
-    <div class="section-title">📈 이달의 AI 핵심 수치</div>
-    <div class="g4">
-      <div class="card" style="text-align:center;padding:24px">
-        <div style="font-size:32px;font-weight:700;color:var(--accent)">200만+</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px">Codex 앱 주간 활성 사용자<br>(출시 3개월 만에 달성)</div>
-      </div>
-      <div class="card" style="text-align:center;padding:24px">
-        <div style="font-size:32px;font-weight:700;color:var(--green)">5,600+</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px">Claude Code로 분석된<br>보안 취약점 앱 수</div>
-      </div>
-      <div class="card" style="text-align:center;padding:24px">
-        <div style="font-size:32px;font-weight:700;color:var(--amber)">21개</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px">에이전트 패턴 북<br>무료 공개 (424p)</div>
-      </div>
-      <div class="card" style="text-align:center;padding:24px">
-        <div style="font-size:32px;font-weight:700;color:var(--red)">12개</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px">수료증 발급 가능<br>무료 AI 강의</div>
-      </div>
-    </div>
-
-    <!-- 이달의 AI 트렌드 -->
-    <div class="section-title">🌐 이달의 AI 업계 트렌드</div>
-    <div class="g2">
-      <div class="card" style="border-left:3px solid var(--blue);padding:18px">
-        <div class="card-title">🎨 AI 디자인 도구 본격화</div>
-        <div class="card-desc" style="margin-top:8px">프롬프트만으로 웹사이트·슬라이드·이미지를 생성하는 자연어 디자인 도구가 점차 자리를 잡으면서, 기존 디자인 도구 시장에서도 새로운 흐름이 만들어지고 있습니다.</div>
-      </div>
-      <div class="card" style="border-left:3px solid var(--accent);padding:18px">
-        <div class="card-title">🤖 작업 에이전트로의 전환</div>
-        <div class="card-desc" style="margin-top:8px">"코드를 짜는 에이전트"에서 "업무를 수행하는 에이전트"로 정의가 확장. Anthropic·OpenAI 모두 작업 자동화·스케줄링 기능을 강화하며 디지털 노동자 패러다임이 가속화되고 있습니다.</div>
-      </div>
-      <div class="card" style="border-left:3px solid var(--green);padding:18px">
-        <div class="card-title">🔌 MCP 생태계 확대</div>
-        <div class="card-desc" style="margin-top:8px">Tavily(검색), Context7(문서), Notion·Slack 등 MCP 서버가 급속히 늘면서 에이전트와 외부 도구의 연결이 표준화. 사내 데이터·도구 통합 진입 장벽이 크게 낮아졌습니다.</div>
-      </div>
-      <div class="card" style="border-left:3px solid var(--amber);padding:18px">
-        <div class="card-title">📚 패턴북·플레이북 시대</div>
-        <div class="card-desc" style="margin-top:8px">에이전트 설계의 모범 사례를 정리한 무료 자료가 잇따라 공개. 더 이상 "어떻게 만들까"가 아니라 <strong>"검증된 패턴을 어떻게 적용할까"</strong>의 시대로 이동 중입니다.</div>
-      </div>
-    </div>
-
-    <!-- 이달의 실전 팁 -->
-    <div class="section-title">💡 이달의 실전 팁</div>
-    <div class="g2">
-      <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚡</div><div class="tip-title">Git Worktree로 병렬 세션 충돌 방지</div></div><div class="tip-body">
-        Claude Code 병렬 세션을 쓸 때 같은 브랜치에서 작업하면 충돌이 발생합니다. <strong>Git worktree 자동 격리</strong>를 활성화하면 각 세션이 독립된 작업 공간을 갖게 됩니다.<div class="codebox">claude --worktree
-# 또는 대화 중
-/worktree</div>
-      </div></div>
-      <div class="tip-card"><div class="tip-head"><div class="tip-icon">🔧</div><div class="tip-title">Skills Description = 트리거 조건으로 쓸 것</div></div><div class="tip-body">
-        Skills의 description 필드는 "이 스킬이 뭘 하는가"가 아니라 <strong>"언제 이 스킬을 실행할지"</strong>로 써야 자동 활성화가 잘 됩니다.<div class="codebox">❌ "코드 리뷰를 수행합니다"
-✅ "사용자가 'PR 리뷰해줘', '코드 검토'를 요청할 때 실행"</div>
-      </div></div>
-    </div>
-
-    <!-- 추천 학습 -->
-    <div class="section-title">🎓 이달의 추천 학습</div>
-    <div class="g3">
-      <div class="card" style="border-left:3px solid var(--accent);padding:16px">
-        <div class="card-badge badge-purple">초급</div>
-        <div class="card-title">CLAUDE.md 완벽 가이드</div>
-        <div class="card-desc" style="margin-top:6px">파일 위치·범위·200줄 규칙·@import. AI 업무 매뉴얼의 모든 것.</div>
-        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('claudemd')">가이드 보기 →</button>
-      </div>
-      <div class="card" style="border-left:3px solid var(--green);padding:16px">
-        <div class="card-badge badge-green">중급</div>
-        <div class="card-title">Skills 꿀팁 9가지</div>
-        <div class="card-desc" style="margin-top:6px">함정 목록·점진적 공개·Description 작성법. Anthropic 내부 교훈.</div>
-        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('skills-guide')">꿀팁 보기 →</button>
-      </div>
-      <div class="card" style="border-left:3px solid var(--red);padding:16px">
-        <div class="card-badge badge-red">고급</div>
-        <div class="card-title">하네스 & 자율 개발</div>
-        <div class="card-desc" style="margin-top:6px">기획자·생성자·평가자 3인조. 스프린트 계약. Claude Code 혼자 앱 만들기.</div>
-        <button class="btn btn-ghost" style="margin-top:10px;font-size:11px;padding:5px 10px" onclick="showPage('harness')">하네스 보기 →</button>
-      </div>
-    </div>
-
-    <!-- 다음 달 예고 -->
-    <div class="tip-card" style="margin-top:20px;border-left-color:var(--accent)"><div class="tip-head"><div class="tip-icon">📅</div><div class="tip-title">다음 달 예고 (5월호)</div></div><div class="tip-body">
-      <strong>• Opus 4.7 디자인 도구 정식 출시 리뷰</strong> — 실제 사용 후기와 비개발자 활용법<br>
-      <strong>• MCP 서버 연동 실전 가이드</strong> — Tavily, Context7, Obsidian 연동 핵심 정리<br>
-      <strong>• 에이전트 패턴 북 핵심 요약</strong> — 424페이지 중 실무에 바로 쓸 수 있는 패턴 5선<br>
-      <strong>• 사내 AI 도입 사례 인터뷰</strong> — 실제 업무에 적용한 임직원 케이스 스터디
-    </div></div>
-
-    <!-- 지난 리포트 아카이브 -->
-    <div class="section-title">📂 지난 리포트</div>
-    <div class="note">📌 AI 월간 리포트는 <strong>매월 첫째 주</strong>에 업데이트됩니다. 이번 호가 첫 발행(VOL.1)입니다. 지난 호는 여기에 누적됩니다.<br><br>📰 사내 AI 활동 소식은 <a href="#" onclick="showPage('ai-curation');return false" style="color:var(--accent);font-weight:600">Metanet AI Curation</a> 페이지에서 별도 발행됩니다.</div>
-  </div>
-
   <!-- ─────────────── INSIGHTS ─────────────── -->
   <div class="page" id="page-insights">
     <div class="hero">
       <div class="hero-tag">🔥 인사이트 & 트렌드 · 2026 최신</div>
       <h1>AI 시대의 핵심 읽을거리</h1>
-      <p>에이전틱 엔지니어링, 하네스, Claude Code 내부 구조까지. 교육자와 실무자를 위한 엄선된 인사이트 모음.</p>
+      <p>최신 소식부터 깊이 있는 분석까지. <strong>관심 있는 주제만 골라서</strong> 가볍게 읽으셔도 좋고, 위에서부터 차근히 따라가셔도 좋습니다.</p>
+    </div>
+
+    <!-- ★ 한눈에 보는 AI 흐름 (월간 리포트에서 이전) -->
+    <div class="section-title" style="margin-top:1rem">🌐 한눈에 보는 최근 AI 흐름</div>
+    <div class="tldr-box">
+      <strong>TL;DR</strong> — 지금 AI 업계에서 동시다발로 일어나는 4가지 흐름. 자세한 내용은 아래 각 섹션에서 다룹니다.
+    </div>
+    <div class="quick-strip">
+      <div class="quick-card" style="border-left-color:var(--blue)">
+        <div class="quick-card-title">🎨 AI 디자인 도구 본격화</div>
+        <div class="quick-card-desc">자연어로 디자인 결과물을 만드는 도구가 자리잡고, 디자인 도구 시장에 새 흐름.</div>
+      </div>
+      <div class="quick-card" style="border-left-color:var(--accent)">
+        <div class="quick-card-title">🤖 작업 에이전트로의 전환</div>
+        <div class="quick-card-desc">코드를 짜는 에이전트에서 업무를 수행하는 에이전트로 정의가 확장되는 중.</div>
+      </div>
+      <div class="quick-card" style="border-left-color:var(--green)">
+        <div class="quick-card-title">🔌 MCP 생태계 확대</div>
+        <div class="quick-card-desc">검색·문서·메시징 등 MCP 서버가 늘면서 외부 도구 연결이 쉬워지는 흐름.</div>
+      </div>
+      <div class="quick-card" style="border-left-color:var(--amber)">
+        <div class="quick-card-title">📚 패턴북·플레이북 시대</div>
+        <div class="quick-card-desc">"어떻게 만들까"보다 "검증된 패턴을 어떻게 적용할까"로 무게중심 이동.</div>
+      </div>
+    </div>
+
+    <!-- 📑 목차 -->
+    <div class="section-title" style="margin-top:1.5rem">📑 목차 — 클릭하면 해당 섹션으로 이동</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#ix-design" onclick="ixJump('ix-design');return false">
+        <div class="toc-item-meta"><span class="toc-item-num hot">★</span><span>최신 · 도구</span><span style="margin-left:auto">2~3분</span></div>
+        <div class="toc-item-title">🎨 Anthropic, Claude Design 출시</div>
+        <div class="toc-item-tldr">자연어 디자인 + Claude Code 인계 + 실전 PPT 6단계</div>
+      </a>
+      <a class="toc-item" href="#ix-desktop" onclick="ixJump('ix-desktop');return false">
+        <div class="toc-item-meta"><span class="toc-item-num hot">0</span><span>HOT · 분석</span><span style="margin-left:auto">3~4분</span></div>
+        <div class="toc-item-title">🖥️ Claude Code, 프로그래밍을 넘어</div>
+        <div class="toc-item-tldr">데스크탑 앱 리디자인이 보여주는 작업 에이전트로의 확장</div>
+      </a>
+      <a class="toc-item" href="#ix-harness" onclick="ixJump('ix-harness');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">1</span><span>심화 · 개념</span><span style="margin-left:auto">3분</span></div>
+        <div class="toc-item-title">프롬프트에서 하네스로</div>
+        <div class="toc-item-tldr">Agent = Model + Harness, 다음 단계 엔지니어링</div>
+      </a>
+      <a class="toc-item" href="#ix-aeprinciple" onclick="ixJump('ix-aeprinciple');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">2</span><span>심화 · 개념</span><span style="margin-left:auto">3분</span></div>
+        <div class="toc-item-title">에이전틱 엔지니어링 5가지 핵심 원칙</div>
+        <div class="toc-item-tldr">실패→학습 / 컨텍스트 절약 / 작은 단위 / 검증 / 도구 전환</div>
+      </a>
+      <a class="toc-item" href="#ix-meta" onclick="ixJump('ix-meta');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">3</span><span>심화 · 분석</span><span style="margin-left:auto">3분</span></div>
+        <div class="toc-item-title">Meta 엔지니어의 에이전틱 엔지니어링</div>
+        <div class="toc-item-tldr">실무자 관점의 5가지 핵심 인사이트 정리</div>
+      </a>
+      <a class="toc-item" href="#ix-internal" onclick="ixJump('ix-internal');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">4</span><span>심화 · 분석</span><span style="margin-left:auto">4분</span></div>
+        <div class="toc-item-title">Claude Code 내부 구조 — 공개 소스 분석</div>
+        <div class="toc-item-tldr">NPM 배포 실수로 공개된 소스로 본 설계 아이디어</div>
+      </a>
+      <a class="toc-item" href="#ix-harness5" onclick="ixJump('ix-harness5');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">5</span><span>심화 · 개념</span><span style="margin-left:auto">3분</span></div>
+        <div class="toc-item-title">하네스의 5가지 핵심 구성 요소</div>
+        <div class="toc-item-tldr">파일시스템·샌드박스·컨텍스트·서브에이전트·백프레셔</div>
+      </a>
+      <a class="toc-item" href="#ix-tokentools" onclick="ixJump('ix-tokentools');return false">
+        <div class="toc-item-meta"><span class="toc-item-num new">6</span><span>실용 · 큐레이션</span><span style="margin-left:auto">4분</span></div>
+        <div class="toc-item-title">토큰 절약 무료 도구 10선</div>
+        <div class="toc-item-tldr">RTK·Context Mode·Token Savior 등 GitHub 오픈소스 큐레이션</div>
+      </a>
+      <a class="toc-item" href="#ix-tokenconfig" onclick="ixJump('ix-tokenconfig');return false">
+        <div class="toc-item-meta"><span class="toc-item-num new">7</span><span>실용 · 사용법</span><span style="margin-left:auto">4분</span></div>
+        <div class="toc-item-title">설정 변경만으로 토큰 절약</div>
+        <div class="toc-item-tldr">Claude Code 6 + Codex 5 = 도구 설치 없이 적용 가능한 레버</div>
+      </a>
+      <a class="toc-item" href="#ix-recall" onclick="ixJump('ix-recall');return false">
+        <div class="toc-item-meta"><span class="toc-item-num">8</span><span>심화 · 분석</span><span style="margin-left:auto">4분</span></div>
+        <div class="toc-item-title">검색이 아니라 기억처럼 — 에이전트 지식 활용</div>
+        <div class="toc-item-tldr">RAG retrieval vs ambient preload, K-layer 구조 사례</div>
+      </a>
+      <a class="toc-item" href="#ix-tips" onclick="ixJump('ix-tips');return false">
+        <div class="toc-item-meta"><span class="toc-item-num new">+</span><span>실용 · 팁</span><span style="margin-left:auto">2분</span></div>
+        <div class="toc-item-title">💡 실전 팁 모음</div>
+        <div class="toc-item-tldr">Git Worktree 격리, Skills Description 작성법 등</div>
+      </a>
     </div>
 
     <!-- ★ NEW: Claude Design 출시 -->
-    <div class="section-title" style="display:flex;align-items:center;gap:10px;margin-top:1rem">
-      🎨 Anthropic, Claude Design 출시
-      <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 8px;border-radius:12px;font-weight:700">최신</span>
+    <div class="ix-section" id="ix-design">
+      <div class="ix-head">
+        <div class="ix-num hot">★</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">🎨 Anthropic, Claude Design 출시</h2>
+          <div class="ix-meta">
+            <span class="ix-tag news">최신</span>
+            <span class="ix-tag analysis">도구</span>
+            <span class="ix-time">⏱ 2~3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — Anthropic이 자연어로 프로토타입·슬라이드·원페이저를 만들고 그 결과물을 <strong>Claude Code로 인계해 코드까지 이어가는</strong> 디자인 도구를 출시했습니다.
+      </div>
     </div>
     <div class="note" style="border-left-color:var(--accent)">
       📌 <strong>핵심 메시지</strong>: Anthropic이 자연어 기반 디자인 도구 <strong>Claude Design</strong>을 공개했습니다. 프로토타입·슬라이드·원페이저 같은 시각 결과물을 자연어로 만들고, <strong>번들 형태로 묶어 Claude Code로 넘겨 코드 작업으로 이어갈 수 있다</strong>는 점이 가장 큰 특징입니다. 디자인과 개발 사이의 경계가 한 단계 더 가까워지는 흐름입니다.
@@ -1593,9 +1730,21 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 0. Claude Code 데스크탑 앱 리디자인 (최신) -->
-    <div class="section-title" style="display:flex;align-items:center;gap:10px">
-      🖥️ Claude Code, 프로그래밍을 넘어 더 많은 것으로
-      <span style="font-size:10px;background:var(--red);color:#fff;padding:2px 8px;border-radius:12px;font-weight:700">HOT</span>
+    <div class="ix-section" id="ix-desktop">
+      <div class="ix-head">
+        <div class="ix-num hot">0</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">🖥️ Claude Code, 프로그래밍을 넘어 더 많은 것으로</h2>
+          <div class="ix-meta">
+            <span class="ix-tag news">HOT</span>
+            <span class="ix-tag analysis">분석</span>
+            <span class="ix-time">⏱ 3~4분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — 데스크탑 앱 리디자인·HTML 프리뷰·병렬 세션이라는 3가지 신호가 모두 <strong>"코딩 에이전트 → 작업 에이전트"</strong>로의 확장을 가리킵니다.
+      </div>
     </div>
     <div class="note" style="border-left-color:var(--accent)">📌 <strong>핵심 메시지</strong>: Claude Code가 <strong>코딩 에이전트 → 작업 에이전트</strong>로 확장되고 있습니다. 데스크탑 앱 리디자인, Opus 4.7 디자인 도구, 병렬 세션이라는 세 가지 신호가 이런 변화를 보여줍니다. 디자인 도구 시장 전반에도 영향을 줄 수 있는 흐름으로 평가됩니다.</div>
 
@@ -1664,8 +1813,23 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 1. 하네스 시대 -->
-    <div class="section-title" style="margin-top:2rem">1. 프롬프트에서 하네스로 — 다음 단계 엔지니어링</div>
-    <div class="note">📌 <strong>핵심 공식</strong>: Agent = Model + Harness. 모델이 아닌 모든 것 — 시스템 프롬프트, 도구, 샌드박스, 피드백 루프, 메모리 — 이 하네스를 구성합니다. 2026년의 경쟁력은 모델이 아니라 <strong>마구(harness)</strong>에서 나옵니다.</div>
+    <div class="ix-section" id="ix-harness">
+      <div class="ix-head">
+        <div class="ix-num">1</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">프롬프트에서 하네스로 — 다음 단계 엔지니어링</h2>
+          <div class="ix-meta">
+            <span class="ix-tag concept">개념</span>
+            <span class="ix-tag analysis">심화</span>
+            <span class="ix-time">⏱ 3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — Agent = Model + Harness. 모델 자체보다 모델을 감싸는 <strong>시스템 설계(하네스)</strong>가 결과를 결정한다는 관점.
+      </div>
+    </div>
+    <div class="note">📌 <strong>핵심 공식</strong>: Agent = Model + Harness. 모델이 아닌 모든 것 — 시스템 프롬프트, 도구, 샌드박스, 피드백 루프, 메모리 — 이 하네스를 구성합니다.</div>
     <div class="g3">
       <div class="card" style="border-top:3px solid var(--accent)">
         <div class="card-badge badge-purple">진화 과정</div>
@@ -1693,7 +1857,22 @@ Esc Esc         → 되감기
     <div class="card" style="margin-bottom:1.5rem;cursor:pointer" onclick="goLink('https://blog.risemoment.ai/harness-engineering/')"><div class="card-badge badge-accent" style="background:#EEF2FF;color:#4338CA">원문 읽기 ↗</div><div class="card-title">하네스 엔지니어링: AI 에이전트 개발 3가지 핵심 요소</div><div class="card-desc">risemoment.ai — 하네스의 정의, 구성 요소, 실전 적용법 완벽 정리</div></div>
 
     <!-- 2. 에이전틱 엔지니어링 -->
-    <div class="section-title">2. 에이전틱 엔지니어링 5가지 핵심 원칙</div>
+    <div class="ix-section" id="ix-aeprinciple">
+      <div class="ix-head">
+        <div class="ix-num">2</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">에이전틱 엔지니어링 5가지 핵심 원칙</h2>
+          <div class="ix-meta">
+            <span class="ix-tag concept">개념</span>
+            <span class="ix-tag analysis">심화</span>
+            <span class="ix-time">⏱ 3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — 실패에서 학습 / 컨텍스트 절약 / 작은 단위 / 검증 / 도구 전환 — 에이전트를 안정적으로 운영하기 위한 5가지 원칙.
+      </div>
+    </div>
     <div class="note">📌 AI 에이전트가 목표를 자율적으로 추구하는 시스템을 설계·구축·운영하는 기술. 핵심은 <strong>"위임(Delegate) → 검토(Review) → 소유(Own)"</strong> 모델입니다.</div>
     <div class="g3">
       <div class="card" style="border-left:3px solid var(--accent)">
@@ -1729,7 +1908,22 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 3. 메타 엔지니어 관점 -->
-    <div class="section-title">3. Meta 엔지니어의 에이전틱 엔지니어링</div>
+    <div class="ix-section" id="ix-meta">
+      <div class="ix-head">
+        <div class="ix-num">3</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">Meta 엔지니어의 에이전틱 엔지니어링</h2>
+          <div class="ix-meta">
+            <span class="ix-tag analysis">분석</span>
+            <span class="ix-tag concept">실무</span>
+            <span class="ix-time">⏱ 3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — Meta 엔지니어 관점에서 본 에이전틱 엔지니어링의 핵심 5가지를 실무 사례와 함께 정리합니다.
+      </div>
+    </div>
     <div class="g2">
       <div class="card" style="border-top:3px solid #0668E1">
         <div class="card-badge" style="background:#EFF6FF;color:#1E40AF">Meta 관점</div>
@@ -1744,7 +1938,22 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 4. Claude Code 유출 사건 -->
-    <div class="section-title">4. Claude Code 내부 구조 — 공개 소스 분석</div>
+    <div class="ix-section" id="ix-internal">
+      <div class="ix-head">
+        <div class="ix-num">4</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">Claude Code 내부 구조 — 공개 소스 분석</h2>
+          <div class="ix-meta">
+            <span class="ix-tag analysis">분석</span>
+            <span class="ix-tag concept">심화</span>
+            <span class="ix-time">⏱ 4분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — NPM 배포 실수로 공개된 50만 줄 분량의 소스코드를 분석한 글에서 엿볼 수 있는 <strong>설계 아이디어 정리</strong>.
+      </div>
+    </div>
     <div class="note" style="border-left-color:var(--amber)">📦 <strong>NPM 배포 과정의 실수</strong>로 소스맵(.map) 파일을 통해 약 2,300개 파일·50만 줄 분량의 TypeScript 코드가 공개되어, 커뮤니티에서 이를 분석한 글이 다수 공유되었습니다. 본 페이지는 그 분석 글을 바탕으로 한 <strong>설계 인사이트 정리</strong>입니다.</div>
     <div class="g3">
       <div class="card" style="border-left:3px solid var(--red)">
@@ -1772,7 +1981,22 @@ Esc Esc         → 되감기
     </div></div>
 
     <!-- 5. 하네스 구성 요소 상세 -->
-    <div class="section-title">5. 하네스의 5가지 핵심 구성 요소</div>
+    <div class="ix-section" id="ix-harness5">
+      <div class="ix-head">
+        <div class="ix-num">5</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">하네스의 5가지 핵심 구성 요소</h2>
+          <div class="ix-meta">
+            <span class="ix-tag concept">개념</span>
+            <span class="ix-tag analysis">심화</span>
+            <span class="ix-time">⏱ 3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — 파일시스템 · 샌드박스 · 컨텍스트 관리 · 서브 에이전트 · 백프레셔. 하네스를 떠받치는 5가지 구성 요소.
+      </div>
+    </div>
     <div class="note">📌 LLM은 기본적으로 입력→텍스트 출력 함수일 뿐. 세션 간 상태 유지, 코드 실행, 실시간 정보 접근, 환경 구성은 <strong>모두 하네스가 해결</strong>해야 합니다.</div>
     <div class="g3">
       <div class="card"><div class="card-badge badge-purple">구성 1</div><div class="card-title">📁 파일시스템</div><div class="card-desc">작업 공간 제공, 진행 상황 기록, Git을 통한 버전 관리. 에이전트의 "작업 책상".</div></div>
@@ -1784,7 +2008,22 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 6. 토큰 절약 도구 10선 -->
-    <div class="section-title" style="margin-top:2rem">6. Claude Code 토큰 절약 — 무료 도구 10선</div>
+    <div class="ix-section" id="ix-tokentools">
+      <div class="ix-head">
+        <div class="ix-num new">6</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">Claude Code 토큰 절약 — 무료 도구 10선</h2>
+          <div class="ix-meta">
+            <span class="ix-tag curation">큐레이션</span>
+            <span class="ix-tag howto">실용</span>
+            <span class="ix-time">⏱ 4분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — RTK · Context Mode · Token Savior 등 GitHub에 공개된 <strong>무료 오픈소스 10개</strong>. 워크플로별 추천도 함께.
+      </div>
+    </div>
     <div class="note">
       📌 <strong>대상</strong>: AI 코딩 도구를 자주 쓰는 개발자. 비개발자라면 <em>"이런 흐름이 있구나"</em> 정도로만 가볍게 봐주셔도 충분합니다.<br>
       💡 Claude Code를 본격적으로 쓰다 보면 <strong>토큰 리밋</strong>이 가장 자주 마주치는 병목입니다. 같은 작업을 더 적은 토큰으로 수행하도록 도와주는 오픈소스 도구들을 모았습니다. 모두 GitHub 무료 공개 프로젝트입니다.
@@ -1855,7 +2094,22 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 7. 설정 변경으로 토큰 절약 -->
-    <div class="section-title" style="margin-top:2rem">7. 설정 변경만으로 토큰 절약 — Claude Code & Codex 점검 가이드</div>
+    <div class="ix-section" id="ix-tokenconfig">
+      <div class="ix-head">
+        <div class="ix-num new">7</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">설정 변경만으로 토큰 절약 — Claude Code & Codex</h2>
+          <div class="ix-meta">
+            <span class="ix-tag howto">사용법</span>
+            <span class="ix-tag curation">실용</span>
+            <span class="ix-time">⏱ 4분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — 도구 설치 없이 <strong>Claude Code 6가지 + Codex 5가지</strong> 설정 레버만으로 토큰 사용량을 줄이는 방법.
+      </div>
+    </div>
     <div class="note">
       📌 <strong>대상</strong>: Claude Code 또는 OpenAI Codex를 일상적으로 쓰는 개발자. 비개발자라면 <em>"AI 코딩 도구도 설정으로 토큰을 줄일 수 있구나"</em>라는 흐름만 챙겨가셔도 충분합니다.<br>
       💡 Claude Opus 4.7 출시 후 <strong>토큰 사용량이 4.6 대비 약 1.35~1.5배 늘었다</strong>는 측정 결과가 공유되면서, 코딩 에이전트의 설정값 자체를 손보는 흐름이 활발해졌습니다. 외부 도구 설치 없이 <strong>설정 한두 줄로 절감하는 방법</strong>을 정리합니다.
@@ -1963,7 +2217,22 @@ Esc Esc         → 되감기
     </div>
 
     <!-- 8. 지식이 기억처럼 작동하는 구조 -->
-    <div class="section-title" style="margin-top:2rem">8. 검색이 아니라 기억처럼 — 에이전트의 지식 활용 구조</div>
+    <div class="ix-section" id="ix-recall">
+      <div class="ix-head">
+        <div class="ix-num">8</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">검색이 아니라 기억처럼 — 에이전트의 지식 활용</h2>
+          <div class="ix-meta">
+            <span class="ix-tag analysis">분석</span>
+            <span class="ix-tag concept">심화</span>
+            <span class="ix-time">⏱ 4분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — RAG로 "꺼내오는" 방식 vs 대화 전에 "올려두는" 방식의 차이. 카파시 LLM Wiki 후속 사례.
+      </div>
+    </div>
     <div class="note">
       📌 <strong>대상</strong>: AI 시스템 설계·에이전트 아키텍처에 관심 있는 분. 비개발자라면 <em>"AI에게 지식을 어떻게 줘야 자연스러운가"</em>라는 관점만 챙겨가셔도 충분합니다.<br>
       💡 카파시(Andrej Karpathy)가 제안한 <strong>LLM Wiki</strong> 개념을 실제로 구현한 한 개발자의 실험 후속편. 지식을 RAG로 "꺼내오는" 방식과, 대화 전에 미리 "올려두는" 방식의 차이를 다룹니다.
@@ -2048,8 +2317,37 @@ Esc Esc         → 되감기
       💭 함께 생각해볼 점: <em>여러분의 시스템에서 retrieval(검색)과 preload(미리 올리기)의 경계는 어떻게 설계하고 계신가요?</em>
     </div>
 
+    <!-- ➕ 실전 팁 모음 (월간 리포트에서 이전) -->
+    <div class="ix-section" id="ix-tips">
+      <div class="ix-head">
+        <div class="ix-num new">+</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">💡 실전 팁 모음</h2>
+          <div class="ix-meta">
+            <span class="ix-tag howto">팁</span>
+            <span class="ix-tag curation">실용</span>
+            <span class="ix-time">⏱ 2분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — Claude Code를 쓰면서 알아두면 좋은 짧은 팁들. 새 팁이 발견되면 계속 추가됩니다.
+      </div>
+    </div>
+    <div class="g2">
+      <div class="tip-card"><div class="tip-head"><div class="tip-icon">⚡</div><div class="tip-title">Git Worktree로 병렬 세션 충돌 방지</div></div><div class="tip-body">
+        Claude Code 병렬 세션을 쓸 때 같은 브랜치에서 작업하면 충돌이 발생합니다. <strong>Git worktree 자동 격리</strong>를 활성화하면 각 세션이 독립된 작업 공간을 갖게 됩니다.<div class="codebox">claude --worktree
+# 또는 대화 중
+/worktree</div>
+      </div></div>
+      <div class="tip-card"><div class="tip-head"><div class="tip-icon">🔧</div><div class="tip-title">Skills Description = 트리거 조건으로 쓸 것</div></div><div class="tip-body">
+        Skills의 description 필드는 "이 스킬이 뭘 하는가"가 아니라 <strong>"언제 이 스킬을 실행할지"</strong>로 써야 자동 활성화가 잘 됩니다.<div class="codebox">❌ "코드 리뷰를 수행합니다"
+✅ "사용자가 'PR 리뷰해줘', '코드 검토'를 요청할 때 실행"</div>
+      </div></div>
+    </div>
+
     <!-- 참고 링크 -->
-    <div class="section-title">📎 원문 참고 링크</div>
+    <div class="section-title" style="margin-top:2.5rem">📎 원문 참고 링크</div>
     <div class="g2">
       <div class="card" style="cursor:pointer" onclick="goLink('https://lnkd.in/geYj9Nn7')"><div class="card-badge badge-purple">참고 1</div><div class="card-title">에이전틱 엔지니어링 5가지 핵심 원칙 ↗</div><div class="card-desc">노트북LM으로 정리된 에이전틱 엔지니어링 핵심 자료</div></div>
       <div class="card" style="cursor:pointer" onclick="goLink('https://lnkd.in/gjCfuTnx')"><div class="card-badge badge-red">참고 2</div><div class="card-title">Claude Code 소스코드 유출 사건 분석 ↗</div><div class="card-desc">다마고치, Kairos, 토큰 급증 원인 상세 분석</div></div>
@@ -2844,7 +3142,6 @@ const pageLabels={
   courses:'🎓 무료 강의 12개',workflow:'🔄 실전 워크플로우',
   downloads:'📥 교육 자료 다운로드',
   insights:'🔥 인사이트 & 트렌드',
-  'weekly-report':'📊 AI 월간 리포트',
   memo:'💬 커뮤니티 보드',
   'ai-curation':'📰 Metanet AI Curation'
 };
@@ -2877,6 +3174,19 @@ function showPage(id){
 function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
+}
+
+// ── INSIGHTS TOC JUMP (목차 클릭 시 해당 섹션으로 스크롤) ───────────
+function ixJump(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  // 상단 topbar 높이만큼 보정
+  const y=el.getBoundingClientRect().top + window.pageYOffset - 70;
+  window.scrollTo({top:y, behavior:'smooth'});
+  // 잠깐 강조 효과
+  el.style.transition='background .3s';
+  el.style.background='rgba(97,82,232,.06)';
+  setTimeout(()=>{ el.style.background=''; }, 1200);
 }
 
 // ── COLLAPSIBLE SIDEBAR SECTIONS (아코디언) ────────────────────────
