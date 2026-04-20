@@ -696,9 +696,9 @@ textarea.memo-ta::placeholder{color:var(--text3)}
         <div class="card-desc">프롬프트 → 컨텍스트 → 하네스. AI 에이전트를 감싸는 시스템 설계가 점점 더 중요해지고 있는 흐름.</div>
       </div>
       <div class="card" style="cursor:pointer;border-left:3px solid var(--amber)" onclick="showPage('insights')">
-        <div class="card-badge badge-amber">NEW · 분석</div>
-        <div class="card-title">Claude Code 내부 구조 분석</div>
-        <div class="card-desc">최근 공개된 소스 분석 글에서 엿본 Buddy System, 데몬 모드, 토큰 최적화 등 설계 아이디어 살펴보기.</div>
+        <div class="card-badge badge-amber">NEW · 도구 큐레이션</div>
+        <div class="card-title">Claude Code 토큰 절약 도구 10선</div>
+        <div class="card-desc">GitHub에 공개된 무료 오픈소스 10개. 같은 작업을 더 적은 토큰으로 처리하도록 도와주는 MCP·CLI·스킬 모음 (개발자 대상).</div>
       </div>
     </div>
 
@@ -1575,6 +1575,77 @@ Esc Esc         → 되감기
       <div class="card"><div class="card-badge badge-blue">구성 4</div><div class="card-title">🤖 서브 에이전트</div><div class="card-desc">중간 과정의 노이즈 흡수. 메인 에이전트의 컨텍스트를 보호하는 방패 역할.</div></div>
       <div class="card"><div class="card-badge badge-pink">구성 5</div><div class="card-title">⚡ 백프레셔 메커니즘</div><div class="card-desc">자동 테스트, 타입 체크로 에이전트의 자기검증 강화. 실패 → 구조적 방지 장치 추가.</div></div>
       <div class="card" style="border:2px solid var(--accent)"><div class="card-badge badge-accent" style="background:#EEF2FF;color:#4338CA">핵심 원칙</div><div class="card-title">🎯 실패에서 학습하라</div><div class="card-desc">에이전트가 실패할 때마다 구조적으로 방지하는 장치를 추가. 최소한의 정보만 제공하고 한 번에 하나의 기능만 처리.</div></div>
+    </div>
+
+    <!-- 6. 토큰 절약 도구 10선 -->
+    <div class="section-title" style="margin-top:2rem">6. Claude Code 토큰 절약 — 무료 도구 10선</div>
+    <div class="note">
+      📌 <strong>대상</strong>: AI 코딩 도구를 자주 쓰는 개발자. 비개발자라면 <em>"이런 흐름이 있구나"</em> 정도로만 가볍게 봐주셔도 충분합니다.<br>
+      💡 Claude Code를 본격적으로 쓰다 보면 <strong>토큰 리밋</strong>이 가장 자주 마주치는 병목입니다. 같은 작업을 더 적은 토큰으로 수행하도록 도와주는 오픈소스 도구들을 모았습니다. 모두 GitHub 무료 공개 프로젝트입니다.
+    </div>
+
+    <div class="g2">
+      <div class="card" style="border-left:3px solid var(--accent);cursor:pointer" onclick="goLink('https://github.com/rtk-ai/rtk')">
+        <div class="card-badge badge-purple">01 · CLI 프록시</div>
+        <div class="card-title">RTK ↗</div>
+        <div class="card-desc">터미널 출력을 컨텍스트에 넣기 전에 필터링하는 CLI 프록시. 바이너리 하나, 의존성 없음.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue);cursor:pointer" onclick="goLink('https://github.com/mksglu/context-mode')">
+        <div class="card-badge badge-blue">02 · 플러그인</div>
+        <div class="card-title">Context Mode ↗</div>
+        <div class="card-desc">Playwright·GitHub·로그 등 raw 출력을 SQLite에 샌드박싱해서 깨끗한 요약만 대화에 넣어줍니다. <strong>컨텍스트 98% 절감</strong>이라는 보고가 있습니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);cursor:pointer" onclick="goLink('https://github.com/tirth8205/code-review-graph')">
+        <div class="card-badge badge-green">03 · MCP 서버</div>
+        <div class="card-title">code-review-graph ↗</div>
+        <div class="card-desc">Tree-sitter로 코드베이스를 로컬 지식 그래프로 매핑해서 필요한 부분만 읽게 해줍니다. 대형 모노레포에서 49배 토큰 절감 사례.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--amber);cursor:pointer" onclick="goLink('https://github.com/Mibayy/token-savior')">
+        <div class="card-badge badge-amber">04 · MCP 서버</div>
+        <div class="card-title">Token Savior ↗</div>
+        <div class="card-desc">파일 전체 대신 심볼 단위로 코드를 탐색하는 MCP 서버. 69개 도구에 세션 간 메모리도 유지. <strong>약 97% 절감</strong>이라는 수치를 제시.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--red);cursor:pointer" onclick="goLink('https://github.com/JuliusBrussee/caveman')">
+        <div class="card-badge badge-red">05 · 스킬</div>
+        <div class="card-title">Caveman Claude ↗</div>
+        <div class="card-desc">Claude를 원시인처럼 말하게 해서 출력 토큰을 65~75% 깎아주는 스킬. 한 줄 설치로 적용 가능하며, 결과물 정확도는 유지된다는 평.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--pink);cursor:pointer" onclick="goLink('https://github.com/drona23/claude-token-efficient')">
+        <div class="card-badge badge-pink">06 · 드롭인 설정</div>
+        <div class="card-title">claude-token-efficient ↗</div>
+        <div class="card-desc">CLAUDE.md 파일 하나로 응답을 간결하게 잡아주는 드롭인 설정. 코드 변경 없이 바로 적용.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--teal);cursor:pointer" onclick="goLink('https://github.com/ooples/token-optimizer-mcp')">
+        <div class="card-badge badge-teal">07 · MCP 서버</div>
+        <div class="card-title">token-optimizer-mcp ↗</div>
+        <div class="card-desc">캐싱·압축·스마트 도구 인텔리전스를 결합한 MCP 서버. 반복 출력을 압축해서 95% 이상 절감을 노립니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent);cursor:pointer" onclick="goLink('https://github.com/nadimtuhin/claude-token-optimizer')">
+        <div class="card-badge badge-purple">08 · 셋업 모음</div>
+        <div class="card-title">claude-token-optimizer ↗</div>
+        <div class="card-desc">어떤 프로젝트든 5분이면 적용 가능한 셋업 프롬프트 모음. 문서 토큰이 11K → 1.3K 수준으로 줄어든 사례 보고.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--blue);cursor:pointer" onclick="goLink('https://github.com/alexgreensh/token-optimizer')">
+        <div class="card-badge badge-blue">09 · 분석 도구</div>
+        <div class="card-title">token-optimizer ↗</div>
+        <div class="card-desc">컨텍스트를 조용히 잡아먹는 "고스트 토큰"을 찾아냅니다. 컴팩션 후에도 품질이 유지되도록 도와줍니다.</div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--green);cursor:pointer" onclick="goLink('https://github.com/zilliztech/claude-context')">
+        <div class="card-badge badge-green">10 · 코드 검색 MCP</div>
+        <div class="card-title">claude-context (by Zilliz) ↗</div>
+        <div class="card-desc">BM25 + 벡터 하이브리드 검색으로 코드베이스 전체를 컨텍스트로 만들어주는 도구. 검색 품질을 유지하면서 약 40% 절감.</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="margin-top:20px;border-left-color:var(--accent)">
+      <div class="tip-head"><div class="tip-icon">🎯</div><div class="tip-title">10개를 다 설치할 필요는 없어요 — 워크플로에 맞게</div></div>
+      <div class="tip-body">
+        <strong>· 터미널 출력이 많다면</strong> → RTK<br>
+        <strong>· 큰 코드베이스라면</strong> → code-review-graph + Token Savior<br>
+        <strong>· MCP 서버를 여러 개 쓴다면</strong> → Context Mode<br>
+        <strong>· 당장 토큰 리밋을 줄이고 싶다면</strong> → Caveman Claude + claude-token-efficient<br><br>
+        <span style="font-size:11px;color:var(--text3)">※ 각 프로젝트의 절감 수치는 제작자가 자체 측정한 값으로, 실제 환경에서는 차이가 있을 수 있습니다. 도입 전에 작은 프로젝트에 먼저 적용해보시길 권장합니다.</span>
+      </div>
     </div>
 
     <!-- 참고 링크 -->
