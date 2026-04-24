@@ -1749,6 +1749,10 @@ Esc Esc         → 되감기
         <div class="quick-card-title">📚 패턴북·플레이북 시대</div>
         <div class="quick-card-desc">"어떻게 만들까"보다 "검증된 패턴을 어떻게 적용할까"로 무게중심 이동.</div>
       </div>
+      <div class="quick-card" style="border-left-color:var(--blue)">
+        <div class="quick-card-title">🌐 AI가 인터넷을 다시 쓴다</div>
+        <div class="quick-card-desc">flipbook.page — HTML 없이 AI가 픽셀을 스트리밍. 페이지의 정의가 바뀌는 중.</div>
+      </div>
     </div>
 
     <!-- 📑 목차 -->
@@ -1758,6 +1762,11 @@ Esc Esc         → 되감기
         <div class="toc-item-meta"><span class="toc-item-num hot">★</span><span>최신 · 도구</span><span style="margin-left:auto">2~3분</span></div>
         <div class="toc-item-title">🎨 Anthropic, Claude Design 출시</div>
         <div class="toc-item-tldr">자연어 디자인 + Claude Code 인계 + 실전 PPT 6단계</div>
+      </a>
+      <a class="toc-item" href="#ix-flipbook" onclick="ixJump('ix-flipbook');return false">
+        <div class="toc-item-meta"><span class="toc-item-num hot">NEW</span><span>HOT · 트렌드</span><span style="margin-left:auto">3분</span></div>
+        <div class="toc-item-title">🌐 flipbook.page — AI가 인터넷을 다시 만든다</div>
+        <div class="toc-item-tldr">HTML 없이 AI가 픽셀을 직접 스트리밍. 인터넷의 다음 형태 논란</div>
       </a>
       <a class="toc-item" href="#ix-desktop" onclick="ixJump('ix-desktop');return false">
         <div class="toc-item-meta"><span class="toc-item-num hot">0</span><span>HOT · 분석</span><span style="margin-left:auto">3~4분</span></div>
@@ -1817,7 +1826,7 @@ Esc Esc         → 되감기
       <button class="ix-nav-btn" id="ix-prev-btn" onclick="ixNext(-1)" aria-label="이전">‹</button>
       <div class="ix-dots" id="ix-dots"><!-- 동적 생성 --></div>
       <button class="ix-nav-btn" id="ix-next-btn" onclick="ixNext(1)" aria-label="다음">›</button>
-      <span class="ix-pos" id="ix-pos">1 / 11</span>
+      <span class="ix-pos" id="ix-pos">1 / 12</span>
       <button class="ix-autoplay" id="ix-auto" onclick="ixToggleAutoplay()" title="자동 재생 (5초 간격)">▶ 자동</button>
     </div>
 
@@ -1992,6 +2001,93 @@ Esc Esc         → 되감기
         간단한 Design System만 구현해도 일관된 결과를 얻을 수 있지만, <strong>표지와 장표별 템플릿을 더 정교하게 정의</strong>하면 회사 브랜드에 맞는 본격적인 템플릿 생성도 가능해 보입니다.<br><br>
         사내 표준 슬라이드 톤이 있다면 한 번 시도해보고, 결과를 <a href="#" onclick="showPage('memo');return false" style="color:var(--accent);font-weight:600">커뮤니티 보드</a>에 공유해주시면 다른 분들에게도 큰 도움이 됩니다.<br><br>
         <span style="font-size:11px;color:var(--text3)">※ 본 후기는 외부 사용자 경험을 정리한 것으로, Claude Design의 메뉴명·옵션 위치는 업데이트에 따라 달라질 수 있습니다. 진행 중 막히는 부분은 <a href="#" onclick="goLink('https://docs.claude.com');return false" style="color:var(--accent)">공식 문서</a>를 함께 참고해주세요.</span>
+      </div>
+    </div>
+
+    <!-- NEW. flipbook.page -->
+    <div class="ix-section" id="ix-flipbook">
+      <div class="ix-head">
+        <div class="ix-num hot" style="font-size:11px">NEW</div>
+        <div class="ix-title-wrap">
+          <h2 class="ix-title">🌐 flipbook.page — AI가 인터넷을 픽셀로 다시 만든다</h2>
+          <div class="ix-meta">
+            <span class="ix-tag news">HOT</span>
+            <span class="ix-tag analysis">트렌드</span>
+            <span class="ix-time">⏱ 3분</span>
+          </div>
+        </div>
+      </div>
+      <div class="tldr-box">
+        <strong>한줄 요약</strong> — HTML도, CSS도, 레이아웃 엔진도 없습니다. 주제를 입력하면 AI가 <strong>픽셀을 직접 스트리밍</strong>해 아름다운 인포그래픽 페이지를 실시간으로 만들어냅니다. "인터넷의 다음 형태"라는 반응이 AI 커뮤니티에서 터져나오고 있습니다.
+      </div>
+
+      <div class="note" style="border-left-color:var(--blue)">
+        📌 <strong>왜 유행하는가</strong>: 전 OpenAI·Humane·Apple 출신 3인 팀이 만든 이 서비스는, 기존 AI 검색이 "텍스트 답변의 포장을 바꾸는" 수준이었다면, flipbook.page는 <strong>"페이지가 무엇인가"라는 질문 자체를 바꾼다</strong>는 점에서 AI 업계에 강렬한 충격을 주고 있습니다.
+      </div>
+
+      <div class="g3" style="margin-top:14px">
+        <div class="card" style="border-top:3px solid var(--blue);padding:18px">
+          <div class="card-badge badge-blue">핵심 개념</div>
+          <div class="card-title">📺 Generative Visual Internet</div>
+          <div class="card-desc" style="margin-top:8px">
+            기존 브라우저는 서버에 저장된 HTML을 <strong>불러옵니다.</strong> flipbook.page는 요청할 때마다 AI가 페이지를 <strong>새로 만들어냅니다.</strong> 텍스트·라벨·차트 모두 이미지 픽셀로 렌더링. 코드가 아닌 모델에서 화면이 나옵니다.
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);padding:18px">
+          <div class="card-badge badge-purple">작동 원리</div>
+          <div class="card-title">⚙️ 웹 검색 → 이미지 생성 → 픽셀 스트리밍</div>
+          <div class="card-desc" style="margin-top:8px">
+            입력 → <strong>웹 검색 에이전트</strong>가 실제 정보 수집 → <strong>LTX Studio</strong>(Lightricks 모델)가 인포그래픽 이미지 생성 → <strong>WebSocket으로 1080p 실시간 스트리밍.</strong> Modal Labs GPU 인프라 위에서 구동됩니다.
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green);padding:18px">
+          <div class="card-badge badge-green">인터랙션</div>
+          <div class="card-title">🖱️ 이미지 클릭 → 그 부분을 더 깊이</div>
+          <div class="card-desc" style="margin-top:8px">
+            미리 지정된 버튼이 없습니다. 화면의 <strong>어느 영역이든 클릭</strong>하면 그 개념을 파고드는 새 인포그래픽이 즉시 생성됩니다. 위키처럼 탐색하되, 텍스트 대신 시각 이미지로 드릴다운.
+          </div>
+        </div>
+      </div>
+
+      <!-- 만든 사람들 -->
+      <div class="tip-card" style="margin-top:16px;border-left-color:var(--blue)">
+        <div class="tip-head"><div class="tip-icon">👥</div><div class="tip-title">누가 만들었나 — 배경이 화제</div></div>
+        <div class="tip-body">
+          <strong>Zain Shah</strong> (전 OpenAI · YC S13) · <strong>Eddie Jiao</strong> (전 Humane AI Pin · Slack) · <strong>Drew Carr</strong> (전 Apple). 샌프란시스코 South Park Commons 소속의 3인 팀.<br><br>
+          Zain Shah가 X에 공개하자마자 반응이 폭발했고, 본인도 <em>"이렇게 많은 분들이 컴퓨팅이 살아있는 느낌을 원한다는 걸 알고 깜짝 놀랐다"</em>고 밝혔습니다.
+        </div>
+      </div>
+
+      <!-- 한계 & 현재 단계 -->
+      <div class="g2" style="margin-top:14px">
+        <div class="card" style="border-left:3px solid var(--amber);padding:18px">
+          <div class="card-badge badge-amber">현재 한계</div>
+          <div class="card-title">⚠️ 아직 실험 단계</div>
+          <div class="card-desc" style="margin-top:8px">
+            텍스트가 픽셀로 렌더링되다 보니 간혹 오탈자·배치 오류 발생. 정보 출처 투명성 약함. 코딩·예약·데이터 저장 등 구조화 UI가 필요한 작업에는 부적합. 3인 팀의 프로토타입 단계.
+          </div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--green);padding:18px">
+          <div class="card-badge badge-green">접근성</div>
+          <div class="card-title">✅ 무료 · 가입 불필요</div>
+          <div class="card-desc" style="margin-top:8px">
+            사이트 접속 후 바로 입력 가능. 별도 계정 없이 무료로 체험 가능합니다. 상업화보다는 지금은 콘셉트 검증 단계. 트래픽이 몰릴 땐 불안정할 수 있습니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-card" style="margin-top:14px;border-left-color:var(--amber)">
+        <div class="tip-head"><div class="tip-icon">💭</div><div class="tip-title">우리 업무에 주는 시사점</div></div>
+        <div class="tip-body">
+          아직 프로토타입이라 당장 실무에 쓰기보다는 <strong>"정보 전달의 형태가 어디까지 바뀔 수 있는가"</strong>를 체감하는 용도로 접근하시길 추천합니다.<br><br>
+          한 가지 확실한 것은, 앞으로 보고서·자료·제안서의 <strong>비주얼 품질 기대치</strong>가 계속 올라간다는 점입니다. AI가 인포그래픽을 즉석에서 만들어내는 시대에, "잘 만든 시각화"의 기준도 함께 이동하고 있습니다.
+        </div>
+      </div>
+
+      <div style="margin-top:14px">
+        <button class="btn btn-primary" onclick="goLink('https://flipbook.page/')" style="font-size:13px;padding:10px 20px">
+          🌐 flipbook.page 직접 체험하기 ↗
+        </button>
       </div>
     </div>
 
