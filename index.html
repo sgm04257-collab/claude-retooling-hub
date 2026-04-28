@@ -898,13 +898,13 @@ textarea.memo-ta::placeholder{color:var(--text3)}
 
   <!-- AX -->
   <div class="sidebar-section collapsible collapsed" data-sec="ax-main">
-    <div class="sidebar-section-label" onclick="toggleSection(this)">🚀 AX</div>
+    <div class="sidebar-section-label" onclick="toggleSection(this)">🤖 AI OS</div>
     <a class="nav-item" onclick="showPage('ax-roadmap')" href="#">
       <span class="ni-icon">🗺</span> AX 로드맵
       <span class="ni-badge" style="background:#E0E7FF;color:#4338CA">예정</span>
     </a>
     <a class="nav-item" onclick="showPage('insights')" href="#">
-      <span class="ni-icon">🔥</span> AI 트렌드 및 인사이트
+      <span class="ni-icon">🔥</span> 최신 AI 소식
     </a>
     <a class="nav-item" onclick="showPage('courses')" href="#">
       <span class="ni-icon">🎓</span> AI 무료강의
@@ -1008,9 +1008,8 @@ textarea.memo-ta::placeholder{color:var(--text3)}
         <em>관심 있는 만큼만 둘러보시고 편하게 활용하세요.</em>
       </p>
       <div class="hero-actions">
-        <button class="btn btn-primary" onclick="showPage('edu-news')">🏢 메타넷 교육소식</button>
-        <button class="btn btn-primary" onclick="showPage('insights')" style="background:var(--green)">🔥 AI 트렌드</button>
-        <button class="btn btn-ghost" onclick="showPage('ax-dna')">🧬 AX DNA</button>
+        <button class="btn btn-primary" onclick="showPage('edu-news')">📰 큐레이션</button>
+        <button class="btn btn-primary" onclick="showPage('insights')" style="background:#0F172A">🤖 AI OS</button>
         <button class="btn btn-ghost" onclick="showPage('memo')">💬 커뮤니티</button>
       </div>
     </div>
@@ -1022,128 +1021,48 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       <div class="stat"><div class="stat-num" style="color:var(--pink)">156</div><div class="stat-label">InflearnAI 수강 임직원</div></div>
     </div>
 
-    <!-- 최신 인사이트 하이라이트 -->
-    <div class="section-title">🔥 최신 인사이트 & 트렌드</div>
+    <!-- 두 축 입장 카드 -->
+    <div class="section-title">둘러보기</div>
+    <div class="g2" style="margin-bottom:28px">
+      <div style="background:linear-gradient(135deg,#1E2761 0%,#3C3489 100%);border-radius:12px;padding:24px;cursor:pointer;transition:transform .15s,box-shadow .15s;color:#fff" onclick="showPage('edu-news')" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(30,39,97,.35)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:11px;font-weight:600;color:#CADCFC;letter-spacing:.08em;margin-bottom:10px">📰 큐레이션</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:10px">메타넷 교육 & 내부 소식</div>
+        <div style="font-size:12px;color:#CADCFC;line-height:1.8;margin-bottom:16px">
+          🏢 메타넷 교육소식<br>
+          🧬 AX DNA · 📊 InflearnAI 수강 현황<br>
+          📚 전자도서관
+        </div>
+        <div style="font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:6px 14px;display:inline-block">바로가기 →</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);border-radius:12px;padding:24px;cursor:pointer;transition:transform .15s,box-shadow .15s;color:#fff" onclick="showPage('insights')" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(15,23,42,.45)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="font-size:11px;font-weight:600;color:#94A3B8;letter-spacing:.08em;margin-bottom:10px">🤖 AI OS</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:10px">AI 학습 & 실전 도구</div>
+        <div style="font-size:12px;color:#94A3B8;line-height:1.8;margin-bottom:16px">
+          🔥 최신 AI 소식 · 🎓 무료강의<br>
+          🤖 Claude 활용 & 심화<br>
+          💬 커뮤니티
+        </div>
+        <div style="font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:6px 14px;display:inline-block">바로가기 →</div>
+      </div>
+    </div>
+
+    <!-- 최신 AI 소식 미리보기 -->
+    <div class="section-title">🔥 최신 AI 소식</div>
     <div class="g3">
       <div class="card" style="cursor:pointer;border-left:3px solid var(--red)" onclick="showPage('insights')">
         <div class="card-badge badge-red">🔥 최신 · 디자인</div>
         <div class="card-title">Anthropic, Claude Design 출시</div>
-        <div class="card-desc">자연어로 프로토타입·슬라이드·원페이저 제작 → 번들로 묶어 Claude Code로 인계. 디자인과 개발 사이가 한 단계 더 가까워진 흐름.</div>
+        <div class="card-desc">자연어로 프로토타입·슬라이드·원페이저 제작 → 번들로 묶어 Claude Code로 인계.</div>
       </div>
       <div class="card" style="cursor:pointer;border-left:3px solid var(--accent)" onclick="showPage('insights')">
         <div class="card-badge badge-purple">NEW · 하네스</div>
         <div class="card-title">프롬프트에서 하네스로 — 다음 단계</div>
-        <div class="card-desc">프롬프트 → 컨텍스트 → 하네스. AI 에이전트를 감싸는 시스템 설계가 점점 더 중요해지고 있는 흐름.</div>
+        <div class="card-desc">프롬프트 → 컨텍스트 → 하네스. AI 에이전트를 감싸는 시스템 설계가 점점 더 중요해지는 흐름.</div>
       </div>
       <div class="card" style="cursor:pointer;border-left:3px solid var(--amber)" onclick="showPage('insights')">
-        <div class="card-badge badge-amber">NEW · 도구 큐레이션</div>
+        <div class="card-badge badge-amber">NEW · 도구</div>
         <div class="card-title">Claude Code 토큰 절약 도구 10선</div>
-        <div class="card-desc">GitHub에 공개된 무료 오픈소스 10개. 같은 작업을 더 적은 토큰으로 처리하도록 도와주는 MCP·CLI·스킬 모음 (개발자 대상).</div>
-      </div>
-    </div>
-
-    <div class="section-title">🚀 역할별 추천 시작점</div>
-    <div class="g2">
-      <div class="card">
-        <div class="card-badge badge-green">🌱 비개발자 · 기획자 · 마케터</div>
-        <div class="card-title">Claude 활용법 → 설정 → 강의</div>
-        <div class="card-desc">① Claude 12가지 활용법 → 기본기 파악<br>② 치트시트 → 비개발자 핵심 4단계<br>③ Claude 101 무료 강의 (1~2시간, 수료증)</div>
-        <div class="card-meta">
-          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('claude12')">활용법 보기 →</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-badge badge-blue">💻 개발자 · 엔지니어</div>
-        <div class="card-title">강의 → 하네스 → Loop → 패턴 북</div>
-        <div class="card-desc">① Claude Code in Action 21강 (무료·수료증)<br>② 하네스 & 자율 개발 구조 파악<br>③ AI Loop 전략 + 패턴 북 424p</div>
-        <div class="card-meta">
-          <button class="btn btn-ghost" style="font-size:11px;padding:5px 10px" onclick="showPage('harness')">하네스 보기 →</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">💡 Claude 활용법</div>
-    <div class="g2">
-      <div class="card" style="cursor:pointer" onclick="showPage('claude12')">
-        <div class="card-badge badge-green">활용 가이드 총정리</div>
-        <div class="card-title">💡 12가지 핵심 활용법</div>
-        <div class="card-desc">3대 원칙 · 프롬프트 3요소 · 4D 프레임워크 · 데스크탑 3모드 · Projects · Skills · Connectors · Research · 직군별(마케터·영업·PM·재무) · 제품 생태계</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('perspective')">
-        <div class="card-badge badge-purple">Hacker News 화제글</div>
-        <div class="card-title">🎯 도구보다 제품</div>
-        <div class="card-desc">"AI 얘기, 솔직히 질리지 않았어?" — 도구 최적화 루프의 함정. "무엇을 만들 것인가"라는 본질적 질문.</div>
-      </div>
-    </div>
-
-    <div class="section-title">🛠 설정 & 운영</div>
-    <div class="g4">
-      <div class="card" style="cursor:pointer" onclick="showPage('claudemd')">
-        <div class="card-badge badge-purple">CLAUDE.md</div>
-        <div class="card-title">완벽 가이드</div>
-        <div class="card-desc">파일 위치·범위·200줄 규칙·@import·경로별 규칙·자동 메모리 구분</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('skills-guide')">
-        <div class="card-badge badge-teal">Skills 꿀팁</div>
-        <div class="card-title">9가지 유형</div>
-        <div class="card-desc">Anthropic 내부 교훈. 함정 목록·점진적 공개·Description 필드 작성법</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('memory')">
-        <div class="card-badge badge-amber">Auto Dream</div>
-        <div class="card-title">메모리 설정</div>
-        <div class="card-desc">Auto Memory vs CLAUDE.md 차이. /memory · /dream 3단계 설정법</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('security')">
-        <div class="card-badge badge-red">보안</div>
-        <div class="card-title">체크리스트 5가지</div>
-        <div class="card-desc">5,600개 앱 분석 결과. 배포 전 인증·API키·패키지·RLS·console.log 점검</div>
-      </div>
-    </div>
-
-    <div class="section-title">🤖 에이전트 전략</div>
-    <div class="g3">
-      <div class="card" style="cursor:pointer" onclick="showPage('harness')">
-        <div class="card-badge badge-accent" style="background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE">하네스 구조</div>
-        <div class="card-title">⚙️ 하네스 & 자율 개발</div>
-        <div class="card-desc">기획자·생성자·평가자 3인조. 스프린트 계약. 인수인계 파일 3개. Claude Code 혼자 앱 만들게 하는 설계법.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('ailoop')">
-        <div class="card-badge badge-blue">2026 핵심 패턴</div>
-        <div class="card-title">🔁 AI Loop 전략</div>
-        <div class="card-desc">Ralph Loop · RLM · autoresearch · 반복의 힘. 자동 반복 실험으로 수많은 시도를 효율화하는 패턴을 정리합니다.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('agentic')">
-        <div class="card-badge badge-pink">패턴 북 424p</div>
-        <div class="card-title">📖 에이전트 패턴 21개</div>
-        <div class="card-desc">Antonio Gulli (Google CTO Office) 무료 책. LangGraph·CrewAI·Google ADK 비교 구현. 기초~고급 전체 커버.</div>
-      </div>
-    </div>
-
-    <div class="section-title">📦 리소스</div>
-    <div class="g2">
-      <div class="card" style="cursor:pointer" onclick="showPage('skills-mcp')">
-        <div class="card-badge badge-teal">01~10번</div>
-        <div class="card-title">🔌 Skills & MCP 25선</div>
-        <div class="card-desc">Anthropic 공식 · Marketing · SEO · Brand · NotebookLM · Obsidian · Tavily · Context7 · Task Master</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('repos')">
-        <div class="card-badge badge-blue">11~25번</div>
-        <div class="card-title">📦 GitHub Repos 25선</div>
-        <div class="card-desc">OpenClaw(210k⭐) · LangGraph · OWL · Firecrawl · Vanna AI · gstack · cmux · claude-squad</div>
-      </div>
-    </div>
-
-    <div class="section-title">🎓 강의 & 교육 자료</div>
-    <div class="g2">
-      <div class="card" style="cursor:pointer" onclick="showPage('courses')">
-        <div class="card-badge badge-green">수료증 10+</div>
-        <div class="card-title">🎓 무료 강의 & 교육 사이트</div>
-        <div class="card-desc">OpenAI · Google · Anthropic 공식 강의 총정리. Claude Code in Action 정확한 링크 포함.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('downloads')">
-        <div class="card-badge badge-blue">PDF·슬라이드·가이드</div>
-        <div class="card-title">📚 AI 실무 학습 자료 모음</div>
-        <div class="card-desc">실무에 바로 쓸 수 있는 PDF·가이드 자료 모음. 무료로 다운로드 가능.</div>
+        <div class="card-desc">GitHub 공개 무료 오픈소스 10개. 같은 작업을 더 적은 토큰으로 처리하는 MCP·CLI·스킬 모음.</div>
       </div>
     </div>
 
@@ -1743,7 +1662,7 @@ Esc Esc         → 되감기
   <!-- ─────────────── INSIGHTS ─────────────── -->
   <div class="page" id="page-insights">
     <div class="hero">
-      <div class="hero-tag">🔥 인사이트 & 트렌드 · 2026 최신</div>
+      <div class="hero-tag">🔥 AI OS · 최신 AI 소식 · 2026</div>
       <h1>AI 시대의 핵심 읽을거리</h1>
       <p>최신 소식부터 깊이 있는 분석까지!<br>
         <strong>관심 있는 주제만 골라서</strong> 가볍게 읽으셔도 좋고,<br>
@@ -3828,7 +3747,6 @@ build/
       </div>
     </div>
 
-    <div class="note">📚 사내 전자도서관 이용 방법은 HR 포털을 통해 확인하세요. 읽고 싶은 AI 도서를 <a href="#" onclick="showPage('memo');return false">커뮤니티 보드</a>에 추천해 주시면 반영됩니다.</div>
   </div>
 
   <!-- ─────────────── AX 로드맵 ─────────────── -->
@@ -3867,7 +3785,7 @@ const pageLabels={
   library:'📚 전자도서관',
   // AX
   'ax-roadmap':'🗺 AX 로드맵',
-  insights:'🔥 AI 트렌드 및 인사이트',
+  insights:'🔥 최신 AI 소식',
   courses:'🎓 AI 무료강의',
   downloads:'📚 AI 실무 학습 자료',
   // Claude 심화
