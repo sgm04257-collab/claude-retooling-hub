@@ -858,12 +858,6 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('insights')" href="#">
       <span class="ni-icon">🔥</span> 인사이트 & 트렌드
     </a>
-    <a class="nav-item" onclick="showPage('learn')" href="#">
-      <span class="ni-icon">📚</span> 학습 로드맵
-    </a>
-    <a class="nav-item" onclick="showPage('cheatsheet')" href="#">
-      <span class="ni-icon">⚡</span> 치트시트
-    </a>
   </div>
 
   <!-- 강의 & 워크플로우 -->
@@ -876,9 +870,6 @@ textarea.memo-ta::placeholder{color:var(--text3)}
     <a class="nav-item" onclick="showPage('downloads')" href="#">
       <span class="ni-icon">📚</span> AI 실무 학습 자료 모음
       <span class="ni-badge" style="background:var(--red);color:#fff">NEW</span>
-    </a>
-    <a class="nav-item" onclick="showPage('workflow')" href="#">
-      <span class="ni-icon">🔄</span> 실전 워크플로우
     </a>
   </div>
 
@@ -934,6 +925,18 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       <span class="ni-icon">📖</span> 패턴 북 21개
     </a>
 
+    <!-- 학습 자료 -->
+    <div class="sidebar-subsection-label">📖 학습 자료</div>
+    <a class="nav-item" onclick="showPage('learn')" href="#">
+      <span class="ni-icon">📚</span> 학습 로드맵
+    </a>
+    <a class="nav-item" onclick="showPage('workflow')" href="#">
+      <span class="ni-icon">🔄</span> 실전 워크플로우
+    </a>
+    <a class="nav-item" onclick="showPage('cheatsheet')" href="#">
+      <span class="ni-icon">⚡</span> 치트시트
+    </a>
+
     <!-- 리소스 -->
     <div class="sidebar-subsection-label">📦 리소스</div>
     <a class="nav-item" onclick="showPage('skills-mcp')" href="#">
@@ -980,9 +983,9 @@ textarea.memo-ta::placeholder{color:var(--text3)}
         <em>관심 있는 만큼만 둘러보시고 편하게 활용하세요.</em>
       </p>
       <div class="hero-actions">
-        <button class="btn btn-primary" onclick="showPage('insights')">🔥 최신 인사이트</button>
-        <button class="btn btn-primary" onclick="showPage('learn')" style="background:var(--green)">📚 학습 둘러보기</button>
-        <button class="btn btn-ghost" onclick="showPage('courses')">🎓 무료 강의</button>
+        <button class="btn btn-primary" onclick="showPage('insights')">🔥 인사이트 & 트렌드</button>
+        <button class="btn btn-primary" onclick="showPage('courses')" style="background:var(--green)">🎓 무료 강의</button>
+        <button class="btn btn-ghost" onclick="showPage('ai-curation')">📰 큐레이션</button>
         <button class="btn btn-ghost" onclick="showPage('memo')">💬 커뮤니티</button>
       </div>
     </div>
@@ -1105,22 +1108,17 @@ textarea.memo-ta::placeholder{color:var(--text3)}
       </div>
     </div>
 
-    <div class="section-title">🎓 강의 & 워크플로우</div>
-    <div class="g3">
+    <div class="section-title">🎓 강의 & 교육 자료</div>
+    <div class="g2">
       <div class="card" style="cursor:pointer" onclick="showPage('courses')">
         <div class="card-badge badge-green">수료증 10+</div>
         <div class="card-title">🎓 무료 강의 & 교육 사이트</div>
         <div class="card-desc">OpenAI · Google · Anthropic 공식 강의 총정리. Claude Code in Action 정확한 링크 포함.</div>
       </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('learn')">
-        <div class="card-badge badge-purple">강의 핵심 12가지</div>
-        <div class="card-title">📚 학습 로드맵</div>
-        <div class="card-desc">Claude Code in Action 21강 핵심 내용 아코디언 정리. 설치·CLAUDE.md·Skills·Hooks·에이전트.</div>
-      </div>
-      <div class="card" style="cursor:pointer" onclick="showPage('workflow')">
-        <div class="card-badge badge-amber">일일 루틴</div>
-        <div class="card-title">🔄 실전 워크플로우</div>
-        <div class="card-desc">4단계 아키텍처. 비개발자·개발자 일일 루틴. gstack /office-hours → /review → /ship.</div>
+      <div class="card" style="cursor:pointer" onclick="showPage('downloads')">
+        <div class="card-badge badge-blue">PDF·슬라이드·가이드</div>
+        <div class="card-title">📚 AI 실무 학습 자료 모음</div>
+        <div class="card-desc">실무에 바로 쓸 수 있는 PDF·가이드 자료 모음. 무료로 다운로드 가능.</div>
       </div>
     </div>
 
